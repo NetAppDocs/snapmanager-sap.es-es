@@ -1,0 +1,178 @@
+---
+permalink: windows/reference-the-smosmsapbackup-create-command.html 
+sidebar: sidebar 
+keywords: run, backup, create, command, database, storage, system, smsap 
+summary: El comando backup create permite crear backups de base de datos en uno o varios sistemas de almacenamiento. 
+---
+= El comando smsap backup create
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede ejecutar el `backup create` comando para crear backups de bases de datos en uno o más sistemas de almacenamiento.
+
+
+
+== Sintaxis
+
+
+NOTE: Antes de ejecutar este comando, debe crear un perfil de base de datos mediante el `profile create` comando.
+
+[listing]
+----
+
+smsap backup create
+-profile profile_name
+{[-full{-auto | -online | -offline}[-retain {-hourly | -daily | -weekly | -monthly | -unlimited} [-verify]  |
+[-data [[-files files [files]] |
+[-tablespaces tablespaces [tablespaces]] [-label label] {-auto | -online | -offline}
+[-retain {-hourly | -daily | -weekly | -monthly | -unlimited} [-verify] |
+[-archivelogs [-label label]] [-comment comment]}
+
+[-backup-dest path1 [ , path2]]
+[-exclude-dest path1 [ , path2]]
+[-prunelogs {-all | -until-scn until-scn | -until-date yyyy-MM-dd:HH:mm:ss] | -before {-months | -days | -weeks | -hours}}
+-prune-dest prune_dest1,[prune_dest2]]
+[-taskspec taskspec]
+[-dump]
+-force
+[-quiet | -verbose]
+----
+
+
+== Parámetros
+
+* *`-profile _profile_name_`*
++
+Especifica el nombre del perfil relacionado con la base de datos de la que desea realizar backup. El perfil contiene el identificador de la base de datos y otra información de la base de datos.
+
+* *`-auto option`*
++
+Si la base de datos está en estado montado o sin conexión, SnapManager realiza un backup sin conexión. Si la base de datos está en estado abierto o en línea, SnapManager realiza un backup en línea. Si utiliza la `-force` con la `-offline` Option, SnapManager fuerza un backup sin conexión incluso si la base de datos está en línea actualmente.
+
+* *`-online option`*
++
+Especifica un backup de base de datos en línea.
+
++
+** Si la instancia local está en estado de cierre y al menos una instancia está en estado abierto, puede utilizar la `-force` opción para cambiar la instancia local al estado montado.
+** Si ninguna instancia está en estado abierto, puede utilizar `-force` opción para cambiar la instancia local al estado abierto.
+
+
+* *`-offline option`*
++
+Especifica una copia de seguridad sin conexión mientras la base de datos está en estado de apagado. Si la base de datos está en estado abierto o montado, el backup genera errores. Si la `-force` Se utiliza la opción, SnapManager intenta modificar el estado de la base de datos para cerrar la base de datos para realizar un backup sin conexión.
+
+* *`-full option`*
++
+Realiza un backup de toda la base de datos. Esto incluye todos los datos, registros archivados y archivos de control. Se realiza una copia de seguridad de los redo logs archivados y de los archivos de control, independientemente del tipo de copia de seguridad que realice. Si desea realizar un backup solo de una parte de la base de datos, use la `-files` opción o. `-tablespaces` opción.
+
+* *`-data option`*
++
+Especifica los archivos de datos.
+
+* *`-files _list_`*
++
+Realiza un backup solo de los archivos de datos especificados, además de los archivos de registro y control archivados. Separe la lista de nombres de archivo con espacios. Si la base de datos se encuentra en estado abierto, SnapManager verifica que los espacios de tablas apropiados se encuentren en modo de backup en línea.
+
+* *`-tablespaces _tablespaces_`*
++
+Realiza un backup solo de los espacios de tablas de la base de datos especificados, además de los archivos de registro y control archivados. Separe los nombres de tablespace con espacios. Si la base de datos se encuentra en estado abierto, SnapManager verifica que los espacios de tablas apropiados se encuentren en modo de backup en línea.
+
+* *`-label _label_`*
++
+Especifica un nombre opcional para este backup. Este nombre debe ser único dentro del perfil. El nombre puede contener letras, números, guiones bajos (_) y guiones (-). No puede comenzar con un guión. Si no se especifica una etiqueta, SnapManager crea una etiqueta predeterminada en el formato scope_type_date:
+
++
+** El ámbito es F indicar un backup completo o P para indicar un backup parcial.
+** El tipo es C para indicar una copia de seguridad sin conexión (en frío), H para indicar una copia de seguridad en línea (activa) o A para indicar una copia de seguridad automática, por ejemplo, P_A_20081010060037IST.
+** Fecha es el año, el mes, el día y la hora de la copia de seguridad.
++
+SnapManager se usa un reloj de 24 horas.
+
+
+
++
+Por ejemplo, si realizó un backup completo con la base de datos sin conexión el 16 de enero de 2007, a las 5:45:16 Hora estándar del este, SnapManager crearía la etiqueta F_C_20070116174516EST.
+
+* *`-comment _string_`*
++
+Especifica un comentario opcional para describir esta copia de seguridad. La cadena debe escribirse entre comillas simples (').
+
++
+
+NOTE: Algunos vaciados despegan las comillas. En este caso, se debe incluir la comillas con una barra diagonal inversa (\). Por ejemplo, es posible que deba introducir la siguiente información: `\' this is a comment\'`.
+
+* *`-verify option`*
++
+Verifica que los archivos de la copia de seguridad no están dañados ejecutando la utilidad oracle dbv.
+
++
+
+NOTE: Si especifica el `-verify` opción, la operación de backup no se completa hasta que se complete la operación de verificación.
+
+* *`-force option`*
++
+Fuerza un cambio de estado si la base de datos no está en el estado correcto. Por ejemplo, SnapManager puede cambiar el estado de la base de datos de en línea a sin conexión, según el tipo de backup especificado y el estado en el que está la base de datos.
+
++
+** Si la instancia local está en estado de cierre y al menos una instancia está en estado abierto, utilice la `-force` opción cambia la instancia local al estado montado.
+** Si ninguna instancia está en estado abierto, utilice `-force` opción cambia la instancia local al estado abierto.
+
+
+* *`-quiet`*
++
+Muestra sólo mensajes de error en la consola. El valor predeterminado es mostrar mensajes de error y advertencia.
+
+* *`-verbose`*
++
+Muestra mensajes de error, advertencia e informativos en la consola.
+
+* *`-retain { -hourly | -daily | -weekly | -monthly | -unlimited}`*
++
+Especifica si el backup se debe retener por hora, día, semana, mes o ilimitada. Si la `-retain` no se especifica la opción, la clase de retención predeterminada es `-hourly` opción. Para retener los backups para siempre, utilice la `-unlimited` opción. La `-unlimited` opción hace que el backup no sea apto para su eliminación por parte de la política de retención.
+
+* *`-archivelogs option`*
++
+Crea un backup de registro de archivos.
+
+* *`-backup-dest _path1_, [, [_path2_]]`*
++
+Especifica los destinos de registros de archivos que se incluirán en el backup para el backup de registros de archivos.
+
+* *`-exclude-dest _path1_, [, [_path2_]]`*
++
+Especifica los destinos de registro de archivos que se excluirán de la copia de seguridad.
+
+* *`-prunelogs {-all | -until-scnuntil-scn | -until-date _yyyy-MM-dd:HH:mm:ss_ | -before {-months | -days | -weeks | -hours}`*
++
+Elimina los archivos de registro de archivos de los destinos de registro de archivos según las opciones proporcionadas al crear un backup. La `-all` la opción elimina todos los archivos de registro de archivos de los destinos de registro de archivos. La `-until-scn` La opción elimina los archivos de registro de archivos hasta que se especifique un número de cambio de sistema (SCN). La `-until-date` la opción elimina los archivos de registro de archivos hasta el periodo de tiempo especificado. La `-before` la opción elimina los archivos de registro de archivos antes del período de tiempo especificado (días, meses, semanas, horas).
+
+* *`-prune-dest _prune_dest1,prune_dest2_`*
++
+Elimina los archivos de registro de archivos de los destinos de registro de archivos mientras se crea el backup.
+
+* *`-taskspec _taskspec_`*
++
+Especifica el archivo XML de especificación de la tarea que se puede utilizar para la actividad de preprocesamiento o la actividad de posprocesamiento de la operación de copia de seguridad. Se debe proporcionar la ruta completa del archivo XML mientras se proporciona el `-taskspec` opción.
+
+* *`-dump option`*
++
+Recoge los archivos de volcado después de una operación de backup de base de datos con errores o realizada correctamente.
+
+
+
+
+
+== Comando de ejemplo
+
+El siguiente comando crea un backup completo en línea, crea un backup en el almacenamiento secundario y establece la política de retención en diaria:
+
+[listing]
+----
+smsap backup create -profile SALES1 -full -online
+-label full_backup_sales_May -profile SALESDB -force -retain -daily
+Operation Id [8abc01ec0e79356d010e793581f70001] succeeded.
+----

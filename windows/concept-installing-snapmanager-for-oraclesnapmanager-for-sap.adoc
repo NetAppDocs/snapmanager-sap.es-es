@@ -1,0 +1,16 @@
+---
+permalink: windows/concept-installing-snapmanager-for-oraclesnapmanager-for-sap.html 
+sidebar: sidebar 
+keywords: download, install, snapmanager, sap, environment, perform, operation, database, backup, restore, recovery, clone 
+summary: Puede descargar e instalar SnapManager para SAP en su entorno y realizar operaciones como backup, restauración, recuperación y clonado de bases de datos. 
+---
+= Instalar SnapManager para SAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede descargar e instalar SnapManager para SAP en su entorno y realizar operaciones como backup, restauración, recuperación y clonado de bases de datos.
+
+El paquete de instalación de SnapManager para SAP incluye el software de servidor host y el software de cliente de la interfaz gráfica de usuario (GUI).

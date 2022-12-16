@@ -1,0 +1,25 @@
+---
+permalink: windows/concept-restore-backups-from-an-alternate-location-overview.html 
+sidebar: sidebar 
+keywords: restore, database, backup, alternate, location, section, overview 
+summary: Para restaurar una copia de seguridad de la base de datos desde una ubicación alternativa, utilice los siguientes pasos principales, cada uno de los cuales se describe más adelante en esta sección. 
+---
+= Restaurar backups desde una ubicación alternativa
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Para restaurar una copia de seguridad de la base de datos desde una ubicación alternativa, utilice los siguientes pasos principales, cada uno de los cuales se describe más adelante en esta sección.
+
+* Realice una de las siguientes acciones, según la distribución de la base de datos y qué debe restaurarse:
++
+** Restaurar los archivos de datos necesarios desde cinta, SnapVault, SnapMirror o cualquier otro medio en cualquier sistema de archivos montado en el host de la base de datos.
+** Restaurar el sistema de archivos requerido y montarlo en el host de la base de datos.
+** Conéctese a los dispositivos RAW necesarios que existen en el host local.
+
+
+* Cree un archivo XML (Lenguaje de marcado extensible) de especificación de restauración que incluya las asignaciones que SnapManager necesita para restaurar desde la ubicación alternativa a la ubicación original. Guarde el archivo en una ubicación a la que SnapManager pueda acceder.
+* Utilice SnapManager para restaurar y recuperar los datos con el archivo XML de especificación de restauración.
+

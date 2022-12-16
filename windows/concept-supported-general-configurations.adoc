@@ -1,0 +1,22 @@
+---
+permalink: windows/concept-supported-general-configurations.html 
+sidebar: sidebar 
+keywords: install, snapmanager, general, configuration, requirement, support 
+summary: Antes de instalar SnapManager, debe conocer los requisitos de configuración generales. 
+---
+= Configuraciones generales admitidas
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de instalar SnapManager, debe conocer los requisitos de configuración generales.
+
+SnapManager admite las siguientes configuraciones generales:
+
+* Una configuración no en clúster donde un único host está conectado a un único sistema de almacenamiento
+* Una instancia de servidor SnapManager por host
+
+
+Para obtener información sobre todos los tipos de almacenamiento y versiones que admite SnapManager, consulte la matriz de compatibilidad de SnapManager y SnapDrive.

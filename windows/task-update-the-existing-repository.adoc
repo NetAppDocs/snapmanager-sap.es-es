@@ -1,0 +1,61 @@
+---
+permalink: windows/task-update-the-existing-repository.html 
+sidebar: sidebar 
+keywords: update, exist, repository, upgrade, snapmanager, path 
+summary: No es necesario actualizar el repositorio existente si va a actualizar de SnapManager 3.3.x a SnapManager 3.4 o posterior pero para el resto de las rutas de actualización debe actualizar el repositorio existente para poder acceder a él después de la actualización. 
+---
+= Actualice el repositorio existente
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+No es necesario actualizar el repositorio existente si va a actualizar de SnapManager 3.3.x a SnapManager 3.4 o posterior pero para el resto de las rutas de actualización debe actualizar el repositorio existente para poder acceder a él después de la actualización.
+
+
+
+== Lo que necesitará
+
+* El servidor SnapManager actualizado debe haberse iniciado y verificado.
+* Debe existir un backup del repositorio existente.
+
+
+
+
+== Acerca de esta tarea
+
+* Si va a actualizar desde cualquier versión anterior a SnapManager 3.1 a SnapManager 3.3 o posterior, primero debe actualizar a SnapManager 3.2.
++
+Después de actualizar a SnapManager 3.2, puede actualizar a SnapManager 3.3 o una versión posterior.
+
+* Después de actualizar el repositorio, no se puede utilizar el repositorio con una versión anterior de SnapManager.
+
+
+.Paso
+. Actualice el repositorio existente:
++
+`*smsap repository update -repository -dbname _repository_service_name_ -host _repository_host_name_ -login -username _repository_user_name_ -port _repository_port_*`** El nombre de usuario del repositorio, el nombre del servicio de repositorio y el nombre de host del repositorio pueden consistir en caracteres alfanuméricos, un signo menos, un guión bajo y un punto. ** El puerto del repositorio puede ser cualquier número de puerto válido. Las demás opciones utilizadas durante la actualización del repositorio existente son las siguientes:
+
++
+** La `force` opción
+** La `noprompt` opción
+** La `quiet` opción
+** La `verbose` opción
+
+
++
+*ejemplo*
+
+
+
+[listing]
+----
+smsap repository update -repository -dbname HR1
+-host server1 -login -username admin -port 1521
+----
+
+
+== Después de terminar
+
+Reinicie el servidor SnapManager para reiniciar todas las programaciones asociadas.

@@ -1,0 +1,82 @@
+---
+permalink: windows/reference-the-smosmsapbackup-update-command.html 
+sidebar: sidebar 
+keywords: run, backup, update, command, retention, policy, smsap 
+summary: Puede ejecutar el comando backup update para actualizar la política de retención de backups. 
+---
+= El comando smsap backup update
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede ejecutar el `backup update` comando para actualizar la política de retención de backups.
+
+
+
+== Sintaxis
+
+[listing]
+----
+
+smsap backup update
+-profile profile_name
+[-label label [-data | -archivelogs] | [-id guid]
+[-retain {-hourly | -daily | -weekly | -monthly | -unlimited}]
+[-comment comment_text]
+[-quiet | -verbose]
+----
+
+
+== Parámetros
+
+* *`-profile _profile_name_`*
++
+Especifica el perfil para el que se actualizarán las copias de seguridad. El perfil contiene el identificador de la base de datos y otra información de la base de datos.
+
+* *`-id _guid_`*
++
+Verifica el backup con el GUID especificado. SnapManager genera el GUID cuando se crea un backup. Puede utilizar el `smsap backup list` Comando para mostrar el GUID de cada backup.
+
+* *`-label _label_`*
++
+Especifica la etiqueta de backup y el alcance del backup como archivo de datos o registro de archivos.
+
+* *`-data`*
++
+Especifica los archivos de datos.
+
+* *`-archivelogs`*
++
+Especifica los archivos de registro de archivos.
+
+* *`-comment _comment_text_`*
++
+Introduzca texto (hasta 200 caracteres) acerca de la actualización de copia de seguridad. Puede incluir espacios.
+
+* *`-quiet`*
++
+Muestra sólo mensajes de error en la consola. El valor predeterminado es mostrar mensajes de error y advertencia.
+
+* *`-verbose`*
++
+Muestra mensajes de error, advertencia e informativos en la consola.
+
+* *`-retain {-hourly | -daily | -weekly | -monthly | -unlimited}`*
++
+Especifica si el backup se debe retener por hora, día, semana, mes o ilimitada. Si `-retain` no se especifica, la clase de retención predeterminada es `-hourly`. Para retener los backups para siempre, utilice la `-unlimited` opción. La `-unlimited` la opción hace que la copia de seguridad no sea elegible para su eliminación.
+
+
+
+
+
+== Ejemplo
+
+En el ejemplo siguiente se actualiza el backup para establecer la política de retención en Unlimited:
+
+[listing]
+----
+smsap backup update -profile SALES1 -label full_backup_sales_May
+-retain -unlimited -comment save_forever_monthly_backup
+----

@@ -1,0 +1,77 @@
+---
+permalink: windows/task-schedule-archive-log-file-pruning.html 
+sidebar: sidebar 
+keywords: create, backup, schedule, prune, archive, log, file 
+summary: Cuando se crea un backup, es posible programar la eliminación de los archivos de registro de archivos para que se produzca en un momento determinado. 
+---
+= Programar la eliminación del archivo de registro de archivo
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cuando se crea un backup, es posible programar la eliminación de los archivos de registro de archivos para que se produzca en un momento determinado.
+
+
+
+== Acerca de esta tarea
+
+SnapManager permite reducir periódicamente los archivos de registro de archivos desde el sistema de archivos activo.
+
+.Paso
+. Introduzca el siguiente comando:
++
+`*smsap schedule create -profile _profile_name_ {[-full {-online | -offline | -auto}[-retain [-hourly | -daily | -weekly | -monthly | -unlimited] [-verify]] | [-data [-files _files_ [_files_]] | [-tablespaces _-tablespaces_ [_-tablespaces_]] {-online | -offline | -auto}[-retain [-hourly | -daily | -weekly | -monthly | -unlimited] [-verify]] | [-archivelogs]} [-comment _comment_] [-backup-dest _path1_ [,[_path2_]] [-exclude-dest _path1_ [,_path2_]] [-prunelogs{-all | -untilSCN _untilSCN_ | -before {-date _yyyy-MM-dd HH:mm:ss_ | -months _months_ | -weeks _weeks_ | -days _days_ | -hours _hours_}} -prune-dest _prune_dest1_, _prune_dest2_] -schedule-name _schedule_name_ [-schedule-comment _schedule_comment_] -interval {-_hourly_ | _-daily_ | _-weekly_ | _-monthly_ | _-onetimeonly_} -cronstring _cronstring_ -start-time {_start-time_ _start_time_ _<yyyy-MM-dd HH:mm_>} -runasuser _-runasuser_ [-force] [-quiet | -verbose]*`
+
++
+|===
+| Si desea... | Realice lo siguiente... 
+
+
+ a| 
+*Programar la eliminación de archivos de registro de archivos*
+ a| 
+Especifique las siguientes opciones:
+
+** `-prunelogs` para programar la eliminación de los archivos de registro de archivo
+** `-prune-dest` para eliminar los archivos de registro de archivos de los destinos de registro de archivos
+
+
+
+
+ a| 
+*Incluya un nombre para el horario*
+ a| 
+Especifique el `-schedule-name` opción.
+
+
+
+ a| 
+*Programar la eliminación de archivos de registro de archivos en un intervalo de tiempo específico*
+ a| 
+Especifique la opción INTERVAL e indique si los archivos log de archivo deben recordarse en función de las siguientes clases de intervalo:
+
+** `-hourly`
+** `-daily`
+** `-weekly`
+** `-monthly`
+** `-onetimeonly`
+
+
+
+
+ a| 
+*Agregar un comentario sobre la operación de horario*
+ a| 
+Especifique el `-schedule-comment` opción seguida de la cadena de descripción.
+
+
+
+ a| 
+*Especifique la hora de inicio de la operación de programación*
+ a| 
+Especifique el `-start-time` opción en formato yyyy-mm-dd hh:mm.
+
+|===
+

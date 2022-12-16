@@ -1,0 +1,30 @@
+---
+permalink: windows/task-verify-snapdrive-for-windows.html 
+sidebar: sidebar 
+keywords: install, snapdrive, windows, snapshot, verify, create, copy 
+summary: Si ha instalado SnapDrive para Windows, compruebe que puede crear una copia Snapshot antes de utilizar SnapManager. 
+---
+= Comprobar SnapDrive para Windows
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si ha instalado SnapDrive para Windows, compruebe que puede crear una copia Snapshot antes de utilizar SnapManager.
+
+.Pasos
+. En el menú Inicio, haga clic con el botón derecho del ratón en *Mi PC* y seleccione *Administrar*.
+. En la ventana *Administración de equipos*, haga clic en *almacenamiento* > *SnapDrive*.
+. Seleccionar un disco.
++
+Consulte la _SnapDrive for Windows Guía de instalación y administración_ para obtener más información acerca del uso de SnapDrive.
+
++
+Si ha encontrado correctamente información sobre el disco para el producto SnapDrive, SnapDrive funciona correctamente.
+
+
+
+*Información relacionada*
+
+http://support.netapp.com/documentation/productsatoz/index.html["Guía de instalación y administración de SnapDrive para Windows"^]

@@ -1,0 +1,24 @@
+---
+permalink: unix-administration/concept-clone-database-backups.html 
+sidebar: sidebar 
+keywords: snapmanager, flexclone, technology, writable, space-efficient, clone, database, modify, backup, clone 
+summary: SnapManager utiliza la tecnología FlexClone para crear un clon modificable de un backup de base de datos con un uso eficiente del espacio. Es posible modificar un clon sin cambiar el origen de backup. 
+---
+= Clones de backups de bases de datos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager utiliza la tecnología FlexClone para crear un clon modificable de un backup de base de datos con un uso eficiente del espacio. Es posible modificar un clon sin cambiar el origen de backup.
+
+Quizás sería conveniente clonar bases de datos para permitir pruebas o actualizaciones en entornos no productivos. Es posible clonar una base de datos que reside en el almacenamiento secundario primor. Puede ubicarse un clon en el mismo host o en otro que la base de datos.
+
+La tecnología FlexClone permite a SnapManager utilizar copias snapshot de la base de datos para evitar crear una copia física completa de disco a disco. Las copias Snapshot requieren menos tiempo de creación y ocupan mucho menos espacio que las copias físicas.
+
+Consulte la documentación de Data ONTAP para obtener más información sobre la tecnología FlexClone.
+
+*Información relacionada*
+
+http://support.netapp.com/documentation/productsatoz/index.html["Documentación de Data ONTAP"^]

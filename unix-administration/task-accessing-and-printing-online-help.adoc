@@ -1,0 +1,25 @@
+---
+permalink: unix-administration/task-access-and-print-online-help.html 
+sidebar: sidebar 
+keywords: online, help, instruction, task, perform, snapmanager, graphical, user, interface, description, field, window, wizard, access, print 
+summary: La Ayuda en línea proporciona instrucciones para las tareas que puede realizar mediante la interfaz gráfica de usuario de SnapManager. La Ayuda en línea también proporciona descripciones de los campos de las ventanas y asistentes. 
+---
+= Acceder a la ayuda en línea e imprimirla
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La Ayuda en línea proporciona instrucciones para las tareas que puede realizar mediante la interfaz gráfica de usuario de SnapManager. La Ayuda en línea también proporciona descripciones de los campos de las ventanas y asistentes.
+
+.Pasos
+. Ejecute una de las siguientes acciones:
++
+** En la ventana principal, haga clic en *Ayuda* > *Contenido de la Ayuda*.
+** En cualquier ventana o asistente, haga clic en *Ayuda* para ver la ayuda específica de esa ventana.
+
+
+. Utilice *Tabla de contenido* en el panel izquierdo para navegar por los temas.
+. Haga clic en el icono impresora situado en la parte superior de la ventana de ayuda para imprimir temas individuales.
+

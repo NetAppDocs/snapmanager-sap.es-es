@@ -1,0 +1,26 @@
+---
+permalink: unix-administration/task-clone-databases-and-using-custom-plugin-scripts.html 
+sidebar: sidebar 
+keywords: snapmanager, method, custom, script, clone, operation, occur, database, sid, policy, plug-in, cloning 
+summary: SnapManager proporciona un método para usar scripts personalizados antes y después de que se produzca una operación de clonado. Por ejemplo, podría haber creado un script personalizado que valida un SID de base de datos de clon y garantiza que el SID lo permita la política de nomenclatura. Mediante el plugin de clonado de SnapManager, puede incluir scripts personalizados y hacerlos ejecutar automáticamente antes o después de una operación de clonado de SnapManager. 
+---
+= Clonar bases de datos y usar scripts de plugins personalizados
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager proporciona un método para usar scripts personalizados antes y después de que se produzca una operación de clonado. Por ejemplo, podría haber creado un script personalizado que valida un SID de base de datos de clon y garantiza que el SID lo permita la política de nomenclatura. Mediante el plugin de clonado de SnapManager, puede incluir scripts personalizados y hacerlos ejecutar automáticamente antes o después de una operación de clonado de SnapManager.
+
+.Pasos
+. Ver scripts de plugins de muestra.
+. Cree una secuencia de comandos desde cero o modifique una de las secuencias de comandos del plug-in de ejemplo.
++
+Cree su script personalizado de acuerdo con las directrices de script del plugin de SnapManager.
+
+. Coloque la secuencia de comandos personalizada en una ubicación de directorio especificada.
+. Actualice el archivo XML de especificación del clon e incluya información sobre el script personalizado que debe utilizarse durante el proceso de clonado.
+. Mediante un comando de SnapManager, compruebe que los scripts personalizados estén operativos.
+. Cuando inicia la operación de clonado, incluya el nombre de script y los parámetros opcionales.
+

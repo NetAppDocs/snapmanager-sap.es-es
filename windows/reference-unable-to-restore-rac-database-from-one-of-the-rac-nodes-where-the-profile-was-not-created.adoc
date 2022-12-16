@@ -1,0 +1,27 @@
+---
+permalink: windows/reference-unable-to-restore-rac-database-from-one-of-the-rac-nodes-where-the-profile-was-not-created.html 
+sidebar: sidebar 
+keywords: oracle, rac, environment, node, cluster, restore, backup, operation, fail, profile 
+summary: En un entorno de Oracle RAC donde ambos nodos pertenecen al mismo clúster, si se intenta realizar una operación de restauración desde un nodo que es diferente del nodo donde se creó el backup, se produce un error en la operación de restauración. 
+---
+= No se puede restaurar la base de datos de RAC desde uno de los nodos de RAC donde no se creó el perfil
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+En un entorno de Oracle RAC donde ambos nodos pertenecen al mismo clúster, si se intenta realizar una operación de restauración desde un nodo que es diferente del nodo donde se creó el backup, se produce un error en la operación de restauración.
+
+Por ejemplo, si crea un backup en el nodo A e intenta restaurar desde el nodo B, la operación de restauración falla.
+
+*Qué hacer*
+
+Antes de realizar la operación de restauración desde el nodo B, realice lo siguiente en el nodo B:
+
+.Pasos
+. Añada el repositorio.
+. Sincronice el perfil ejecutando el comando `smo profile sync`.
+. Configure las credenciales del perfil que se utilizará para la operación de restauración ejecutando el comando `smo credential set`.
+. Actualice el perfil para añadir el nuevo nombre de host y el SID correspondiente ejecutando el comando `smo profile update`.
+

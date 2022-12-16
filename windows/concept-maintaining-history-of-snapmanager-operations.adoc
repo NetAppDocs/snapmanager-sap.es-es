@@ -1,0 +1,37 @@
+---
+permalink: windows/concept-maintaining-history-of-snapmanager-operations.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, enable, maintain, history, operation, associate, single, multiple, profile, command-line, interface, cli, graphical, user, interface, gui, report, audit, compliance, purpose 
+summary: 'SnapManager para SAP le permite mantener el historial de operaciones de SnapManager asociadas con un único perfil o múltiples perfiles. Puede mantener el historial desde la interfaz de línea de comandos (CLI) de SnapManager o desde la interfaz gráfica de usuario (GUI). Puede ver el historial de las operaciones como un informe y utilizar el informe para fines de cumplimiento de auditoría.' 
+---
+= Mantener el historial de operaciones de SnapManager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager para SAP le permite mantener el historial de operaciones de SnapManager asociadas con un único perfil o múltiples perfiles. Puede mantener el historial desde la interfaz de línea de comandos (CLI) de SnapManager o desde la interfaz gráfica de usuario (GUI). Puede ver el historial de las operaciones como un informe y utilizar el informe para fines de cumplimiento de auditoría.
+
+Puede mantener el historial de las siguientes operaciones de SnapManager:
+
+* Crear backup
+* Verificación de backup
+* Restauración de backup
+* Clone create
+
+
+La información del historial de las operaciones de SnapManager se mantiene en función de la retención. Puede configurar diferentes clases de retención para cada una de las operaciones de SnapManager admitidas.
+
+A continuación se enumeran algunas clases de retención que puede asignar:
+
+* Número de días
+* Número de semanas
+* Número de meses
+* Cantidad de operaciones
+
+
+Según la retención, SnapManager purga el historial automáticamente. También puede purgar manualmente el historial de las operaciones de SnapManager. Si elimina o destruye el perfil, se eliminará toda la información del historial asociada con el perfil.
+
+
+NOTE: Después de revertir el host, no se pueden ver los detalles del historial ni se pueden realizar operaciones relacionadas con el historial asociadas con el perfil que se haya configurado para el mantenimiento del historial.

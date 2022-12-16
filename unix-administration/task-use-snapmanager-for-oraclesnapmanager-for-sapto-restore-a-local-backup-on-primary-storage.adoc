@@ -1,0 +1,54 @@
+---
+permalink: unix-administration/task-use-snapmanager-for-oraclesnapmanager-for-sapto-restore-a-local-backup-on-primary-storage.html 
+sidebar: sidebar 
+keywords: restore, local, backup, exist, primary, storage, entire, process, perform, snapmanager, sap 
+summary: Es posible restaurar backups locales que estén en el almacenamiento principal. Todo el proceso se realiza mediante SnapManager para SAP. 
+---
+= Use SnapManager para SAP para restaurar un backup local en el almacenamiento primario
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Es posible restaurar backups locales que estén en el almacenamiento principal. Todo el proceso se realiza mediante SnapManager para SAP.
+
+*Acerca de esta tarea*
+
+También puede obtener una vista previa de la información acerca de un proceso de restauración de copia de seguridad. Puede que desee hacer esto para ver información acerca de la elegibilidad de restauración de un backup. SnapManager analiza los datos de un backup para determinar si puede completarse el proceso de restauración usando la restauración basada en volúmenes o el método de restauración basada en archivos.
+
+La vista previa de la restauración muestra la siguiente información:
+
+* Qué mecanismo de restauración (restauración rápida, restauración de sistema de archivos en el lado del almacenamiento, restauración de archivos en el lado del almacenamiento o restauración de copias de archivos del lado del host) se utilizará para restaurar cada archivo.
+* Por qué no se utilizaron mecanismos más eficientes para restaurar cada archivo.
+
+
+En la vista previa del plan de restauración, SnapManager no restaura nada. La vista previa muestra información de hasta 20 archivos.
+
+Si desea obtener una vista previa de una restauración de archivos de datos pero la base de datos no está montada, SnapManager monta la base de datos. Si no se puede montar la base de datos, la operación genera un error y SnapManager devuelve la base de datos a su estado original.
+
+.Pasos
+. En el árbol *Repository*, haga clic con el botón derecho del ratón en la copia de seguridad que desea restaurar y seleccione *Restaurar*.
+. En la página de bienvenida del Asistente para restauración y recuperación, haga clic en *Siguiente*.
+. En la página *Restore Configuration Information*, seleccione *Complete Datafile/Tablespace Restore with Control Files*.
+. Haga clic en *permitir cierre de la base de datos si es necesario*.
++
+SnapManager cambia el estado de la base de datos, si es necesario. Por ejemplo, si la base de datos está sin conexión y debe estar en línea, SnapManager la fuerza a la conexión.
+
+. En la página *Información de configuración de recuperación*, haga clic en *todos los registros*.
++
+SnapManager restaura y recupera la base de datos a la última transacción y aplica todos los registros requeridos.
+
+. En la página *Restore Source Location Configuration*, vea la información sobre la copia de seguridad en primario y haga clic en *Next*.
++
+Si el backup solo se realiza en el almacenamiento primario, SnapManager restaura el backup desde el almacenamiento primario.
+
+. En la página *Información de configuración de la restauración de volumen*, seleccione *intentar la restauración de volumen* para intentar el método de restauración de volumen.
+. Haga clic en *Volver a restauración basada en archivos*.
++
+Así, SnapManager puede utilizar el método de restauración basada en archivos si no se puede utilizar el método de restauración de volumen.
+
+. Haga clic en *Vista previa* para ver las comprobaciones de elegibilidad para obtener una rápida restauración e información sobre comprobaciones obligatorias y anulables.
+. En la página *realizar operación*, compruebe la información introducida y haga clic en *Restaurar*.
+. Para ver detalles sobre el proceso, haga clic en *Detalles de la operación*.
+

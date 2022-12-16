@@ -1,0 +1,43 @@
+---
+permalink: windows/concept-what-full-and-partial-backups-are.html 
+sidebar: sidebar 
+keywords: entire, database, portion, tablespace, data, file, backup, full, partial 
+summary: Puede elegir hacer una copia de seguridad de toda la base de datos o sólo una parte de ella. Si decide realizar una copia de seguridad de una parte de la base de datos, puede optar por realizar una copia de seguridad de un grupo de tablespaces o archivos de datos. Puede optar por realizar un backup separado de los espacios de tablas y los archivos de datos. 
+---
+= Qué son los backups completos y parciales
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede elegir hacer una copia de seguridad de toda la base de datos o sólo una parte de ella. Si decide realizar una copia de seguridad de una parte de la base de datos, puede optar por realizar una copia de seguridad de un grupo de tablespaces o archivos de datos. Puede optar por realizar un backup separado de los espacios de tablas y los archivos de datos.
+
+En la siguiente tabla, se enumeran los beneficios y las consecuencias de cada tipo de backup:
+
+|===
+| Tipo de backup | Ventajas | Desventajas 
+
+
+ a| 
+Lleno
+ a| 
+Minimiza el número de copias de Snapshot. Para los backups en línea, cada espacio de tabla está en modo de backup durante todo el tiempo que lleva la operación de backup. SnapManager toma una copia snapshot por cada volumen que utiliza la base de datos, además de una copia snapshot por cada volumen que ocupan los archivos de registro.
+ a| 
+Para los backups en línea, cada espacio de tabla está en modo de backup durante todo el tiempo que lleva la operación de backup.
+
+
+
+ a| 
+Parcial
+ a| 
+Minimiza la cantidad de tiempo que cada espacio de tabla pasa en modo de backup. SnapManager agrupa las copias snapshot que toma por espacio de tabla. Cada espacio de tabla está en modo de backup solo suficientemente tiempo para crear las copias Snapshot. Este método de agrupación de las copias Snapshot minimiza las escrituras de bloque físico en los archivos de registro durante un backup en línea.
+ a| 
+El backup puede requerir la creación de copias Snapshot de varios espacios de tablas en el mismo volumen. Este método puede provocar que SnapManager cree varias copias Snapshot de un solo volumen durante la operación de backup.
+
+|===
+[NOTE]
+====
+Aunque puede realizar un backup parcial de, siempre debe realizar un backup completo de toda la base de datos.
+
+====

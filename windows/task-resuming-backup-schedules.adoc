@@ -1,0 +1,23 @@
+---
+permalink: windows/task-resuming-backup-schedules.html 
+sidebar: sidebar 
+keywords: administrator, option, resume, suspend, backup, schedule, resuming 
+summary: Los administradores tienen la opción de reanudar la programación de backup suspendida. 
+---
+= Reanudar programaciones de backup
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Los administradores tienen la opción de reanudar la programación de backup suspendida.
+
+Si intenta reanudar las programaciones activas, es posible que aparezca el mensaje de error "no se puede reanudar: Schedule <schedulename> ya en estado de reanudación".
+
+.Paso
+. Para reanudar la programación de backup suspendida, introduzca este comando:
++
+`smsap schedule resume -profile profile_name-schedule-nameschedulename [-quiet | -verbose]`
+
+

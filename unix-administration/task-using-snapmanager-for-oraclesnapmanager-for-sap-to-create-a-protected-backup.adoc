@@ -1,0 +1,51 @@
+---
+permalink: unix-administration/task-use-snapmanager-for-oraclesnapmanager-for-sap-to-create-a-protected-backup.html 
+sidebar: sidebar 
+keywords: create, creating, backup, example, dba, select, full, set, secondary, storage, local, protection-enabled, profile, transfer, protection, policy 
+summary: Al crear un backup para este ejemplo, el administrador de bases de datos selecciona la creación de un backup completo, define las opciones de backup y selecciona la protección para el almacenamiento secundario. Aunque la copia de seguridad se realiza inicialmente en almacenamiento local, debido a que esta copia de seguridad se basa en un perfil habilitado para la protección, la copia de seguridad se transfiere a almacenamiento secundario según el programa de la política de protección definido en Protection Manager. 
+---
+= Use SnapManager para SAP para crear un backup protegido
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Al crear un backup para este ejemplo, el administrador de bases de datos selecciona la creación de un backup completo, define las opciones de backup y selecciona la protección para el almacenamiento secundario. Si bien el backup se realiza inicialmente en el almacenamiento local, ya que este backup se basa en un perfil con protección habilitada, el backup se transfiere luego al almacenamiento secundario según la programación de la política de protección definida en Protection Manager.
+
+.Pasos
+. Acceda al cliente de SnapManager para SAP.
+. En el árbol del repositorio de SnapManager, haga clic con el botón derecho del ratón en el perfil que contiene la base de datos de la que desea realizar la copia de seguridad y seleccione *copia de seguridad*.
++
+Se iniciará el Asistente para copia de seguridad de SnapManager para SAP.
+
+. Introduzca
++
+`*Production_payroll*`
+
++
+como etiqueta.
+
+. Introduzca
++
+`*Production payroll Jan 19 backup*`
+
++
+como comentario.
+
+. Seleccione *Auto* como el tipo de copia de seguridad que desea crear.
++
+Esto permite a SnapManager determinar si se debe realizar un backup en línea o sin conexión.
+
+. Seleccione *Diario* o *Semanal* como la frecuencia de la copia de seguridad.
+. Para confirmar que la copia de seguridad tiene un formato válido para Oracle, marque la casilla junto a *verificar copia de seguridad*.
++
+Esta operación utiliza Oracle DBVerify para comprobar el formato de bloque y la estructura.
+
+. Para forzar el estado de la base de datos al modo apropiado (por ejemplo, de abierto a montado), seleccione *permitir inicio o cierre de la base de datos, si es necesario*, y haga clic en *Siguiente*.
+. En la página Database, Tablespaces o Datafiles to Backup, seleccione *Full Backup* y haga clic en *Next*.
+. Para proteger la copia de seguridad en almacenamiento secundario, seleccione *proteger la copia de seguridad* y haga clic en *Siguiente*.
+. En la página realizar operación, compruebe la información suministrada y haga clic en *copia de seguridad*.
+. En la página Progress, consulte el progreso y los resultados de la creación de backup.
+. Para ver los detalles de la operación, haga clic en *Detalles de la operación*.
+

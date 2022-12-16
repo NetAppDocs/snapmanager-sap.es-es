@@ -1,0 +1,32 @@
+---
+permalink: unix-administration/concept-details-of-the-target-database.html 
+sidebar: sidebar 
+keywords: example, integrate, database, protection, payroll, example, detail, target 
+summary: Este ejemplo de protección integrada de bases de datos describe la protección de una base de datos de nóminas. En el ejemplo se utilizan los datos siguientes. 
+---
+= Detalles de la base de datos de destino
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este ejemplo de protección integrada de bases de datos describe la protección de una base de datos de nóminas. En el ejemplo se utilizan los datos siguientes.
+
+El administrador de la base de datos (DBA) de TechCo, una empresa de 3000 personas con sede en Atlanta, debe crear una copia de seguridad coherente de la base de datos de nóminas de producción, PAYDB. La estrategia de protección para realizar la backup en el almacenamiento primario y secundario requiere que el administrador de almacenamiento y el administrador de bases de datos Oracle trabajen conjuntamente para realizar backups de la base de datos Oracle tanto de forma local en el almacenamiento primario como remota, en un almacenamiento secundario en una ubicación remota.
+
+* *Información del perfil*
++
+Al crear un perfil en SnapManager, necesita los siguientes datos:
+
++
+** Nombre de la base de datos: P01
+** Nombre del host: prod01.sample.com
+** ID de base de datos: P01
+** Nombre del perfil: P01_BACKUP
+** Modo de conexión: Autenticación de base de datos
+** Esquema de nomenclatura de Snapshot: `_smsap_hostname_dbsid_smsapprofile_scope_mode_smid_` (que se traduce en "smsap_prod01.sample.com_p01_p01_backup_f_h_x")
+** Usuario repositorio: <sid> Linternas, que se traduce a p01rep.
+
+
+

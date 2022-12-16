@@ -1,0 +1,37 @@
+---
+permalink: windows/concept-limitations-for-performing-a-rollback.html 
+sidebar: sidebar 
+keywords: aware, scenario, perform, rollback, additional, task, limitation 
+summary: Debe conocer cuáles son las situaciones en las que no se puede ejecutar una reversión. No obstante, en algunas de estas situaciones es posible ejecutar algunas tareas adicionales antes de realizar la reversión. 
+---
+= Limitaciones en la ejecución de una reversión
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe conocer cuáles son las situaciones en las que no se puede ejecutar una reversión. No obstante, en algunas de estas situaciones es posible ejecutar algunas tareas adicionales antes de realizar la reversión.
+
+Los casos en los que no se puede ejecutar la reversión o se debe realizar las tareas adicionales son los siguientes:
+
+* Si realiza una de las siguientes operaciones después de realizar una actualización gradual:
++
+** Cree un nuevo perfil.
+** Cambie el estado de montaje del backup.
++
+En este caso, primero debe cambiar el estado de montaje a su estado original y, a continuación, ejecutar una reversión.
+
+** Restaurar un backup.
+** Cambie el modo de autenticación de la autenticación de la base de datos a la autenticación del sistema operativo (SO).
++
+En esta situación, después de realizar una reversión, debe cambiar manualmente el modo de autenticación de sistema operativo a base de datos.
+
+
+
+* Si se cambia el nombre de host del perfil
+* Si se separan perfiles para crear backups de registros de archivo
++
+En este caso, no puede volver a una versión anterior a SnapManager 3.2.
+
+

@@ -1,0 +1,88 @@
+---
+permalink: windows/reference-the-smosmsaprepository-delete-command.html 
+sidebar: sidebar 
+keywords: command, delete, repository, store, database, profile, associate, credential, smsap 
+summary: Este comando elimina un repositorio utilizado para almacenar perfiles de base de datos y credenciales asociadas. Sólo puede eliminar un repositorio si no hay perfiles en el repositorio. 
+---
+= El comando smsap repository delete
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este comando elimina un repositorio utilizado para almacenar perfiles de base de datos y credenciales asociadas. Sólo puede eliminar un repositorio si no hay perfiles en el repositorio.
+
+
+
+== Sintaxis
+
+[listing]
+----
+
+smsap repository delete
+-repository
+-port repo_port
+-dbname repo_service_name
+-host repo_host
+-login -username repo_username
+[-force] [-noprompt]
+[-quiet | -verbose]
+----
+
+
+== Parámetros
+
+* *`-repository`*
++
+Las opciones siguientes `-repository` especifique los detalles de la base de datos para el repositorio.
+
+* *`-port _repo_port_`*
++
+Especifica el número de puerto TCP utilizado para acceder a la base de datos que almacena el repositorio.
+
+* *`-dbname _repo_service_name_`*
++
+Especifica el nombre de la base de datos que almacena el repositorio. Utilice el nombre global o el SID.
+
+* *`-host _repo_host_`*
++
+Especifica el nombre o la dirección IP del equipo host en el que se ejecuta la base de datos del repositorio.
+
+* *`-login`*
++
+Inicia los detalles de inicio de sesión en el repositorio.
+
+* *`-username _repo_username_`*
++
+Especifica el nombre de usuario necesario para acceder a la base de datos que almacena el repositorio.
+
+* *`-force`*
++
+Se intenta forzar la eliminación del repositorio, incluso si hay operaciones incompletas. SnapManager emite un aviso si existen operaciones incompletas, en las que se pregunta si está seguro de que se desea eliminar el repositorio.
+
+* *`-noprompt`*
++
+No se le solicita antes de eliminar el repositorio. Con el `-noprompt` la opción garantiza que el mensaje no aparezca, lo que facilita la eliminación de repositorios mediante una secuencia de comandos.
+
+* *`-quiet`*
++
+Muestra sólo mensajes de error en la consola. El valor predeterminado es mostrar mensajes de error y advertencia.
+
+* *`-verbose`*
++
+Muestra mensajes de error, advertencia e informativos en la consola.
+
+
+
+
+
+== Ejemplo de comando
+
+En el ejemplo siguiente se elimina el repositorio de la base de datos SALESDB.
+
+[listing]
+----
+smsap repository delete -repository -dbname SALESDB
+-host server1 -login -username admin -port 1527 -force -verbose
+----

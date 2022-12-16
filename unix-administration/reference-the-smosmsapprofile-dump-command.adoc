@@ -1,0 +1,56 @@
+---
+permalink: unix-administration/reference-the-smosmsapprofile-dump-command.html 
+sidebar: sidebar 
+keywords: run, profile, dump, command, create, jar, file, contain, diagnostic, information, smsap 
+summary: Puede ejecutar el comando profile dump para crear el archivo .jar que contiene información de diagnóstico acerca de un perfil. 
+---
+= El comando smsap profile dump
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede ejecutar el `profile dump` comando para crear el `.jar` archivo que contiene información de diagnóstico acerca de un perfil.
+
+
+
+== Sintaxis
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap profile dump
+-profile _profile_name_
+[-quiet | -verbose]]
+----
+
+
+== Parámetros
+
+* ``*-profile _profile_name_*``
++
+Especifica el perfil para el que desea crear los archivos de volcado. El perfil contiene el identificador de la base de datos y otra información de la base de datos.
+
+* ``*-quiet*``
++
+Muestra sólo mensajes de error en la consola. El valor predeterminado es mostrar mensajes de error y advertencia.
+
+* ``*-verbose*``
++
+Muestra mensajes de error, advertencia e informativos en la consola. ----
+
+
+
+
+
+== Ejemplo
+
+En el siguiente ejemplo se crea un volcado para el perfil SALES1:
+
+[listing]
+----
+smsap profile dump -profile SALES1
+Dump file created
+Path:/userhomedirectory/.netapp/smsap/3.3.0/smsap_dump_SALES1_hostname.jar
+----
+'''

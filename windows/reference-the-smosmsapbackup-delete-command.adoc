@@ -1,0 +1,86 @@
+---
+permalink: windows/reference-the-smosmsapbackup-delete-command.html 
+sidebar: sidebar 
+keywords: run, backup, delete, command, remove, automatic, create, clone, fail, retention, unlimited, basis, class, smsap 
+summary: Puede ejecutar el comando backup delete para quitar backups que no se quitan automáticamente, como los backups que se usaron para crear un clon o backups que generaron errores. Puede eliminar backups retenidos de forma ilimitada sin cambiar la clase de retención. 
+---
+= El comando smsap backup delete
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede ejecutar el `backup delete` comando para quitar backups que no se quitan automáticamente, como los backups que se usaron para crear un clon o backups que generaron errores. Puede eliminar backups retenidos de forma ilimitada sin cambiar la clase de retención.
+
+
+
+== Sintaxis
+
+[listing]
+----
+
+smsap backup delete
+-profile profile_name
+[-label label [-data | -archivelogs] | [-id guid | -all]
+-force
+[-dump]
+[-quiet | -verbose]
+----
+
+
+== Parámetros
+
+* *`-profile _profile_name_`*
++
+Especifica la base de datos asociada con el backup que desea quitar. El perfil contiene el identificador de la base de datos y otra información de la base de datos.
+
+* *`-id _guid_`*
++
+Especifica la copia de seguridad con el GUID especificado. SnapManager genera el GUID cuando se crea un backup. Puede utilizar el `smsap backup list` Comando para mostrar el GUID de cada backup.
+
+* *`-label _label_`*
++
+Especifica el backup con la etiqueta especificada. Opcionalmente, especifique el alcance del backup como archivo de datos o registro de archivo.
+
+* *`-data`*
++
+Especifica los archivos de datos.
+
+* *`-archivelogs`*
++
+Especifica los archivos de registro de archivos.
+
+* *`-all`*
++
+Especifica todos los backups. Para eliminar solo los backups especificados, use la `-id` o. `-label` opción.
+
+* *`-dump`*
++
+Recopila los archivos de volcado después de una operación de eliminación de backup realizada correctamente o con errores.
+
+* *`-force`*
++
+Fuerza la eliminación del backup. SnapManager elimina el backup incluso si hay problemas para liberar los recursos asociados con el backup. Por ejemplo, si el backup se catalogó con Oracle Recovery Manager (RMAN), pero la base de datos de RMAN ya no existe, incluido `-force` Elimina la copia de seguridad aunque no pueda conectarse con RMAN.
+
+* *`-quiet`*
++
+Muestra sólo mensajes de error en la consola. El valor predeterminado es mostrar mensajes de error y advertencia.
+
+* *`-verbose`*
++
+Muestra mensajes de error, advertencia e informativos en la consola.
+
+
+
+
+
+== Ejemplo
+
+En el ejemplo siguiente se elimina el backup:
+
+[listing]
+----
+smsap backup delete -profile SALES1 -label full_backup_sales_May
+Operation Id [8abc01ec0e79004b010e79006da60001] succeeded.
+----

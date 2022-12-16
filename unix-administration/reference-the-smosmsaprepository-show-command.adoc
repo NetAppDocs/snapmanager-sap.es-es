@@ -1,0 +1,91 @@
+---
+permalink: unix-administration/reference-the-smosmsaprepository-show-command.html 
+sidebar: sidebar 
+keywords: command, display, information, repository, smsap 
+summary: Este comando muestra información sobre el repositorio. 
+---
+= El comando smsap repository show
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este comando muestra información sobre el repositorio.
+
+
+
+== Sintaxis
+
+[listing]
+----
+smsap repository show
+-repository
+-dbname repo_service_name
+-host repo_host
+-port repo_port
+-login -username repo_username
+[-quiet | -verbose]
+----
+
+
+== Parámetros
+
+* ``*-repository*``
++
+Las opciones siguientes `-repository` especifique los detalles de la base de datos para el repositorio.
+
+* ``*-dbname _repo_service_name_*``
++
+Especifica el nombre de la base de datos que almacena el repositorio. Utilice el nombre global o el SID.
+
+* ``*-host _repo_host_*``
++
+Especifica el nombre o la dirección IP del equipo host en el que se ejecuta la base de datos del repositorio.
+
+* ``*-login*``
++
+Inicia los detalles de inicio de sesión en el repositorio.
+
+* ``*-username _repo_username_*``
++
+Especifica el nombre de usuario necesario para acceder a la base de datos que almacena el repositorio.
+
+* ``*-port repo_port*``
++
+Especifica el número de puerto TCP utilizado para acceder a la base de datos que almacena el repositorio.
+
+* ``*-quiet*``
++
+Muestra sólo mensajes de error en la consola. El valor predeterminado es mostrar mensajes de error y advertencia.
+
+* ``*-verbose*``
++
+Muestra mensajes de error, advertencia e informativos en la consola.
+
+
+
+
+
+== Ejemplo de comando
+
+En el siguiente ejemplo se muestran detalles sobre el repositorio de la base de datos SALESDB.
+
+[listing]
+----
+smsap repository show -repository -dbname SALESDB  -host server1
+-port 1521 -login -username admin
+Repository Definition:
+User Name: admin
+Host Name: server1
+Database Name: SALESDB
+Database Port: 1521
+Version: 28
+Hosts that have run operations using this repository: 2
+server2
+server3
+Profiles defined in this repository: 2
+GSF5A
+GSF3A
+Incomplete Operations: 0
+----

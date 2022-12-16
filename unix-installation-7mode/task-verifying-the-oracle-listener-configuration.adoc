@@ -1,0 +1,24 @@
+---
+permalink: unix-installation-7mode/task-verify-the-oracle-listener-configuration.html 
+sidebar: sidebar 
+keywords: listener, client, connection, request, incoming, manage, traffic, request, database, connect, target, status, configuration, verify, oracle, configuration, listener 
+summary: El listener es un proceso que escucha las solicitudes de conexión de cliente. Recibe solicitudes entrantes de conexión de cliente y administra el tráfico de estas solicitudes a la base de datos. Antes de conectarse a una base de datos de destino o a una instancia de base de datos de repositorio, puede utilizar el comando STATUS para comprobar la configuración del listener. 
+---
+= Verifique la configuración del listener de Oracle
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El listener es un proceso que escucha las solicitudes de conexión de cliente. Recibe solicitudes entrantes de conexión de cliente y administra el tráfico de estas solicitudes a la base de datos. Antes de conectarse a una base de datos de destino o a una instancia de base de datos de repositorio, puede utilizar `STATUS` comando para verificar la configuración del listener.
+
+*Acerca de esta tarea*
+
+La `STATUS` el comando muestra información básica sobre el estado de un listener específico, incluido un resumen de la configuración del listener, las direcciones del protocolo de escucha y un resumen de los servicios registrados con ese listener.
+
+. Introduzca el siguiente comando en el símbolo del sistema: `*lsnrctl STATUS*`
++
+El valor predeterminado asignado al puerto de escucha es 1521.
+
+

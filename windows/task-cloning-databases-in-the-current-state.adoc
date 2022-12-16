@@ -1,0 +1,32 @@
+---
+permalink: windows/task-cloning-databases-in-the-current-state.html 
+sidebar: sidebar 
+keywords: create, backup, clone, database, command, cloning, current, state 
+summary: Puede crear un backup y un clon de la base de datos desde el estado actual de la base de datos mediante un solo comando. 
+---
+= Clonado de bases de datos en estado actual
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede crear un backup y un clon de la base de datos desde el estado actual de la base de datos mediante un solo comando.
+
+Cuando especifica el perfil con la opción -current, SnapManager crea primero un backup y, a continuación, un clon del estado actual de la base de datos.
+
+En la configuración de perfil, si habilitó el backup de archivos de datos y registros de archivos juntos para la clonado, siempre que se realice un backup de los archivos de datos en línea, también se realizará un backup de los registros de archivos. Al clonar la base de datos, SnapManager crea el backup de archivos de datos junto con el backup del registro de archivos y crea el clon de la base de datos. Si no se incluye el backup de registros de archivos, SnapManager no crea el backup de registros de archivos y, por lo tanto, no puede crear el clon de la base de datos.
+
+.Paso
+. Para clonar la base de datos en su estado actual, introduzca el comando siguiente:
++
+`smsap clone create -profileprofile_name-current -labelclone_name-clonespecclonespec.xml`
+
++
+Este comando realiza un backup completo automático (generando la etiqueta de backup) e inmediatamente crea un clon a partir de ese backup mediante una especificación de clon existente que desea utilizar.
+
++
+
+NOTE: Es posible especificar la opción -dump como un parámetro opcional para recoger los archivos de volcado después de las operaciones realizadas correctamente o con errores. El volcado se recoge tanto para las operaciones de backup como de clonado.
+
+

@@ -1,0 +1,118 @@
+---
+permalink: unix-administration/concept-what-database-backup-scheduling-is.html 
+sidebar: sidebar 
+keywords: schedule, update, monitor, backup, database, graphical, user, interface, scheduling 
+summary: Puede programar, actualizar y supervisar las copias de seguridad de las bases de datos mediante la ficha Programación de la interfaz gráfica de usuario. 
+---
+= Qué es la programación de backups de base de datos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede programar, actualizar y supervisar las copias de seguridad de las bases de datos mediante la ficha Programación de la interfaz gráfica de usuario.
+
+La siguiente tabla aborda algunas preguntas frecuentes sobre la programación:
+
+|===
+| Pregunta | Responda 
+
+
+ a| 
+¿Qué ocurre con los backups programados al reiniciarse el servidor de SnapManager?
+ a| 
+Cuando se reinicia el servidor SnapManager, éste reinicia automáticamente todas las programaciones. Sin embargo, SnapManager no realiza seguimiento de ninguna incidencia perdida.
+
+
+
+ a| 
+¿Qué sucede cuando se programan dos backups en dos bases de datos a la vez?
+ a| 
+SnapManager inicia las operaciones de backup de uno en uno y luego permite que los backups se ejecuten en paralelo. Por ejemplo, si un administrador de bases de datos crea seis programaciones de backup diarias para seis perfiles de base de datos diferentes a las 00:00, los seis backups se ejecutan en paralelo.
+
+Si se programan varios backups en un único perfil de base de datos en un breve periodo de tiempo, el servidor SnapManager ejecutará solo la operación de backup con la duración de retención más larga.
+
+Antes de iniciar una operación de backup, SnapManager primero determina lo siguiente:
+
+* En los últimos 30 minutos, ¿ha creado otra programación correctamente un backup, con mayor retención, para el mismo perfil?
+* En los próximos 30 minutos, ¿intentará otra programación crear un backup, con mayor retención, para el mismo perfil?
+
+
+Si la respuesta a cualquiera de las dos preguntas es sí, SnapManager omite el backup.
+
+Por ejemplo, un administrador de bases de datos puede crear una programación diaria, semanal y mensual para un perfil de base de datos, y se prevé que todos los backups se realicen a las 1:00 a.m. En ese día del mes en el que se programan tres backups a la vez a las 1:00, SnapManager únicamente ejecutará la operación de backup en función de la programación mensual.
+
+La ventana de tiempo de 30 minutos se puede cambiar en un archivo de propiedades de SnapManager.
+
+
+
+ a| 
+¿Con qué usuario se ejecuta la operación de backup?
+ a| 
+La operación se ejecuta bajo el usuario que creó la programación. Sin embargo, es posible cambiarlo por su propio ID de usuario, si cuenta con credenciales válidas tanto para el perfil de base de datos como para el host. Por ejemplo, al iniciar las propiedades de copia de seguridad programada para la programación de copia de seguridad creada por Avida Davis, Stella Morrow puede seleccionar su ID de usuario en realizar esta operación como usuario para ejecutar la copia de seguridad programada.
+
+
+
+ a| 
+¿Cómo interactúa el programador de SnapManager con el programador del sistema operativo nativo?
+ a| 
+En el servidor SnapManager, no se pueden ver los backups programados a través del planificador nativo del sistema operativo. Por ejemplo, después de crear una copia de seguridad programada, no se ve ninguna entrada adicional en cron.
+
+
+
+ a| 
+¿Qué sucede si los relojes de la interfaz gráfica de usuario y el servidor no están sincronizados?
+ a| 
+Los relojes del cliente y del servidor no están sincronizados. Por lo tanto, puede programar una copia de seguridad en la que la hora de inicio esté en el futuro en el cliente pero en el pasado en el servidor.
+
+Para realizar backups periódicos, el servidor sigue cumpliendo la solicitud. Por ejemplo, si el servidor recibe una solicitud para realizar copias de seguridad cada hora a partir del 01/30/08 a las 3:00 p.m. pero la hora actual es a las 3:30 p.m. ese día, el servidor realiza su primer backup a las 4:00 p.m. y continúa realizando backups cada hora.
+
+Sin embargo, durante los backups que solo se realizan una vez, el servidor gestiona la solicitud de la siguiente forma:
+
+* Si la hora de inicio está dentro de los últimos cinco minutos de la hora del servidor actual, SnapManager inicia de inmediato el backup.
+* Si la hora de inicio es superior a cinco minutos, SnapManager no inicia el backup.
+
+
+Por ejemplo, piense en el siguiente escenario:
+
+* El reloj del host de la interfaz gráfica está a tres minutos de distancia del tiempo real.
+* La hora actual en el cliente es 8:58 a.m.
+* Se programa un backup puntual a las 9:00
+* Se programa otro backup que se realice una vez a las 8:30
+
+
+Cuando el servidor recibe la primera solicitud, la hora en el servidor es 9:01 a.m. Aunque la hora de inicio del backup es anterior, SnapManager realiza el backup de forma inmediata.
+
+Cuando el servidor recibe la segunda solicitud, la hora de inicio del backup ha pasado más de cinco minutos. Recibirá un mensaje indicando que la solicitud de programa ha fallado porque la hora de inicio ha pasado.
+
+Puede cambiar el tiempo de cinco minutos en un archivo de propiedades de SnapManager.
+
+
+
+ a| 
+¿Qué ocurre en los backups programados para un perfil cuando se elimina el perfil?
+ a| 
+Cuando se elimina un perfil de base de datos, el servidor SnapManager elimina los backups programados definidos para ese perfil.
+
+
+
+ a| 
+¿Cómo se comportan los backups programados durante el horario de verano o cuando se cambia la hora del servidor SnapManager?
+ a| 
+Las programaciones de backups de SnapManager se ven afectadas por el horario de verano o al cambiar la hora del servidor SnapManager.
+
+Tenga en cuenta las siguientes implicaciones cuando cambie el tiempo del servidor SnapManager:
+
+* Después de activar la programación de copia de seguridad, si la hora del servidor SnapManager se reduce, la programación de copia de seguridad no se activa de nuevo.
+* Si la hora de verano comienza antes de la hora de inicio programada, las programaciones de backup se activan automáticamente.
+* Por ejemplo, si se encuentra en los Estados Unidos y se programan los backups cada hora a las 4:00 esto se debe producir cada 4 horas, se realizará un backup a las 4:00, 8:00, 12:00, 4:00, 8:00, Y medianoche los días antes y después de los ajustes de horario de verano en marzo y noviembre.
+* Tenga en cuenta lo siguiente si las copias de seguridad están programadas para las 2:30 a.m. todas las noches:
++
+** Cuando los relojes se atrasan una hora, ya que el backup se activa, el backup no se activa de nuevo.
+** Cuando los relojes se adelantan una hora, el backup se activa inmediatamente. Si se encuentra en los Estados Unidos y desea evitar este problema, debe programar las copias de seguridad para que comiencen fuera de las 2:00 a.m. a las 3:00 horas intervalo.
+
+
+
+
+|===

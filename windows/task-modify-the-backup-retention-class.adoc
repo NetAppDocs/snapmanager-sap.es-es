@@ -1,0 +1,63 @@
+---
+permalink: windows/task-modify-the-backup-retention-class.html 
+sidebar: sidebar 
+keywords: upgrade, snapmanager, default, backup, retention, class, exist, modify 
+summary: Después de la actualización, SnapManager asigna la clase de retención de backup predeterminada a los backups existentes. Puede modificar los valores predeterminados de la clase de retención para cumplir sus requisitos de copia de seguridad. 
+---
+= Modifique la clase de retención de la copia de seguridad
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Después de la actualización, SnapManager asigna la clase de retención de backup predeterminada a los backups existentes. Puede modificar los valores predeterminados de la clase de retención para cumplir sus requisitos de copia de seguridad.
+
+
+
+== Acerca de esta tarea
+
+La clase de retención de copias de seguridad predeterminada asignada a las copias de seguridad existentes es la siguiente:
+
+|===
+| Tipo de backup | Asignación de clase de retención después de la actualización 
+
+
+ a| 
+Los backups se retienen siempre
+ a| 
+Ilimitada
+
+
+
+ a| 
+Otros backups
+ a| 
+Todos los días
+
+|===
+*Nota:* puede eliminar las copias de seguridad que se conservan para siempre sin cambiar la clase de retención.
+
+Si actualiza a SnapManager 3.0 o posterior, el valor mayor de los siguientes dos valores se asignará a los perfiles existentes:
+
+* Recuento de retención anterior para el perfil
+* Valores predeterminados para el número de retención y la duración de los backups diarios, tal como se especifica en la `smsap.config` archivo
+
+
+.Paso
+. Modifique los valores asignados a. `retain.hourly.count` y.. `retain.hourly.duration` en la `smsap.config` archivo.
++
+La `smsap.config` el archivo está ubicado en `default installation location/properties/smsap.config`.
+
++
+*ejemplo*
+
++
+Puede introducir los siguientes valores:
+
++
+** `retain.hourly.count` = *12*
+** `retain.hourly.duration` = *2*
+
+
+

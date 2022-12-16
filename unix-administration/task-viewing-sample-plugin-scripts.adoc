@@ -1,0 +1,203 @@
+---
+permalink: unix-administration/task-view-sample-plugin-scripts.html 
+sidebar: sidebar 
+keywords: snapmanager, include, script, example, basis, custom, view, sample, plug-in 
+summary: SnapManager incluye scripts que puede utilizar como ejemplos para crear sus propios scripts o como base para sus scripts personalizados. 
+---
+= Ver scripts de plugins de muestra
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager incluye scripts que puede utilizar como ejemplos para crear sus propios scripts o como base para sus scripts personalizados.
+
+*Acerca de esta tarea*
+
+Puede encontrar los scripts de plugins de muestra en la siguiente ubicación:
+
+* `<default_install_directory>/plugins/examples/backup/create`
+* `<default_install_directory>/plugins/examples/clone/create`
+* `<default_install_directory>/plugins/unix/examples/backup/create/post`
+
+
+El directorio que contiene los scripts de plug-in de ejemplo incluye los siguientes subdirectorios:
+
+* `policy`: Contiene secuencias de comandos que, cuando se configuran, siempre se ejecutan en la operación de clonación.
+* `pre`: Contiene secuencias de comandos que, cuando se configuran, se ejecutan antes de la operación de clonación.
+* `post`: Contiene secuencias de comandos que, cuando se configuran, se ejecutan después de la operación de clonación.
+
+
+En la siguiente tabla se describen los scripts de ejemplo:
+
+[cols="1a,3a,1a"]
+|===
+| Nombre de script | Descripción | Tipo de script 
+
+
+ a| 
+`validate_sid.sh`
+ a| 
+Contiene comprobaciones adicionales al SID utilizado en el sistema de destino. La secuencia de comandos comprueba que el SID tenga las siguientes características:
+
+* Contiene tres caracteres alfanuméricos
+* Comienza con una letra
+* No incluye SIDS de SAP reservados
+
+ a| 
+Política
+
+
+
+ a| 
+`cleanup.sh`
+ a| 
+Borra el sistema de destino de modo que esté listo para almacenar el clon recién creado. Conserva o elimina archivos y directorios en función de la necesidad.
+ a| 
+Pretask
+
+
+
+ a| 
+`sap_follow_up_activities.sh`
+ a| 
+Realiza tareas de seguimiento de las actividades descritas en _SAP System Copy Guide_ y TR-3442, SAP con Oracle en UNIX y NFS y NetApp Storage. Por ejemplo, este script elimina o modifica las entradas de tabla del esquema SAP.
+ a| 
+Postarea
+
+
+
+ a| 
+`os_db_authentication.sh`
+ a| 
+Adapta la autenticación del sistema operativo para el usuario OPS$, como se recomienda en la nota SAP 316641. Este es un ejemplo de cómo procesar archivos SQL externos.
+ a| 
+Postarea
+
+
+
+ a| 
+`Mirror_the_backup.sh`
+ a| 
+Refleja los volúmenes después de que la operación de backup se produzca en un entorno UNIX cuando se utiliza Data ONTAP en 7-Mode o Clustered Data ONTAP.
+ a| 
+Postarea
+
+
+
+ a| 
+`Vault_the_backup_cDOT.sh`
+ a| 
+Almacena el backup después de que se produzca la operación de backup en un entorno UNIX cuando utiliza Clustered Data ONTAP.
+ a| 
+Postarea
+
+|===
+Los scripts suministrados con SnapManager utilizan el shell BASH de forma predeterminada. Debe asegurarse de que el soporte para el shell BASH está instalado en su sistema operativo antes de intentar ejecutar cualquiera de los scripts de ejemplo.
+
+.Pasos
+. Para verificar que está utilizando el shell BASH, introduzca el siguiente comando en el símbolo del sistema:
++
+`*bash*`
+
++
+Si no ve un error, el shell BASH está funcionando correctamente.
+
++
+De forma alternativa, puede introducir la `which-bash` en el símbolo del sistema.
+
+. Busque el script en el siguiente directorio:
++
+`<installdir>/plugins/examples/clone/create`
+
+. Abra el script en un editor de secuencia de comandos como vi.
+
+
+'''
+
+
+== Guión de muestra
+
+El siguiente script personalizado de muestra valida los nombres de SID de base de datos y evita que los nombres no válidos se usen en la base de datos clonada. Incluye tres operaciones (comprobación, descripción y ejecución), a las que se llama después de ejecutar el script. La secuencia de comandos también incluye el manejo de mensajes de error con los códigos 0, 4 y >4.
+
+[listing]
+----
+EXIT=0
+name="Validate SID"
+description="Validate SID used on the target system"
+parameter=()
+
+# reserved system IDs
+INVALID_SIDS=("ADD" "ALL" "AND" "ANY" "ASC"
+              "COM" "DBA" "END" "EPS" "FOR"
+              "GID" "IBM" "INT" "KEY" "LOG"
+              "MON" "NIX" "NOT" "OFF" "OMS"
+              "RAW" "ROW" "SAP" "SET" "SGA"
+              "SHG" "SID" "SQL" "SYS" "TMP"
+              "UID" "USR" "VAR")
+function _exit {
+     rc=$1
+     echo "Command complete."
+    	return $rc}
+
+function usage {
+     echo "usage: $(basename $0) { -check | -describe | -execute }"
+     _exit 99}
+
+function describe {
+    	echo "SM_PI_NAME:$name"
+    	echo "SM_PI_DESCRIPTION:$description"
+    	_exit 0}
+
+function check {
+    	_exit 0}
+
+function execute {
+    	IFS=\$ myEnv=$(env)
+     for a in ${paramteter[@]}; do
+       		key=$(echo ${$a} | awk -F':' '{ print $1 }')
+         val=$(echo $myEnv | grep -i -w $key 2>/dev/null | awk -F'=' '{ print $2 }')
+
+       		if [ -n "$val" ] ; then
+              state="set to $val"
+       		else
+           			state="not set"
+           			#indicate a FATAL error, do not continue processing
+           			((EXIT=+4))
+		       fi
+         echo "parameter $key is $state"
+     done
+
+	######################################################################
+	# additional checks
+ # Use SnapManager environment variable of SM_TARGET_SID
+
+	if [ -n "$SM_TARGET_SID" ] ; then
+  		if [ ${#SM_TARGET_SID} -ne 3 ] ; then
+        echo "SID is defined as a 3 digit value, [$SM_TARGET_SID] is not valid."
+        EXIT=4
+    else
+        echo "${INVALID_SIDS[@]}" | grep -i -w $SM_TARGET_SID >/dev/null 2>&1
+     			if [ $? -eq 0 ] ; then
+            echo "The usage of SID [$SM_TARGET_SID] is not supported by SAP."
+        				((EXIT+=4))
+  		fi
+	fi
+	else
+   		echo "SM_TARGET_SID not set"
+     EXIT=4
+	fi  _exit $EXIT}
+
+# Include the 3 required operations for clone plugin
+case $(echo "$1" | tr [A-Z] [a-z]) in
+  -check )        check     ;;
+  -describe )     describe  ;;
+  -execute )      execute   ;;     	* )
+		 echo "unknown option $1"    usage 		;;
+esac
+----
+'''
+*Información relacionada*
+
+http://media.netapp.com/documents/tr-3442.pdf["SAP con Oracle en UNIX y NFS y almacenamiento de NetApp: TR-3442"^]

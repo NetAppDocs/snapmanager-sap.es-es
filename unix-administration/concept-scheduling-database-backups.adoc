@@ -1,0 +1,30 @@
+---
+permalink: unix-administration/concept-scheduling-database-backups.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, enable, schedule, database, backup, off-peak, hour, scheduling, retention, policy 
+summary: 'SnapManager (3.2 o posterior) para SAP le permite programar backups de bases de datos de forma regular durante las horas de menor actividad para mantener un alto rendimiento. Para programar un backup, puede crear un perfil, que incluya la información de la base de datos y la política de retención, y luego establecer programaciones para el backup.' 
+---
+= Programación de backups de bases de datos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager (3.2 o posterior) para SAP le permite programar backups de bases de datos de forma regular durante las horas de menor actividad para mantener un alto rendimiento. Para programar un backup, puede crear un perfil, que incluya la información de la base de datos y la política de retención, y luego establecer programaciones para el backup.
+
+
+NOTE: Debe programar los backups como usuario raíz o como usuario de Oracle. Si intenta programar los backups como usuario no existente, SnapManager muestra un mensaje de error: Invalid user: username: No puede crear un backup de programación para un usuario determinado
+
+A continuación, se muestran algunas de las tareas relacionadas con la programación:
+
+* Programar un backup de base de datos para que se realice por hora, día, semana, mes o una sola vez.
+* Ver una lista de los backups programados asociados con un perfil.
+* Actualizar una copia de seguridad programada.
+* Suspender temporalmente una programación.
+* Reanude la programación suspendida.
+* Eliminar una programación.
+
+
+
+NOTE: La casilla de verificación *operación del menú Ejecutar ahora* está desactivada cuando se está ejecutando una copia de seguridad programada para esa programación.

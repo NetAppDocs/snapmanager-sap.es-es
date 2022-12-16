@@ -1,0 +1,70 @@
+---
+permalink: unix-administration/concept-database-backup-management.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, data, local, storage, resource, post-processing, script, protect, secondary, tertiary, additional, layer, disaster, back, up, database 
+summary: NapManager permite realizar backups de datos en recursos de almacenamiento local mediante scripts de procesamiento posterior o protección de backups en recursos de almacenamiento secundarios o terciarios. La opción de realizar backups en el almacenamiento secundario proporciona una capa adicional que conserva los datos en caso de desastre. 
+---
+= Realizar backups de bases de datos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager permite realizar backups de datos en recursos de almacenamiento local mediante un scriptsor de posprocesamiento gracias a la protección de backups en recursos de almacenamiento secundarios o terciarios. La opción de realizar backups en el almacenamiento secundario proporciona una capa adicional que conserva los datos en caso de desastre.
+
+SnapManager también permite a los administradores de almacenamiento configurar sus backups según sus planes de normativas. Mediante el uso de SnapManager, los administradores pueden identificar backups que no cumplan con los requisitos de las normativas y rectificarlos de inmediato.
+
+SnapManager ofrece las siguientes opciones para realizar backups, restaurar y recuperar los datos de la base de datos:
+
+* Realice una copia de seguridad de toda la base de datos o de una parte de ella.
++
+Si realiza una copia de seguridad de una parte de la misma, especifique un grupo de tablespaces o un grupo de archivos de datos.
+
+* Realice una copia de seguridad de los archivos de datos y de los archivos de registro de archivo por separado.
+* Realice un backup de las bases de datos en el almacenamiento primario (también llamado almacenamiento local) y protéjalas al realizar un backup en un almacenamiento secundario o terciario (también llamado almacenamiento remoto).
+* Programar copias de seguridad rutinarias.
+
+
+*La diferencia entre SnapManager (3.2 o posterior) y las versiones anteriores de SnapManager*
+
+SnapManager (3.1 o anterior) permite crear backups completos de la base de datos que contienen archivos de datos, archivos de control y archivos de registro de archivos.
+
+SnapManager (3.1 o anterior) solo administra los archivos de datos. Los archivos de registro de archivos se mantienen usando soluciones fuera de SnapManager.
+
+SnapManager (3.1 o anterior) impone las siguientes restricciones en la gestión de los backups de las bases de datos:
+
+* Impacto en el rendimiento
++
+Cuando se realiza un backup de base de datos en línea completo (cuando la base de datos está en modo de backup), el rendimiento de la base de datos se reduce durante el periodo de tiempo hasta que se crea el backup. En SnapManager (3.2 o posterior), pueden realizarse backups de bases de datos limitados y backups frecuentes de registros de archivo. La realización de backups frecuentes de registros de archivos ayuda a evitar que la base de datos se coloque en modo de backup.
+
+* Restauración y recuperación manuales
++
+Cuando los archivos de registro de archivos necesarios no existen en el sistema de archivos activo, los administradores de la base de datos deben identificar qué backup contiene los archivos de registro de archivos, montar los backups de la base de datos y recuperar la base de datos restaurada. Este proceso requiere mucho tiempo.
+
+* Restricciones de espacio
++
+Cuando se crea un backup de la base de datos, los destinos de registro de archivos se llena, lo que hace que la base de datos no responda hasta que se crea espacio suficiente en el almacenamiento. En SnapManager (3.2 o posterior), se pueden quitar los archivos de registro de archivos del sistema de archivos activo para liberar espacio periódicamente.
+
+
+
+*Por qué son importantes las copias de seguridad de archivos de registro*
+
+Los archivos de registro de archivos son necesarios para avanzar la base de datos después de ejecutar una operación de restauración. Cada transacción en una base de datos Oracle se captura en los archivos archive log (si la base de datos está en el modo archive log). Los administradores de bases de datos pueden restaurar los backups de la base de datos con los archivos de registro de archivos.
+
+*Ventajas de las copias de seguridad archivvelog-only*
+
+* Proporciona una duración de retención independiente para backups de solo archivado
++
+Puede tener menos duración de retención para los backups de solo archivado que se requieren para la recuperación.
+
+* Protege los backups de solo archivado basados en políticas de protección de registros de archivos
++
+Puede seleccionar diferentes políticas de protección para backups de solo archivado en función de sus necesidades.
+
+* Mejora el rendimiento de la base de datos
+* Consolida los backups de registros de archivos
++
+SnapManager consolida los backups de registros de archivos cada vez que se realiza un backup liberando las copias de seguridad duplicadas de los registros de archivo.
+
+

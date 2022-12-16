@@ -1,0 +1,56 @@
+---
+permalink: unix-administration/reference-the-smosmsap-clone-splitestimate-command.html 
+sidebar: sidebar 
+keywords: command, enable, view, clone, split, storage, consume, estimate, smsap, split-estimate 
+summary: Este comando permite ver la cantidad de división de clones del almacenamiento consumido. 
+---
+= El comando smsap clone split-estimation
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este comando permite ver la cantidad de división de clones del almacenamiento consumido.
+
+
+
+== Sintaxis
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap clone split-estimate
+-profile _profile_
+[-host _hostname_\]
+[-label _clone-label_ | -id _clone-id_\]
+[-quiet | -verbose\]]
+----
+
+
+== Parámetros
+
+* `*-profile _profile_*`
++
+Especifica el nombre del perfil del clon.
+
+* `*-host _hostname_*`
++
+Especifica el nombre de host en el que existe el clon.
+
+* `*-label _clone-label_*`
++
+Especifica el nombre de etiqueta generado por el proceso de clonado.
+
+* `*_-id clone-id_*`
++
+Especifica el ID único generado por el proceso de clonado.
+
+* `*_-quiet_*`
++
+Muestra sólo mensajes de error en la consola. El valor predeterminado es mostrar mensajes de error y advertencia.
+
+* `*_-verbose_*`
++
+Muestra mensajes de error, advertencia e informativos en la consola.
+
+

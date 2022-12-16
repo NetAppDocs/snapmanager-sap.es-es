@@ -1,0 +1,74 @@
+---
+permalink: unix-administration/task-use-protection-manager-to-configure-a-secondary-backup-protection-policy.html 
+sidebar: sidebar 
+keywords: configure, configuring, backup, schedule, storage, administrator, protect, protection, manager, secondary, policy 
+summary: Después de configurar la programación de backup, el administrador de almacenamiento configura una normativa de almacenamiento de backup protegido en la que se incluirá dicha programación. 
+---
+= Use Protection Manager para configurar una política de protección de backups secundarios
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Después de configurar la programación de backup, el administrador de almacenamiento configura una normativa de almacenamiento de backup protegido en la que se incluirá dicha programación.
+
+*Lo que necesitará*
+
+Antes de configurar la normativa de protección, el administrador de almacenamiento le ofrece al partner DBA la siguiente información:
+
+* Duración de retención que se debe especificar para el almacenamiento secundario
+* Tipo de protección del almacenamiento secundario requerida
+
+
+*Acerca de esta tarea*
+
+La política de protección que se crea, puede figurar en SnapManager para SAP por el partner de administrador de bases de datos y asignarse a un perfil de base de datos para la protección de los datos.
+
+. Vaya a la Consola de gestión de NetApp de Protection Manager.
+. En la barra de menús, haga clic en *políticas* > *Protección* > *Descripción general*.
++
+Se muestra la pestaña Overview de la ventana Protection Policies.
+
+. Haga clic en *Agregar directiva* para iniciar el asistente *Agregar directiva de protección*.
+. Complete el asistente con los siguientes pasos:
++
+.. Especifique un nombre de política descriptivo.
++
+Para este ejemplo, introduzca *TechCo Payroll Data: Copia de seguridad* y una descripción y, a continuación, haga clic en *Siguiente*.
+
+.. Seleccione una política base.
++
+Para este ejemplo, seleccione *copia de seguridad* y haga clic en *Siguiente*.
+
+.. En la hoja de propiedades de la directiva del nodo *datos primarios*, acepte la configuración predeterminada y haga clic en *Siguiente*.
++
+
+NOTE: En este ejemplo, se aplica la programación de backup local configurada en SnapManager. Se ignora cualquier programación de backup local especificada con este método.
+
+.. En la hoja de propiedades de la conexión *datos primarios a copia de seguridad*, seleccione un programa de copia de seguridad.
++
+Para este ejemplo, seleccione *Payroll Saturday a la 1 AM más diariamente a las 7 PM* como su programa de copia de seguridad y, a continuación, haga clic en *Next*.
+
++
+En este ejemplo, la programación seleccionada incluye tanto las programaciones semanales como diarias que se configuraron anteriormente.
+
+.. En la hoja de propiedades *Política de copia de seguridad*, especifique el nombre del nodo de copia de seguridad y los tiempos de retención de copias de seguridad diarias, semanales o mensuales.
++
+Para este ejemplo, especifique una retención de backup diaria de 10 días y una retención de backup semanal de 52 semanas. Después de completar cada hoja de propiedades, haga clic en *Siguiente*.
+
++
+Una vez completadas todas las hojas de propiedades, el asistente para agregar directivas de protección muestra una hoja de resumen de la directiva de protección que desea crear.
+
+
+
+. Haga clic en *Finalizar* para guardar los cambios.
+
+
+*resultado*
+
+La política de protección de *TechCo Payroll Data: Backup* se incluye entre las demás políticas configuradas para Protection Manager.
+
+*Después de terminar*
+
+El partner de DBA puede ahora usar SnapManager para SAP para enumerar y asignar esta normativa al crear el perfil de base de datos para proteger los datos.

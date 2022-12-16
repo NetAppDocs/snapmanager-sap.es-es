@@ -1,0 +1,32 @@
+---
+permalink: windows/concept-deprecated-versions-of-oracle-database.html 
+sidebar: sidebar 
+keywords: oracle, database, 9i, support, snapmanager, 10gr2, deprecate, version 
+summary: 'SnapManager 3.2 o posterior no admite la base de datos Oracle 9i, y la base de datos Oracle 10gR2 (anterior a 10.2.0.4) no es compatible con SnapManager 3.3.1 o posterior.' 
+---
+= Versiones obsoletas de la base de datos Oracle
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager 3.2 o posterior no admite la base de datos Oracle 9i, y la base de datos Oracle 10gR2 (anterior a 10.2.0.4) no es compatible con SnapManager 3.3.1 o posterior.
+
+Si utiliza bases de datos de Oracle 9i o 10gR2 (anteriores a 10.2.0.4) y desea actualizar a SnapManager 3.2 o posterior, no puede crear perfiles nuevos; se muestra un mensaje de advertencia.
+
+Si utiliza bases de datos de Oracle 9i o 10gR2 (anteriores a 10.2.0.4) y desea actualizar a SnapManager 3.2 o una versión posterior, debe realizar una de las siguientes acciones:
+
+* Actualice las bases de datos de Oracle 9i o 10gR2 (anteriores a 10.2.0.4) a bases de datos de Oracle 10gR2 (10.2.0.5), 11gR1 o 11gR2 y, a continuación, actualice a SnapManager 3.2 o 3.3.
++
+Si va a actualizar a Oracle 12__c__, debe actualizar a SnapManager 3.3.1 o posterior.
+
++
+
+NOTE: La base de datos Oracle 12__c__ sólo se admite desde SnapManager 3.3.1.
+
+* Gestión de las bases de datos Oracle 9i mediante una versión de revisión de SnapManager 3.1.
++
+Puede utilizar SnapManager 3.2 o 3.3 si desea gestionar bases de datos Oracle 10gR2, 11gR1 o 11gR2 y utilizar SnapManager 3.3.1 o posterior si desea gestionar bases de datos Oracle 12__c__ junto con otras bases de datos compatibles.
+
+

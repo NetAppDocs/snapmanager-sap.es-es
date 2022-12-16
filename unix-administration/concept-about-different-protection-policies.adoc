@@ -1,0 +1,111 @@
+---
+permalink: unix-administration/concept-about-different-protection-policies.html 
+sidebar: sidebar 
+keywords: policies, policy, protect, backup, secondary, tertiary, storage, system, protection 
+summary: Puede seleccionar diferentes políticas para proteger los backups en los sistemas de almacenamiento secundario o terciario. 
+---
+= Acerca de diferentes políticas de protección
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede seleccionar diferentes políticas para proteger los backups en los sistemas de almacenamiento secundario o terciario.
+
+Si utiliza Data ONTAP en 7-Mode y SnapManager se integra con Protection Manager, debe seleccionar una de las siguientes políticas de protección al crear el perfil. La consola de gestión de Protection Manager proporciona plantillas para configurar políticas de protección de los conjuntos de datos. Aunque las políticas de protección de recuperación tras desastres se enumeran en la interfaz de usuario de SnapManager, estas políticas no son compatibles.
+
+[cols="1a,3a"]
+|===
+| Política | Descripción 
+
+
+ a| 
+Realice un backup
+ a| 
+Mediante SnapVault o SnapMirror, se realiza un backup de un conjunto de datos de forma local y también del almacenamiento principal al secundario.
+
+
+
+ a| 
+Realice copias de seguridad y, a continuación, haga mirroring
+ a| 
+Se realiza un backup de un conjunto de datos del almacenamiento primario al secundario mediante SnapVault o SnapMirror, y luego se crea mirroring en un partner de SnapMirror.
+
+
+
+ a| 
+Únicamente copias Snapshot locales
+ a| 
+Un conjunto de datos solo utiliza copias Snapshot locales en el almacenamiento principal.
+
+
+
+ a| 
+Replicación
+ a| 
+Un conjunto de datos se refleja del almacenamiento primario al secundario mediante SnapMirror.
+
+
+
+ a| 
+Mirroring y backup
+ a| 
+Mediante SnapMirror, un conjunto de datos se refleja del almacenamiento primario al secundario y, a continuación, se realiza un backup en el almacenamiento secundario mediante SnapVault o SnapMirror.
+
+
+
+ a| 
+Espejo y espejo
+ a| 
+Un conjunto de datos se refleja del almacenamiento principal al secundario en dos partners de SnapMirror distintos.
+
+
+
+ a| 
+Mirror, y, a continuación, backup
+ a| 
+Mediante SnapMirror, un conjunto de datos se refleja del almacenamiento principal al secundario y, posteriormente, se realiza un backup del mismo a un almacenamiento terciario mediante SnapVault o SnapMirror.
+
+
+
+ a| 
+Haga simetría y, a continuación, haga simetría
+ a| 
+Un conjunto de datos se refleja del almacenamiento primario al secundario mediante SnapMirror y, a continuación, se refleja en un partner de SnapMirror adicional.
+
+
+
+ a| 
+Sin protección
+ a| 
+Un conjunto de datos no tiene copias Snapshot, backups ni protección contra copias reflejadas de ningún tipo.
+
+
+
+ a| 
+Solo backup remoto
+ a| 
+Mediante SnapVault o SnapMirror, se realiza un backup de los datos en un sistema de almacenamiento de forma remota a un almacenamiento secundario. La aplicación con licencia no realiza backups locales en el almacenamiento primario. Esta política de protección se puede aplicar a sistemas de terceros con Open Systems SnapVault instalado.
+
+|===
+Si utiliza Clustered Data ONTAP, debe seleccionar una de las siguientes políticas de protección mientras crea el perfil.
+
+[cols="1a,1a"]
+|===
+| Política | Descripción 
+
+
+ a| 
+SnapManager_CDOT_Mirror
+ a| 
+Duplica el backup.
+
+
+
+ a| 
+SnapManager_CDOT_Vault
+ a| 
+Almacena la copia de seguridad.
+
+|===

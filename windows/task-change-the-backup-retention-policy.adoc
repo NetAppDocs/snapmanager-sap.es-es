@@ -1,0 +1,20 @@
+---
+permalink: windows/task-change-the-backup-retention-policy.html 
+sidebar: sidebar 
+keywords: change, property, properties, eligible, ineligible, deletion, retention, policy, change, backup 
+summary: Puede cambiar las propiedades de un backup para que sea elegible o inelegible para su eliminación de acuerdo con la política de retención. 
+---
+= Cambie la política de retención de backups
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede cambiar las propiedades de un backup para que sea elegible o inelegible para su eliminación de acuerdo con la política de retención.
+
+
+
+== Acerca de esta tarea
+
+Al crear un backup, se puede establecer su política de retención. Posteriormente, se puede optar por conservar el backup durante un período más largo del que permite la política de retención o especificar que ya no es necesario el backup y desea que la política de retención lo gestione.

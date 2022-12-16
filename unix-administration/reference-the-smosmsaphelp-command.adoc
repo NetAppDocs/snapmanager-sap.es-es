@@ -1,0 +1,50 @@
+---
+permalink: unix-administration/reference-the-smosmsaphelp-command.html 
+sidebar: sidebar 
+keywords: run, help, command, display, information, snapmanager, command, option, supply, valid, command, name, syntax, smsap 
+summary: Puede ejecutar el comando help para mostrar información acerca de los comandos de la SnapManager y sus opciones. Si no proporciona un nombre de comando, se muestra una lista de comandos válidos. Si proporciona un nombre de comando, muestra la sintaxis de ese comando. 
+---
+= El comando smsap help
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede ejecutar el `help` Comando para mostrar información acerca de los comandos de la SnapManager y sus opciones. Si no proporciona un nombre de comando, se muestra una lista de comandos válidos. Si proporciona un nombre de comando, muestra la sintaxis de ese comando.
+
+
+
+== Sintaxis
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap help
+[_backup_|_cmdfile_|_clone_|_credential_|_help_|_operation_|_profile_|_protection-policy_|_repository_|_system_|_version_|_plugin_|_diag_|_history_|_schedule_|_notification_|_storage_|_get_]]
+[-quiet | -verbose]]
+----
+
+
+== Parámetros
+
+A continuación se muestran algunos nombres de comandos que puede utilizar con este comando:
+
+* `backup`
+* `clone`
+* `cmdfile`
+* `credential`
+* `diag`
+* `get`
+* `notification`
+* `help`
+* `history`
+* `operation`
+* `plugin`
+* `profile`
+* `protection policy`
+* `repository`
+* `schedule`
+* `storage`
+* `system`
+* `version`
+

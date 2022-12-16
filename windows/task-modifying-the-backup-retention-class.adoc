@@ -1,0 +1,60 @@
+---
+permalink: windows/task-modifying-the-backup-retention-class.html 
+sidebar: sidebar 
+keywords: upgrading, upgrade, snapmanager, default, backup, retention, class, exist, modify 
+summary: Después de la actualización, SnapManager asigna la clase de retención de backup predeterminada a los backups existentes. Puede modificar los valores predeterminados de la clase de retención para cumplir sus requisitos de copia de seguridad. 
+---
+= Modificación de la clase de retención de backups
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Después de la actualización, SnapManager asigna la clase de retención de backup predeterminada a los backups existentes. Puede modificar los valores predeterminados de la clase de retención para cumplir sus requisitos de copia de seguridad.
+
+La clase de retención de copias de seguridad predeterminada asignada a las copias de seguridad existentes es la siguiente:
+
+|===
+| Tipo de backup | Asignación de clase de retención después de la actualización 
+
+
+ a| 
+Los backups se retienen siempre
+ a| 
+Ilimitada
+
+
+
+ a| 
+Otros backups
+ a| 
+Todos los días
+
+|===
+*Nota:* puede eliminar las copias de seguridad que se conservan para siempre sin cambiar la clase de retención.
+
+Si actualiza a SnapManager 3.0 o posterior, el valor mayor de los siguientes dos valores se asignará a los perfiles existentes:
+
+* Recuento de retención anterior para el perfil
+* Valores predeterminados para el recuento de retención y la duración de los backups diarios especificados en el archivo smSAP.config
++
+.. Modifique los valores asignados a retain.Hourly.count y retain.Hourly.Duration en el archivo smsap.config.
++
+El archivo smsap.config se encuentra en la ubicación/propiedades/smsap.config de instalación predeterminada.
+
++
+Puede introducir los siguientes valores:
+
++
+*** retain.hourly.count = 12
+*** retain.hourly.duration = 2
+
+
+
+
+
+
+*Información relacionada*
+
+xref:reference-snapmanager-configuration-parameters.adoc[Parámetros de configuración de SnapManager]

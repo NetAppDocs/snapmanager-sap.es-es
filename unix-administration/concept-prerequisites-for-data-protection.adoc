@@ -1,0 +1,33 @@
+---
+permalink: unix-administration/concept-prerequisites-for-data-protection.html 
+sidebar: sidebar 
+keywords: aware, certain, consideration, perform, data, protection 
+summary: Debe tener en cuenta ciertas consideraciones para realizar la protección de datos. 
+---
+= Aspectos que se deben tener en cuenta al realizar la protección de datos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe tener en cuenta ciertas consideraciones para realizar la protección de datos.
+
+* Para realizar operaciones de clonado o restauración desde sistemas secundarios, se debe montar el volumen de destino en el espacio de nombres y exportarlo correctamente.
+* Debe deshabilitar el parámetro SnapDrive Configuration `check-export-permission-nfs-clone` estableciendo el valor en `*off*`.
++
+La documentación de SnapDrive para UNIX en el sitio de soporte de NetApp contiene información adicional sobre `check-export-permission-nfs-clone` parámetro.
+
+* Debe configurar la relación de SnapMirror para los volúmenes de almacenamiento secundario solicitados en el sistema de almacenamiento secundario.
+* Debe configurar la relación de SnapVault para los qtrees de almacenamiento secundario solicitados en el sistema de almacenamiento secundario para Data ONTAP que funciona en 7-Mode.
+* Debe definir una política y reglas para la etiqueta de SnapMirror definida por el usuario si utiliza SnapVault post-script para Clustered Data ONTAP.
++
+La copia posterior de SnapVault es compatible con los volúmenes de Clustered Data ONTAP y los tipos de relación de SnapMirror DP y XDP. La documentación de ONTAP en el sitio de soporte de NetApp contiene información sobre la configuración de SnapMirror y SnapVault.
+
+* En entornos NAS, debe configurar la ruta de datos NAS primaria y secundaria mediante el `snapdrive config set -mgmtpath _management_path management_path management_path datapath_path_` comando.
++
+Por ejemplo: `*snapdrive config set -mgmtpath f3050-197-91 f3050-197-91 f3050-197-91 f3050-220-91*`, donde `f3050-197-91` es la ruta de gestión y. `f3050-220-91` es la ruta de datos.
+
+
+
+http://mysupport.netapp.com/["Documentación en el sitio de soporte de NetApp"^]

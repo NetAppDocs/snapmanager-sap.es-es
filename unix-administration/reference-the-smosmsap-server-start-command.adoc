@@ -1,0 +1,51 @@
+---
+permalink: unix-administration/reference-the-smosmsap-server-start-command.html 
+sidebar: sidebar 
+keywords: command, start, host, server, run, snapmanager, sap, software, smsap_server 
+summary: Este comando inicia el servidor host que ejecuta SnapManager para software SAP. 
+---
+= El comando start smsap_Server
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este comando inicia el servidor host que ejecuta SnapManager para software SAP.
+
+
+
+== Sintaxis
+
+[listing]
+----
+smsap_server start
+[-quiet | -verbose]
+----
+
+
+== Parámetros
+
+* `*-quiet*`
++
+Especifica que sólo se muestran mensajes de error en la consola. El valor predeterminado es mostrar mensajes de error y advertencia.
+
+* `*-verbose*`
++
+Especifica que los mensajes de error, advertencia e informativos se muestran en la consola.
+
+
+
+'''
+
+
+== Comando de ejemplo
+
+En el ejemplo siguiente se inicia el servidor host.
+
+[listing]
+----
+smsap_server start
+SMSAP-17100: SnapManager Server started on secure port 25204 with PID 11250
+----
+'''

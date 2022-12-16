@@ -1,0 +1,51 @@
+---
+permalink: windows/reference-the-smosmsap-server-status-command.html 
+sidebar: sidebar 
+keywords: run, smsap_server, smsap, server, status, command, snapmanager, host 
+summary: Puede ejecutar el comando smsap_Server status para ver el estado del servidor host SnapManager. 
+---
+= El comando smsap_Server status
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede ejecutar el `smsap_server status` Comando para ver el estado del servidor de host SnapManager.
+
+
+
+== Sintaxis
+
+[listing]
+----
+
+smsap_server status
+[-quiet | -verbose]
+----
+
+
+== Parámetros
+
+* *`-quiet`*
++
+Especifica que sólo se muestran mensajes de error en la consola. El valor predeterminado es mostrar mensajes de error y advertencia.
+
+* *`-verbose`*
++
+Especifica que los mensajes de error, advertencia e informativos se muestran en la consola.
+
+
+
+
+
+== Ejemplo
+
+En el siguiente ejemplo, se muestra el estado del servidor de host:
+
+[listing]
+----
+smsap_server status
+SMSAP-17104: SnapManager Server version 3.3.1 is running on secure port 25204 with PID 11250
+and has 0 operations in progress.
+----

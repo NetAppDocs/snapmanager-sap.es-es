@@ -1,0 +1,18 @@
+---
+permalink: windows/concept-clustered-configurations.html 
+sidebar: sidebar 
+keywords: snapmanager, operate, cluster, configuration 
+summary: SnapManager funciona en configuraciones de clúster. 
+---
+= Configuraciones en clúster
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager funciona en configuraciones de clúster.
+
+SnapManager es compatible con el mismo clúster de host y las mismas configuraciones que admite el producto SnapDrive y el kit de utilidades de host.
+
+SnapManager también admite configuraciones en clúster donde hay un solo host conectado a un único sistema de almacenamiento, clústeres de hosts compatibles y sistemas de almacenamiento que ejecutan recuperación tras fallos de controladora Data ONTAP.

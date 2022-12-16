@@ -1,0 +1,31 @@
+---
+permalink: unix-administration/concept-splitting-a-clone.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, split, manage, clone, exist, flexclone, technology, data, block, database 
+summary: SnapManager le permite dividir y gestionar un clon existente creado mediante la tecnología FlexClone. En la tecnología FlexClone, el clon y la base de datos original comparten los mismos bloques de datos físicos. 
+---
+= Dividir un clon
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager le permite dividir y gestionar un clon existente creado mediante la tecnología FlexClone. En la tecnología FlexClone, el clon y la base de datos original comparten los mismos bloques de datos físicos.
+
+Antes de ejecutar la operación de división de clones, puede saber que el tamaño estimado del clon se dividirá y el espacio requerido disponible en el agregado.
+
+SnapManager genera un nuevo perfil si la operación de división de clones se realiza correctamente. Si SnapManager no puede crear el nuevo perfil, puede crear manualmente un nuevo perfil. Puede utilizar el nuevo perfil para crear backups de bases de datos, restaurar datos y crear clones. Si la operación de división de clones se realiza correctamente, independientemente de si se crea el perfil nuevo o no, los metadatos relacionados con la clonado se eliminan de la base de datos del repositorio.
+
+Puede realizar las siguientes tareas relacionadas con la división de clones:
+
+* Ver la estimación de división de clones.
+* Divida un clon en un almacenamiento primario.
+* Divida un clon en un almacenamiento secundario.
+* Ver el estado de la operación de división de clones.
+* Detenga la operación de división de clones.
+* Destruir el perfil junto con el almacenamiento subyacente.
+* Elimine el perfil creado para un clon dividido.
+
+
+Cuando divide un clon de su volumen principal, se eliminan las copias Snapshot asociadas con el volumen clonado. No se pueden utilizar los backups creados para la base de datos clonada antes del proceso de división de clones porque las copias de Snapshot de estos backups se eliminan y los backups permanecen como entradas obsoletas en el repositorio.

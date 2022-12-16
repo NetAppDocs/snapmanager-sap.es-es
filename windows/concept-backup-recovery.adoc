@@ -1,0 +1,23 @@
+---
+permalink: windows/concept-backup-recovery.html 
+sidebar: sidebar 
+keywords: snapmanager, perform, restore, recover, operation, backup 
+summary: En SnapManager, se deben ejecutar las operaciones de restauración y recuperación al mismo tiempo. No se puede realizar una operación de restauración y, posteriormente, se puede realizar una operación de recuperación de SnapManager. 
+---
+= Recuperación de backups
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+En SnapManager, se deben ejecutar las operaciones de restauración y recuperación al mismo tiempo. No se puede realizar una operación de restauración y, posteriormente, se puede realizar una operación de recuperación de SnapManager.
+
+En SnapManager 3.2 o anterior, se puede utilizar SnapManager para restaurar y recuperar la copia de seguridad o utilizar SnapManager para restaurar la copia de seguridad y utilizar otra herramienta, como Oracle Recovery Manager (RMAN), para recuperar los datos. Puesto que SnapManager puede registrar sus copias de seguridad con RMAN, puede utilizar RMAN para restaurar y recuperar la base de datos con granularidades más finas como los bloques. Esta integración combina las ventajas de la velocidad y la eficiencia del espacio de las copias Snapshot con el nivel de control preciso para la restauración mediante RMAN.
+
+
+NOTE: Debe recuperar una base de datos antes de poder utilizarla. Puede utilizar cualquier herramienta o script para recuperar una base de datos.
+
+A partir de SnapManager 3.2 para SAP, SnapManager permite restaurar automáticamente los backups de bases de datos mediante los backups de registros de archivos. Incluso cuando los backups de registros de archivos están disponibles en la ubicación externa, SnapManager utiliza los backups de registros de archivos desde la ubicación externa para restaurar los backups de la base de datos.
+
+Si se agregan nuevos archivos de datos a la base de datos, Oracle recomienda realizar una nueva copia de seguridad inmediatamente. Además, si restaura una copia de seguridad realizada antes de agregar los nuevos archivos de datos e intenta recuperar a un punto después de agregar los nuevos archivos de datos, el proceso de recuperación automática de Oracle podría fallar, ya que no puede crear archivos de datos. Consulte la documentación de Oracle para conocer el proceso de recuperación de los archivos de datos agregados después de una copia de seguridad.

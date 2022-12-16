@@ -1,0 +1,35 @@
+---
+permalink: windows/task-configuring-e-mail-notification-for-an-existing-profile.html 
+sidebar: sidebar 
+keywords: updating, update, profile, configure, receive, email, notification, completion, database, operation, configuring, exist 
+summary: Al actualizar un perfil, puede configurar para recibir una notificación por correo electrónico al finalizar la operación de la base de datos. 
+---
+= Configuración de la notificación por correo electrónico para un perfil existente
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Al actualizar un perfil, puede configurar para recibir una notificación por correo electrónico al finalizar la operación de la base de datos.
+
+* Debe configurar la dirección de correo electrónico desde la cual se envían las alertas.
+* Debe introducir una sola dirección de correo electrónico o varias direcciones de correo electrónico a las que se enviarán las alertas.
++
+Puede usar una lista separada por comas para varias direcciones. Debe asegurarse de que no hay espacio entre la coma y la siguiente dirección de correo electrónico. Si lo desea, también puede añadir un asunto al correo electrónico.
+
++
+
+NOTE: Debe asegurarse de introducir el conjunto de varias direcciones de correo electrónico entre comillas dobles.
+
+
+
+.Paso
+. Introduzca el siguiente comando:
++
+`smsap profile update -profileprofile [-profile-passwordprofile_password][-database-dbnamedb_dbname-host db_host [-siddb_sid] [-login -usernamedb_username-password db_password-port db_port]] [{-rman{-controlfile | {-login  -usernamerman_username-password  rman_password-tnsname  rman_tnsname}}} | -remove-rman] [-retain [-hourly [-countn] [-durationm]] [-daily [-countn] [-durationm]] [-weekly [-countn] [-durationm]] [-monthly [-countn] [-durationm]]] [-commentcomment][-snapname-patternpattern][[ [ ]]| [[]] [-notification [-success-emailemail_address1,email_address2-subjectsubject_pattern] [-failure-emailemail_address1,email_address2-subjectsubject_pattern]]`
+
++
+La opción Success se puede utilizar para recibir una notificación únicamente sobre las operaciones de base de datos correctas y la opción Failure para recibir una notificación solo sobre las operaciones de base de datos fallidas.
+
+

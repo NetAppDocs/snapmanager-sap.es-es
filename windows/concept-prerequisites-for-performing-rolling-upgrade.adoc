@@ -1,0 +1,52 @@
+---
+permalink: windows/concept-prerequisites-for-performing-rolling-upgrade.html 
+sidebar: sidebar 
+keywords: perform, roll, upgrade, ensure, environment, requirement, prerequisite 
+summary: Antes de realizar una actualización gradual, debe asegurarse de que el entorno cumpla con ciertos requisitos. 
+---
+= Requisitos previos para realizar actualizaciones sucesivas
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de realizar una actualización gradual, debe asegurarse de que el entorno cumpla con ciertos requisitos.
+
+* Si utiliza cualquier versión anterior a SnapManager 3.1 y desea realizar una actualización gradual a SnapManager 3.3 o posterior, primero debe actualizar a la versión 3.2 y, después, a la última.
++
+Puede actualizar directamente de SnapManager 3.2 a SnapManager 3.3 o posterior.
+
+* Deben realizarse backups de los scripts externos que se usan para realizar cualquier protección de datos externa o retención de datos.
+* Debe instalarse la versión de SnapManager a la que desea actualizar.
++
+
+NOTE: Si va a actualizar desde cualquier versión anterior a SnapManager 3.1 a SnapManager 3.3 o posterior, primero debe instalar SnapManager 3.2 y realizar una actualización gradual. Después de actualizar a la versión 3.2, puede instalar SnapManager 3.3 o posterior y realizar otra actualización gradual a SnapManager 3.3 o posterior.
+
+* Debe instalarse la versión de SnapDrive para Windows compatible con la versión de SnapManager a la que desea actualizar.
++
+La documentación de SnapDrive contiene detalles sobre la instalación de SnapDrive.
+
+* Debe realizarse un backup de la base de datos del repositorio.
+* La cantidad de utilización de repositorio de SnapManager debe ser mínima.
+* Si el host que se va a actualizar utiliza un repositorio, no deben realizarse operaciones de SnapManager en los demás hosts que utilizan el mismo repositorio.
++
+Las operaciones que están programadas o en ejecución en los otros hosts esperan a que finalice la actualización gradual.
+
++
+
+NOTE: Se recomienda realizar una actualización gradual cuando el repositorio esté menos ocupado, como durante el fin de semana o cuando las operaciones no estén programadas.
+
+* Los perfiles que apuntan a la misma base de datos de repositorio deben crearse con nombres diferentes en los hosts de servidor SnapManager.
++
+Si utiliza perfiles con el mismo nombre, la actualización gradual que implica esa base de datos del repositorio falla sin previo aviso.
+
+* No deben realizarse operaciones de SnapManager en el host que se está actualizando.
+
+
+
+NOTE: La actualización gradual se ejecuta durante más tiempo a medida que aumenta el número de backups de los hosts que se van actualizando conjuntamente. La duración de la actualización puede variar según la cantidad de perfiles y backups asociados con un host determinado.
+
+*Información relacionada*
+
+http://mysupport.netapp.com/["Documentación en el sitio de soporte de NetApp: mysupport.netapp.com"^]

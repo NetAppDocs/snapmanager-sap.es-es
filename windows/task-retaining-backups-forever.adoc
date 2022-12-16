@@ -1,0 +1,25 @@
+---
+permalink: windows/task-retaining-backups-forever.html 
+sidebar: sidebar 
+keywords: specify, backup, ineligible, deletion, retention, policy, indefinite, retain, forever 
+summary: Puede especificar que una copia de seguridad no sea elegible para su eliminación por parte de la política de retención, con el fin de conservar el backup de forma indefinida. 
+---
+= Retención permanente de backups
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede especificar que una copia de seguridad no sea elegible para su eliminación por parte de la política de retención, con el fin de conservar el backup de forma indefinida.
+
+.Paso
+. Para especificar que una copia de seguridad se conserve sin límite, escriba el siguiente comando:
++
+`smsap backup update -profileprofile_name {-labellabel [data | -archivelogs] | -idid} -retain -unlimited`
+
+
+
+*Información relacionada*
+
+xref:reference-the-smosmsapbackup-update-command.adoc[El comando smsap backup update]

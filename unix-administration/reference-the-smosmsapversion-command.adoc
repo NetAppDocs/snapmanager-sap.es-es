@@ -1,0 +1,49 @@
+---
+permalink: unix-administration/reference-the-smosmsapversion-command.html 
+sidebar: sidebar 
+keywords: run, version, command, snapmanager, run, local, host, smsap 
+summary: Puede ejecutar el comando version para determinar qué versión de SnapManager va a ejecutar en el host local. 
+---
+= El comando smsap version
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede ejecutar el `version` Comando para determinar la versión de SnapManager que se ejecuta en el host local.
+
+
+
+== Sintaxis
+
+[listing]
+----
+smsap version
+[-quiet | -verbose]
+----
+
+
+== Parámetros
+
+* ``*-quiet*``
++
+Muestra sólo mensajes de error en la consola. El valor predeterminado es mostrar mensajes de error y advertencia.
+
+* ``*-verbose*``
++
+Muestra la fecha de creación y el contenido de cada perfil. También muestra mensajes de error, advertencia e informativos en la consola.
+
+
+
+
+
+== Ejemplo del comando version
+
+En el siguiente ejemplo, se muestra la versión de SnapManager:
+
+[listing]
+----
+smsap version
+SnapManager for SAP Version: 3.3.1
+----

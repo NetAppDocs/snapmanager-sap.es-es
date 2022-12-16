@@ -1,0 +1,60 @@
+---
+permalink: windows/concept-what-database-restore-is.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, perform, file-based, backup, restore, operation, database 
+summary: SnapManager permite ejecutar operaciones de backup y restauración basadas en archivos. 
+---
+= Qué es la restauración de base de datos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager permite ejecutar operaciones de backup y restauración basadas en archivos.
+
+En la siguiente tabla se describen los métodos de restauración:
+
+|===
+| Proceso de restauración | Detalles 
+
+
+ a| 
+Restauraciones basadas en archivos
+ a| 
+Restauración de sistema de archivos completo en el almacenamiento (desde el principal o el secundario): SnapManager realiza una restauración completa del número de unidad lógica (LUN).
+
+|===
+
+
+== Restauración de todo el sistema de archivos en el lado del almacenamiento
+
+Se realiza una restauración de sistema de archivos completo en el lado del almacenamiento cuando no es posible realizar una restauración de volumen, pero es posible restaurar todo el sistema de archivos en el sistema de almacenamiento.
+
+Cuando se realiza una restauración del sistema de archivos en el almacenamiento, se produce lo siguiente:
+
+* En un entorno SAN, todas las LUN utilizadas por el sistema de archivos (y el grupo de volúmenes subyacente, si las hubiera) se restauran en el sistema de almacenamiento.
+
+
+Cuando se realiza una restauración del sistema de archivos en el almacenamiento, se produce lo siguiente, según la ubicación del almacenamiento:
+
+* Cuando las restauraciones de SnapManager desde sistemas de almacenamiento primario, las LUN (SAN) se restauran in situ mediante SFSR.
+* Cuando SnapManager restaura de los sistemas de almacenamiento secundario, las LUN (SAN) se copian desde los sistemas de almacenamiento secundario al sistema de almacenamiento principal a través de la red.
+
+
+Como el sistema de archivos se restaura por completo, se revierten los archivos que no sean parte del backup. Se requiere una anulación si los archivos, que no forman parte de la restauración, se encuentran en el sistema de archivos que se está restaurando.
+
+
+
+== Restauración de archivos del lado del host
+
+Una restauración de copias DE archivos del lado del host se usa como último recurso en entornos SAN cuando no se puede realizar la restauración del sistema de archivos del lado del almacenamiento ni la restauración de archivos del lado del almacenamiento.
+
+Una restauración de copias de archivos del host implica las siguientes tareas:
+
+* Clonar el almacenamiento
+* Conectar el almacenamiento clonado al host
+* Copiar archivos de los sistemas de archivos clonados de nuevo en los sistemas de archivos activos
+* Desconectar el almacenamiento de clones del host
+* Eliminar el almacenamiento del clon
+

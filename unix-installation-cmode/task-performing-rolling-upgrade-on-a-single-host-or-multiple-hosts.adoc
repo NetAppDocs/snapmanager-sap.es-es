@@ -1,0 +1,108 @@
+---
+permalink: unix-installation-cmode/task-perform-rolling-upgrade-on-a-single-host-or-multiple-hosts.html 
+sidebar: sidebar 
+keywords: perform, roll, upgrade, single, multiple, snapmanager, server, host, command-line, interface, cli, manage 
+summary: 'Puede realizar la actualización gradual en un único o varios hosts de servidor SnapManager mediante la interfaz de línea de comandos (CLI). El host del servidor SnapManager actualizado se gestiona únicamente con la versión posterior de SnapManager.' 
+---
+= Realice la actualización gradual en un único host o en varios
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede realizar la actualización gradual en un único o varios hosts de servidor SnapManager mediante la interfaz de línea de comandos (CLI). El host del servidor SnapManager actualizado se gestiona únicamente con la versión posterior de SnapManager.
+
+
+
+== Lo que necesitará
+
+Debe asegurarse de que se hayan completado todos los requisitos previos para realizar la actualización gradual.
+
+.Pasos
+. Para realizar una actualización gradual en un solo host, introduzca el siguiente comando: `*smsap repository rollingupgrade -repository-dbname _repo_service_name_ -host _repo_host_ -login -username _repo_username_ -port _repo_port_ -upgradehost _host_with_target_database_ -force [-quiet | -verbose]*`
++
+*ejemplo*
+
++
+El siguiente comando realiza la actualización sucesiva de todas las bases de datos de destino montadas en Hosta y una base de datos de repositorio denominada REPOA ubicada en repo_host:
+
++
+[listing]
+----
+
+smsap repository rollingupgrade
+    -repository
+      -dbname repoA
+      -host repo_host
+      -login
+       -username repouser
+       -port 1521
+     -upgradehost hostA
+----
+. Para realizar una actualización gradual en varios hosts, introduzca el siguiente comando: `*smsap repository rollingupgrade -repository -dbname _repo_service_name_ -host _repo_host_ -login -username _repo_username_ -port _repo_port_ -upgradehost _host_with_target_database1_,_host_with_target_database2_ -force [-quiet | -verbose]*`
++
+
+NOTE: Para varios hosts, introduzca los nombres de hosts separados por una coma y asegúrese de no incluir espacio entre la coma y el siguiente nombre de host.Si utiliza una configuración RAC, debe actualizar manualmente todos los hosts asociados con RAC. Puede utilizar `-allhosts` para realizar la actualización gradual de todos los hosts.
+
++
+*ejemplo*
+
++
+El siguiente comando realiza la actualización sucesiva de todas las bases de datos de destino montadas en los hosts, Hosta y HostB y una base de datos de repositorio denominada REPOA ubicada en repo_host:
+
++
+[listing]
+----
+
+smsap repository rollingupgrade
+    -repository
+      -dbname repoA
+      -host repo_host
+      -login
+       -username repouser
+       -port 1521
+     -upgradehost hostA,hostB
+----
+. Para realizar una actualización gradual en todos los hosts de una base de datos de repositorio, introduzca el siguiente comando:
++
+`*smsap repository rollingupgrade -repository -dbname _repo_service_name_ -host _repo_host_ -login -username _repo_username_ -port _repo_port_ -allhosts -force [-quiet | -verbose]*`
+
++
+Después de actualizar correctamente la base de datos de repositorio, puede realizar todas las operaciones de SnapManager en la base de datos de destino.
+
++
+*ejemplo*
+
++
+El siguiente comando realiza la actualización sucesiva de todas las bases de datos de destino disponibles en una base de datos de repositorio denominada REPOA ubicada en repo_host:
+
++
+[listing]
+----
+
+smsap repository rollingupgrade
+    -repository
+      -dbname repoA
+      -host repo_host
+      -login
+       -username repouser
+       -port 1521
+      -allhosts
+----
+
+
+
+
+== Después de terminar
+
+* Si el servidor SnapManager se inicia automáticamente, debe reiniciar el servidor para garantizar que pueda ver las programaciones.
+* Si actualiza uno de los dos hosts relacionados, debe actualizar el segundo host después de actualizar el primero.
++
+Por ejemplo, si ha creado un clon del host A al host B o montado un backup del host A al host B, los hosts A y B están relacionados entre sí. Cuando se actualiza el host A, aparece un mensaje de advertencia en el que se le solicita actualizar el host B poco después de actualizar el host A.
+
++
+
+NOTE: Los mensajes de advertencia se muestran aunque el clon se elimina o el backup se desasocia del host B durante la actualización gradual del host A. Esto se debe a que existen metadatos en el repositorio para las operaciones realizadas en el host remoto.
+
+

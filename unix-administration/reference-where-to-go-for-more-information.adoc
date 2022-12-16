@@ -1,0 +1,67 @@
+---
+permalink: unix-administration/reference-where-to-go-for-more-information.html 
+sidebar: sidebar 
+keywords: information, basic, task, install, snapmanager, where, to, go 
+summary: Puede encontrar información sobre las tareas básicas relacionadas con la instalación y el uso de SnapManager. 
+---
+= Dónde obtener más información
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede encontrar información sobre las tareas básicas relacionadas con la instalación y el uso de SnapManager.
+
+[cols="2a,3a"]
+|===
+| Documentar | Descripción 
+
+
+ a| 
+Página de descripción de SnapManager
+ a| 
+Esta página proporciona información sobre SnapManager, los punteros a la documentación en línea y un enlace a la página de descarga de SnapManager, desde la cual se puede descargar el software.
+
+
+
+ a| 
+_Guía de configuración DE SAN Data ONTAP para 7-Mode_
+ a| 
+Este documento está disponible en http://mysupport.netapp.com/["Soporte de NetApp"^].
+
+Se trata de un documento dinámico online que contiene la información más actualizada sobre los requisitos para configurar un sistema en un entorno SAN. Contiene información detallada sobre sistemas de almacenamiento y plataformas de host, problemas de cableado, problemas de switch y configuraciones.
+
+
+
+ a| 
+Matriz de compatibilidad de SnapManager y SnapDrive
+ a| 
+Este documento está disponible en la sección interoperabilidad de http://mysupport.netapp.com/matrix["Herramienta de matriz de interoperabilidad"^].
+
+Se trata de un documento dinámico online que contiene la información más actualizada específica de SnapManager y sus requisitos de plataforma.
+
+
+
+ a| 
+Notas de la versión de SnapManager
+ a| 
+Este documento incluye SnapManager. También puede descargar una copia desde http://mysupport.netapp.com/["Soporte de NetApp"^].
+
+Contiene información de última hora que necesita para poner la configuración en funcionamiento sin problemas.
+
+
+
+ a| 
+Documentación sobre la conexión para host y los kits de soporte de NetApp
+ a| 
+http://mysupport.netapp.com/["Soporte de NetApp"^].
+
+
+
+ a| 
+Información del sistema operativo y de la base de datos del host
+ a| 
+Estos documentos proporcionan información acerca del sistema operativo del host y el software de la base de datos.
+
+|===

@@ -1,0 +1,173 @@
+---
+permalink: unix-administration/task-create-backup-schedules.html 
+sidebar: sidebar 
+keywords: schedule, backup, occur, frequency, suited, data, environment, creating, create 
+summary: Es posible programar un backup en el momento y la frecuencia que sean adecuados para sus datos y entorno. 
+---
+= Cree programaciones de backup
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Es posible programar un backup en el momento y la frecuencia que sean adecuados para sus datos y entorno.
+
+*Acerca de esta tarea*
+
+Desde SnapManager 3.2 para SAP, puede programar las copias de seguridad de los archivos de registro de archivos por separado. Sin embargo, debe utilizar el perfil que ha creado para separar los archivos de registro de archivos.
+
+Si programó los backups de los archivos de datos y los archivos de registro de archivos al mismo tiempo, SnapManager creará primero el backup de los archivos de datos.
+
+Si selecciona el intervalo de programación como `-onetimeonly`, todas las opciones de poda están disponibles. Si selecciona un intervalo de programación distinto de `-onetimeonly`, a continuación, las opciones de poda `-until-SCN` y.. `-until-date` no son compatibles y se muestra el siguiente mensaje de error: `The archive log pruning option you have specified, -until-scn or -until-date for the schedule interval hourly is invalid. Specify either the -onetimeonly option for the schedule interval, or prune the archive logs using any one of the option all, or -before {-months | -days | -weeks| -hours}.`
+
+Cuando se produce una conmutación por error en un entorno de multiprocesamiento de clústeres de alta disponibilidad (HACMP), debe reiniciar el servidor SnapManager para SAP para que la dirección de servicio (virtual) se asigne al host activo y las programaciones de SnapManager se ajusten al host SnapManager activo. Puede agregar esta información en las secuencias de comandos de conmutación por error de HACMP de preprocesamiento o después del procesamiento.
+
+
+NOTE: Si existe el mismo perfil y nombre de programación en otro repositorio, no se inicia la operación de programación de backup en ese repositorio. La operación se cerrará con el siguiente mensaje: `operation is already running`.
+
+.Paso
+. Introduzca el siguiente comando:
++
+`*smsap schedule create -profile _profile_name_ {[-full {-online | -offline | -auto}[-retain [-hourly | -daily | -weekly | -monthly | -unlimited] [-verify]] | [-data [-files _files_ [_files_]] | [-tablespaces _-tablespaces_ [_-tablespaces_]] {-online | -offline | -auto}[-retain [-hourly | -daily | -weekly | -monthly | -unlimited] [-verify]] | [-archivelogs]} [-comment _comment_] [-protect | -protectnow | -noprotect] [-backup-dest _path1_ [,[_path2_]] [-exclude-destpath1 [,path2]] [-prunelogs{-all | -untilSCN _untilSCN_ | -until-date _yyyy-MM-dd HH:mm:ss_ | -before {-months | -weeks | -days | -hours}} -prune-dest _prune_dest1,prune_dest2_] -schedule-name _schedule_name_ [-schedule-comment _schedule_comment_] -interval {_-hourly_ | _-daily_ | _-weekly_ | _-monthly_ | _-onetimeonly_} -cronstring _cronstring_ -start-time {_start-timestart_time <yyyy-MM-dd HH:mm>_} -runasuser _-runasuser_ [-force] [-taskspec _-taskspec_] [-quiet | -verbose]*`
+
++
+[cols="2a,4a"]
+|===
+| Si desea... | Realice lo siguiente... 
+
+
+ a| 
+*Programar una copia de seguridad de una base de datos en línea o sin conexión*
+ a| 
+Especifique `-offline` o. `-online` para programar un backup de la base de datos sin conexión o en línea. Si especifica las opciones mencionadas, no puede utilizar `-auto`.
+
+
+
+ a| 
+*Deje que SnapManager gestione la programación de una base de datos independientemente de si está en línea o sin conexión*
+ a| 
+Especifique `-auto`. Si especifica `-auto`, no puede utilizar `--offline` o. `-online`.
+
+
+
+ a| 
+*Programar una copia de seguridad de archivos de datos*
+ a| 
+Especifique `-data -files` para mostrar los archivos separados por comas. Por ejemplo, utilice los nombres de archivo f1,f2,f3.
+
+
+
+ a| 
+*Programar una copia de seguridad parcial de tablespaces específicos*
+ a| 
+Especifique `-tablespaces` para mostrar los tablespaces separados por comas. Por ejemplo, utilice ts1,ts2,ts3.
+
+
+
+ a| 
+*Programar copia de seguridad de archivos de registro de archivo*
+ a| 
+Especifique lo siguiente:
+
+** `-archivelogs` para programar la copia de seguridad de los archivos de registro de archivo
+** `-backup-dest` para programar los destinos de archivos de registro de archivos que se incluirán en el backup
+** `-exclude-dest` para programar los destinos de registro de archivos que se excluirán de la copia de seguridad
+
+
+
+
+ a| 
+*Especifique los valores de la clase de retención*
+ a| 
+Especifique `-retain` e indique si el backup debe conservarse según una de las siguientes clases de retención:
+
+** `-hourly`
+** `-daily`
+** `-weekly`
+** `-monthly`
+** `-unlimited`
+
+
+La configuración predeterminada de SnapManager es cada hora.
+
+
+
+ a| 
+*Programar la eliminación de archivos de registro de archivos*
+ a| 
+Especifique lo siguiente:
+
+** `-prunelogs` para comprimir los archivos de registro de archivo mientras se programa una copia de seguridad
+** `-prune-dest` para especificar el destino del registro de archivos a partir del cual se reducen los archivos de registro de archivos
+
+
+
+
+ a| 
+*Incluya un nombre para el horario*
+ a| 
+Especifique `-schedule-name`.
+
+
+
+ a| 
+*Programar copia de seguridad de la base de datos en un intervalo de tiempo específico*
+ a| 
+Especifique el `interval` y seleccione el intervalo de tiempo desde la siguiente, mediante el cual se deben crear los backups:
+
+** `-hourly`
+** `-daily`
+** `-weekly`
+** `-monthly`
+** `-onetimeonly`
+
+
+
+
+ a| 
+*Configurar un horario*
+ a| 
+Especifique `-cronstring` e incluya las siguientes siete subexpresiones que describen la opción individual:
+
+** 1 se refiere a segundos.
+** 2 se refiere a minutos.
+** 3 se refiere a horas.
+** 4 se refiere a un día en un mes.
+** 5 se refiere al mes.
+** 6 se refiere a un día en una semana.
+** *Opcional:* 7 se refiere al año.
+
+
+*Nota:* Si usted programó su copia de seguridad con diferentes horas en `-cronstring` y.. `-start-time`, luego la programación de la copia de seguridad se sobrescribe y activa por el `-start-time`.
+
+
+
+ a| 
+*Agregar un comentario sobre el programa de copia de seguridad*
+ a| 
+Especifique `-schedule-comment` seguido de la cadena de descripción.
+
+
+
+ a| 
+*Especifique la hora de inicio de la operación de programación*
+ a| 
+Especifique `-start-time` en el formato yyyy-mm-dd hh:mm.
+
+
+
+ a| 
+*Cambiar el usuario de la operación de copia de seguridad programada mientras se programa la copia de seguridad*
+ a| 
+Especifique `-runasuser`. La operación se ejecuta como el usuario (usuario raíz o usuario de Oracle) que creó la programación. Sin embargo, puede utilizar su propio ID de usuario si tiene credenciales válidas tanto para el perfil de base de datos como para el host.
+
+
+
+ a| 
+*Active una actividad de tareas previas o posteriores a la tarea de la operación de programación de copia de seguridad mediante el archivo XML de especificación de tareas previas y posteriores*
+ a| 
+Especifique el `-taskspec` Y proporcionar la ruta absoluta del archivo XML de especificación de tareas para realizar un preprocesamiento o una actividad de post-procesamiento antes o después de la operación de programación de copia de seguridad.
+
+|===
+

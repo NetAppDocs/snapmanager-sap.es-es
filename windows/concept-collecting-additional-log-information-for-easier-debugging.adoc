@@ -1,0 +1,43 @@
+---
+permalink: windows/concept-collecting-additional-log-information-for-easier-debugging.html 
+sidebar: sidebar 
+keywords: additional, log, debug, fail, snapmanager, operation, external, environment, variable, server.log.level, file, collect 
+summary: Si necesita registros adicionales para depurar una operación de SnapManager con errores, debe configurar una variable de entorno externa Server.log.level. Esta variable anula el nivel de registro predeterminado y vuelca todos los mensajes de registro del archivo de registro. Por ejemplo, puede cambiar el nivel de registro a DEBUG, lo que registra mensajes adicionales y puede ayudar en la depuración de problemas. 
+---
+= Recopilación de información de registro adicional para facilitar la depuración
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si necesita registros adicionales para depurar una operación de SnapManager con errores, debe configurar una variable de entorno externa `server.log.level`. Esta variable anula el nivel de registro predeterminado y vuelca todos los mensajes de registro del archivo de registro. Por ejemplo, puede cambiar el nivel de registro a DEBUG, lo que registra mensajes adicionales y puede ayudar en la depuración de problemas.
+
+Los registros de SnapManager se pueden encontrar en las siguientes ubicaciones:
+
+* `SnapManager_install_directory\log`
+
+
+Para anular el nivel de registro predeterminado, debe realizar los siguientes pasos:
+
+. Cree un `platform.override` Archivo de texto en el directorio de instalación de SnapManager.
+. Añada el `server.log.level` en la `platform.override` archivo de texto.
+. Asignar un valor (*_TRACE, DEBUG, INFO, WARN, ERROR, FATAL, o PROGRESO_*) al `server.log.level` parámetro.
++
+Por ejemplo, para cambiar el nivel de registro a _ERROR_, establezca el valor de `server.log.level` Para _ERROR_.
+
++
+`server.log.level=ERROR`
+
+. Reinicie el servidor SnapManager.
+
+
+
+NOTE: Si no se requiere la información del registro adicional, puede eliminar el `server.log.level` desde el `platform.override` archivo de texto.
+
+SnapManager gestiona el volumen de archivos de registro del servidor según los valores definidos por el usuario de los siguientes parámetros en la `smsap.config` archivo:
+
+* `log.max_log_files`
+* `log.max_log_file_size`
+* `log.max_rolling_operation_factory_logs`
+

@@ -1,0 +1,81 @@
+---
+permalink: windows/reference-the-smosmsapprofile-sync-command.html 
+sidebar: sidebar 
+keywords: command, profile-to-repository, map, repository, file, home, directory, local, host, smsap 
+summary: Este comando carga las asignaciones de perfil a repositorio para ese repositorio en un archivo del directorio inicial en el host local. 
+---
+= El comando smsap profile Sync
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este comando carga las asignaciones de perfil a repositorio para ese repositorio en un archivo del directorio inicial en el host local.
+
+
+
+== Sintaxis
+
+[listing]
+----
+
+smsap profile sync
+-repository
+-dbname repo_service_name
+-host repo_host
+-port repo_port
+-login
+-username repo_username
+[-quiet | -verbose]
+----
+
+
+== Parámetros
+
+* *`-repository`*
++
+Las opciones siguientes `-repository` especifique los detalles de la base de datos para el repositorio.
+
+* *`-dbname _repo_service_name_`*
++
+Especifica la base de datos del repositorio para el perfil que se va a sincronizar.
+
+* *`-host`*
++
+Especifica el host de la base de datos.
+
+* *`-port`*
++
+Especifica el puerto para el host.
+
+* *`-login`*
++
+Especifica el proceso de inicio de sesión para el usuario host.
+
+* *`-username`*
++
+Especifica el nombre de usuario para el host.
+
+* *`-quiet`*
++
+Muestra sólo mensajes de error en la consola. El valor predeterminado es mostrar mensajes de error y advertencia.
+
+* *`-verbose`*
++
+Muestra mensajes de error, advertencia e informativos en la consola.
+
+
+
+
+
+== Comando de ejemplo
+
+En el siguiente ejemplo se muestra el resultado del comando para sincronizar las asignaciones de perfil a repositorio de la base de datos.
+
+[listing]
+----
+smsap profile sync -repository -dbname smrepo -host Host2 -port 1521 -login -username user2
+SMSAP-12345 [INFO ]: Loading profile mappings for repository "user2@Host2:smrepo" into cache for OS User "admin".
+Operation Id [Nff8080810da9018f010da901a0170001] succeeded.
+----

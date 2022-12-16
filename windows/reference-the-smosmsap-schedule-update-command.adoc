@@ -1,0 +1,81 @@
+---
+permalink: windows/reference-the-smosmsap-schedule-update-command.html 
+sidebar: sidebar 
+keywords: command, update, schedule, backup, smsap 
+summary: Este comando actualiza la programación de una copia de seguridad. 
+---
+= El comando smsap schedule update
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este comando actualiza la programación de una copia de seguridad.
+
+
+
+== Sintaxis
+
+[listing]
+----
+
+smsap schedule update
+-profile profile_name
+-schedule-name schedule_name
+[-schedule-comment schedule_comment]
+-interval {-hourly | -daily | -weekly | -monthly | -onetimeonly}
+-cronstring cron_string
+-start-time {start_time <yyyy-MM-dd HH:mm>}
+-runasuser runasuser
+[-taskspec taskspec]
+-force
+[-quiet | -verbose]
+----
+
+
+== Parámetros
+
+* *`-profile _profile_name_`*
++
+Especifica el nombre del perfil relacionado con la base de datos que desea programar el backup. El perfil contiene el identificador de la base de datos y otra información de la base de datos.
+
+* *`-schedule-name _schedule_name_`*
++
+Especifica el nombre que se proporcionará para la programación.
+
+* *`-schedule-comment _schedule_comment_`*
++
+Especifica un comentario opcional que se va a describir acerca de la programación del backup.
+
+* *`-interval { -hourly | -daily | -weekly | -monthly | -onetimeonly}`*
++
+Indica el intervalo de tiempo mediante el cual se crean los backups. Se puede programar el backup cada hora, día, semana, mes o una sola vez.
+
+* *`-cronstring _cron_string_`*
++
+Especifica la programación del backup mediante cronstring. Las expresiones cron se utilizan para configurar instancias de CronTrigger. Las expresiones cron son cadenas que se componen de siete subexpresiones:
+
++
+** 1 se refiere a segundos
+** 2 se refiere a minutos
+** 3 se refiere a horas
+** 4 se refiere a un día en un mes
+** 5 se refiere al mes
+** 6 se refiere a un día en una semana
+** 7 se refiere al año (opcional)
+
+
+* *`-start-time _yyyy-MM-dd HH:mm_`*
++
+Especifica la hora de inicio de la operación de programación. La hora de inicio de la programación debe incluirse en el formato aaaa-MM-dd HH:mm.
+
+* *`-runasuser _runasuser_`*
++
+Especifica si se va a cambiar el usuario de la operación de backup programada mientras se programa el backup.
+
+* *`-taskspec _taskspec_`*
++
+Especifica el archivo XML de especificación de la tarea que se puede utilizar para la actividad de preprocesamiento o la actividad de posprocesamiento de la operación de copia de seguridad. Debe proporcionarse la ruta completa del archivo XML que proporciona el `-taskspec` opción.
+
+

@@ -1,0 +1,39 @@
+---
+permalink: windows/task-configure-e-mail-notification-for-an-existing-profile.html 
+sidebar: sidebar 
+keywords: update, profile, configure, receive, email, notification, completion, database, operation, exist 
+summary: Al actualizar un perfil, puede configurar para recibir una notificación por correo electrónico al finalizar la operación de la base de datos. 
+---
+= Configure la notificación por correo electrónico para un perfil existente
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Al actualizar un perfil, puede configurar para recibir una notificación por correo electrónico al finalizar la operación de la base de datos.
+
+
+
+== Lo que necesitará
+
+* Debe configurar la dirección de correo electrónico desde la cual se envían las alertas.
+* Debe introducir una sola dirección de correo electrónico o varias direcciones de correo electrónico a las que se enviarán las alertas.
++
+Puede usar una lista separada por comas para varias direcciones. Debe asegurarse de que no hay espacio entre la coma y la siguiente dirección de correo electrónico. Si lo desea, también puede añadir un asunto al correo electrónico.
+
++
+
+NOTE: Debe asegurarse de introducir el conjunto de varias direcciones de correo electrónico entre comillas dobles.
+
+
+
+.Paso
+. Introduzca el siguiente comando:
++
+`*smsap profile update -profile _profile_ [-profile-password _profile_password_][-database -dbname _db_dbname_ -host _db_host_ [-sid _db_sid_] [-login -username _db_username_ -password _db_password_ -port _db_port_]] [{-rman{-controlfile | {-login  -username _rman_username_ -password  _rman_password_ -tnsname  _rman_tnsname_}}} | -remove-rman] [-retain [-hourly [-count _n_] [-duration _m_]] [-daily [-count _n_] [-duration _m_]] [-weekly [-count _n_] [-duration _m_]] [-monthly [-count _n_] [-duration _m_]]] [-comment _comment_][-snapname-pattern _pattern_][[ [ ]]| [[]] [-notification [-success -email _email_address1_,_email_address2_ -subject _subject_pattern_] [-failure -email _email_address1_,_email_address2_ -subject _subject_pattern_]]*`
+
++
+Puede utilizar el `success` opción de recibir una notificación solo para las operaciones correctas de la base de datos y la `failure` opción de recibir una notificación solo para las operaciones de base de datos fallidas.
+
+

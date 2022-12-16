@@ -1,0 +1,85 @@
+---
+permalink: unix-installation-cmode/reference-smsap-isg-snapmanager-licensing.html 
+sidebar: sidebar 
+keywords: snapmanager, license, storage, system, license, require, enable, operation, license, per-server, database, per-storage 
+summary: 'Se requieren una licencia de SnapManager y varias licencias de sistema de almacenamiento para habilitar las operaciones de SnapManager. La licencia de SnapManager está disponible en dos modelos de licencia: Por servidor, en el que la licencia de SnapManager reside en cada host de bases de datos y en las licencias por sistema de almacenamiento, en las que la licencia de SnapManager reside en el sistema de almacenamiento.' 
+---
+= Licencias de SnapManager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Se requieren una licencia de SnapManager y varias licencias de sistema de almacenamiento para habilitar las operaciones de SnapManager. La licencia de SnapManager está disponible en dos modelos de licencia: _Por servidor y licencia_, en los que reside la licencia de SnapManager en cada host de bases de datos; y _por sistema de almacenamiento, licencia_, en los que reside la licencia de SnapManager en el sistema de almacenamiento.
+
+Los requisitos de licencia de SnapManager son los siguientes:
+
+|===
+| Licencia | Descripción | Donde se la requiere 
+
+
+ a| 
+SnapManager por servidor
+ a| 
+Una licencia del lado del host para un host de base de datos específico.las licencias solo se requieren para los hosts de base de datos en los que se ha instalado SnapManager. No se requiere ninguna licencia de SnapManager para el sistema de almacenamiento.
+ a| 
+En el host SnapManager. No se requiere una licencia de SnapManager en los sistemas de almacenamiento primarios y secundarios al usar la licencia por servidor.
+
+
+
+ a| 
+SnapManager por sistema de almacenamiento
+ a| 
+Una licencia del almacenamiento compatible con cualquier número de hosts de base de datos. Es obligatorio solo si no utiliza una licencia por servidor en el host de la base de datos.
+ a| 
+En sistemas de almacenamiento principales y secundarios
+
+
+
+ a| 
+SnapRestore
+ a| 
+Una licencia requerida que permite a SnapManager restaurar bases de datos.
+ a| 
+En sistemas de almacenamiento principal y secundario. Requerida en sistemas de destino de SnapMirror para realizar la verificación remota.
+
+Requerida en sistemas de destino de SnapVault para realizar la verificación remota y restaurar desde un backup
+
+
+
+ a| 
+FlexClone
+ a| 
+Una licencia opcional para clonar bases de datos.
+ a| 
+En sistemas de almacenamiento principal y secundario.requerida en sistemas de destino de SnapVault al crear clones a partir de un backup.
+
+
+
+ a| 
+SnapMirror
+ a| 
+Una licencia opcional para reflejar backups en un sistema de almacenamiento de destino.
+ a| 
+En sistemas de almacenamiento principales y secundarios
+
+
+
+ a| 
+SnapVault
+ a| 
+Una licencia opcional para archivar backups en un sistema de almacenamiento de destino.
+ a| 
+En sistemas de almacenamiento principales y secundarios
+
+
+
+ a| 
+Protocolos
+ a| 
+Se requieren licencias de NFS, iSCSI o FC en función del protocolo utilizado.
+ a| 
+En sistemas de almacenamiento principales y secundarios Requerida en sistemas de destino de SnapMirror para suministrar datos si un volumen de origen no se encuentra disponible
+
+|===

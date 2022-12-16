@@ -1,0 +1,14 @@
+---
+permalink: unix-installation-cmode/concept-upgrading-snapmanager-for-oracle-snapmanager-for-sap.html 
+sidebar: sidebar 
+keywords: upgrade, version, snapmanager, sap, host, roll, host-by-host, manner 
+summary: Puede actualizar a la última versión de SnapManager para SAP desde cualquiera de las versiones anteriores. Es posible actualizar todos los hosts SnapManager a la vez o realizar una actualización gradual, lo que permite actualizar los hosts de forma escalonada de host por host. 
+---
+= Actualizar SnapManager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede actualizar a la última versión de SnapManager para SAP desde cualquiera de las versiones anteriores. Es posible actualizar todos los hosts SnapManager a la vez o realizar una actualización gradual, lo que permite actualizar los hosts de forma escalonada de host por host.

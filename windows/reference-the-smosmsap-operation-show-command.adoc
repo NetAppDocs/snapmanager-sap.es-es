@@ -1,0 +1,63 @@
+---
+permalink: windows/reference-the-smosmsap-operation-show-command.html 
+sidebar: sidebar 
+keywords: run, operation, show, command, list, summary, information, profile, client, user, pc, smsap 
+summary: 'Puede ejecutar el comando operation show para mostrar la información de resumen de todas las operaciones realizadas en el perfil especificado. La salida muestra el usuario cliente (el usuario del PC cliente) y el usuario efectivo (el usuario de SnapManager que es válido en el host seleccionado).' 
+---
+= Comando smsap operation show
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede ejecutar el `operation show` comando para mostrar la información de resumen de todas las operaciones realizadas con el perfil especificado. La salida muestra el usuario cliente (el usuario del PC cliente) y el usuario efectivo (el usuario de SnapManager que es válido en el host seleccionado).
+
+
+
+== Sintaxis
+
+[listing]
+----
+
+smsap operation show
+-profile profile_name
+[-label label | -id id]
+[-quiet | -verbose]
+----
+
+
+== Parámetros
+
+* *`-profile _profile_name_`*
++
+Especifica el nombre del perfil. Este nombre puede tener hasta 30 caracteres y debe ser único dentro del host.
+
+* *`-label _label_`*
++
+Especifica la etiqueta de la operación.
+
+* *`-id _id_`*
++
+Especifica el identificador de la operación.
+
+* *`-quiet`*
++
+Opcional: Muestra solo mensajes de error en la consola. El valor predeterminado es mostrar mensajes de error y advertencia.
+
+* *`-verbose`*
++
+Opcional: Muestra mensajes de error, advertencia e informativos en la consola.
+
+
+
+
+
+== Ejemplo
+
+La siguiente línea de comandos muestra información detallada sobre una operación:
+
+[listing]
+----
+smsap operation show -id 8ac861781d0ac992011d0ac999680001  -profile CER
+----

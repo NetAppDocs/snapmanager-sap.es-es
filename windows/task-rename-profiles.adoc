@@ -1,0 +1,50 @@
+---
+permalink: windows/task-rename-profiles.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, rename, profile, update, capabilities, capability, perform, retain 
+summary: SnapManager le permite cambiar el nombre del perfil al actualizar el perfil. Las funcionalidades de SnapManager establecidas en el perfil y las operaciones que se pueden realizar antes de cambiar de nombre se conservan para el perfil cuyo nombre ha cambiado. 
+---
+= Cambiar el nombre de los perfiles
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager le permite cambiar el nombre del perfil al actualizar el perfil. Las funcionalidades de SnapManager establecidas en el perfil y las operaciones que se pueden realizar antes de cambiar de nombre se conservan para el perfil cuyo nombre ha cambiado.
+
+
+
+== Lo que necesitará
+
+* Debe asegurarse de que no haya operaciones SnapManager en ejecución en el perfil mientras cambia el nombre del perfil.
+
+
+
+
+== Acerca de esta tarea
+
+Es posible cambiar el nombre del perfil tanto en la interfaz de línea de comandos (CLI) de SnapManager como en la interfaz gráfica de usuario (GUI). Al actualizar el perfil, SnapManager verifica y actualiza el nombre del perfil en el repositorio.
+
+
+NOTE: SnapManager no admite cambiar el nombre del perfil en la ventana de actualización de varios perfiles.
+
+Cuando proporcione un nuevo nombre de perfil, el nuevo nombre de perfil se añadirá a la caché de credenciales del cliente y se eliminará el nombre del perfil anterior. Al cambiar el nombre del perfil desde un cliente, sólo se actualiza la caché de credenciales de ese cliente. Debe ejecutar el `smsap profile sync` comando de cada cliente para actualizar la nueva caché de credenciales con el nuevo nombre de perfil.
+
+Puede establecer la contraseña del perfil mediante `smsap credential set` comando.
+
+Si se incluyó el nombre de perfil en un patrón de nomenclatura de copias Snapshot, al cambiar el nombre de un perfil, se actualiza el nuevo nombre del perfil. Todas las operaciones SnapManager que se realizan en el perfil utilizan el nuevo nombre del perfil. Los backups creados con el perfil anterior siguen teniendo el nombre del perfil anterior y se usan para realizar otras operaciones de SnapManager.
+
+Si va a realizar la actualización gradual de los hosts del servidor SnapManager, debe asegurarse de realizar la actualización completa antes de cambiar el nombre del perfil.
+
+El nuevo nombre del perfil sólo se actualiza desde el cliente SnapManager desde el que se realiza la solicitud. Los clientes SnapManager conectados al servidor SnapManager no reciben notificaciones sobre el cambio en el nombre del perfil. Puede comprobar el registro de operaciones para conocer el cambio en el nombre del perfil.
+
+
+NOTE: Si una operación de backup programada comienza en el momento de cambiar el perfil, entonces se produce un error en la operación programada.
+
+.Paso
+. Introduzca el siguiente comando:
++
+`*smsap profile update -profile _profile_ [-new-profile _new_profile_name_]*`
+
+

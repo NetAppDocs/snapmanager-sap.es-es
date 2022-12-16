@@ -1,0 +1,19 @@
+---
+permalink: unix-administration/concept-why-you-should-prune-archive-log-files.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, delete, archive, log, file, active, system, back, up, prune 
+summary: SnapManager para SAP le permite eliminar archivos de registro de archivos del sistema de archivos activo de del que ya se ha realizado un backup. 
+---
+= Por qué debe prune los archivos de registro de archivos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager para SAP le permite eliminar archivos de registro de archivos del sistema de archivos activo de del que ya se ha realizado un backup.
+
+Eliminar permite a SnapManager crear backups de diferentes archivos de registro de archivos. Eliminar, junto con la política de retención de backups, libera espacio en los registros de archivos cuando se purgan los backups.
+
+
+NOTE: No es posible reducir los archivos de registro de archivos cuando el área de recuperación flash (FRA) está habilitada para los archivos de registro de archivos. Si especifica la ubicación del registro de archivos en el área de recuperación de flash, asegúrese de especificar también la ubicación del registro de archivos en el `archive_log_dest` parámetro.

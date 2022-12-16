@@ -1,0 +1,70 @@
+---
+permalink: unix-administration/concept-general-layout-and-configuration.html 
+sidebar: sidebar 
+keywords: recommend, general, database, layout, storage, configuration, help, avoid, issue, relate, disk, group, file, type, tablespace 
+summary: Conocer los diseños generales recomendados de las bases de datos y las configuraciones de almacenamiento puede ayudarle a evitar problemas relacionados con los grupos de discos, los tipos de archivos y los espacios de tablas. 
+---
+= Diseños generales de bases de datos y configuraciones de almacenamiento recomendados
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Conocer los diseños generales recomendados de las bases de datos y las configuraciones de almacenamiento puede ayudarle a evitar problemas relacionados con los grupos de discos, los tipos de archivos y los espacios de tablas.
+
+* No incluya archivos de más de un tipo de sistema de archivos SAN o administrador de volúmenes en la base de datos.
++
+Todos los archivos que conforman una base de datos deben residir en el mismo tipo de sistema de archivos.
+
+* SnapManager requiere un gran tamaño de bloque de 4 KB.
+* Incluya el identificador del sistema de la base de datos en la `oratab` archivo.
++
+Incluya una entrada en la `oratab` archivo para cada base de datos que se va a gestionar. SnapManager confía en el `oratab` Archivo para determinar qué directorio raíz de Oracle utilizar.
+
+
+
+Si desea aprovechar la nueva restauración basada en volúmenes o la restauración de grupos de discos completos, tenga en cuenta las siguientes directrices relacionadas con los sistemas de archivos y los grupos de discos:
+
+* Un grupo de discos que contiene archivos de datos no puede contener otros tipos de archivos.
+* El número de unidad lógica (LUN) para el grupo de discos de archivos de datos debe ser el único objeto del volumen de almacenamiento.
+
+
+A continuación se muestran algunas directrices para la separación de volúmenes:
+
+* Los archivos de datos de una sola base de datos deben estar en el volumen.
+* Debe utilizar volúmenes independientes para cada una de las siguientes clasificaciones de archivos: Archivos binarios de base de datos, archivos de datos, archivos redo log en línea, archivos redo log archivados y archivos de control.
+* No es necesario crear un volumen separado para los archivos de base de datos temporales, ya que SnapManager no realiza backups de archivos de base de datos temporales.
+
+
+SAP utiliza un diseño estándar para instalaciones de bases de datos Oracle. En este diseño, SAP coloca copias del archivo de control de Oracle en `E:\oracle\SID\origlogA, E:\oracle\SID\origlogB`, y. `E:\oracle\SID\sapdata1 file systems`.
+
+El archivo de control del sistema de archivos sapdata1 entra en conflicto con los requisitos de la SnapManager para separar los archivos de control y los archivos de datos en volúmenes separados y se debe ajustar para permitir una funcionalidad de restauración rápida.
+
+
+NOTE: Como los backups BR*Tools incluyen los perfiles Oracle y SAP ubicados en el subdirectorio DBS de la instalación de Oracle, la instalación de Oracle debe estar ubicada en el almacenamiento.
+
+En el caso de una nueva instalación, puede modificar la ubicación de los archivos de control utilizando SAPINST y mover el archivo de control normalmente colocado en el sistema de archivos sapdata1 a un sistema de archivos que no reside en el mismo volumen que los archivos de datos. (SAPINST es la herramienta que proporciona SAP para la instalación de sistemas SAP.)
+
+Sin embargo, en el caso de un sistema que ya se ha instalado, debe mover el archivo de control desde el sistema de archivos para permitir una restauración rápida mediante SnapManager. Para ello, cree un nuevo sistema de archivos en un volumen que no contenga archivos de datos, mueva el archivo de control a ese sistema de archivos y, a continuación, cree un enlace simbólico desde el sistema de archivos anterior al directorio del nuevo sistema de archivos. Es necesario detener SAP y Oracle Database al mover el archivo de control para evitar errores en la base de datos.
+
+Antes de realizar cualquier modificación, la lista de los archivos en el directorio sapdata1 que contiene el archivo de control podría tener este aspecto:
+
+[listing]
+----
+hostname:/
+#  ls -l /oracle/SID/sapdata1/cntrl
+-rw-r----- 1 orasid  dba  9388032 Jun 19 01:51 cntrlSID.dbf
+----
+Después de la modificación, el listado podría tener este aspecto:
+
+[listing]
+----
+hostname:/
+# ls -sl /oracle/SID/sapdata1
+0 lrwxrwxrwx 1 root root 19 2008-08-06 14:55 cntrl -> /oracle/SID/control
+0 -rw-r--r-- 1 root root 0 2008-08-06 14:57 data01.dbf
+
+# ls -sl /oracle/SID/control
+0 -rw-r--r-- 1 root root 0 2008-08-06 14:56 cntrlSID.dbf
+----

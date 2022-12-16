@@ -1,0 +1,35 @@
+---
+permalink: unix-administration/task-disable-email-notification-for-multiple-profiles.html 
+sidebar: sidebar 
+keywords: enable, summary, email, notification, multiple, profile, disable, receive, alert, disabling 
+summary: Después de activar la notificación de resumen por correo electrónico para varios perfiles, puede desactivarlos para que ya no reciban alertas por correo electrónico. 
+---
+= Desactive la notificación por correo electrónico para varios perfiles
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Después de activar la notificación de resumen por correo electrónico para varios perfiles, puede desactivarlos para que ya no reciban alertas por correo electrónico.
+
+*Acerca de esta tarea*
+
+SnapManager permite deshabilitar la notificación de resumen por correo electrónico para esas operaciones de la base de datos ejecutadas por perfil. Desde la CLI de SnapManager, introduzca el `notification remove-summary-notification` comando para deshabilitar la notificación por correo electrónico de resumen de varios perfiles y el nombre de la base de datos del repositorio para la cual no se requiere la notificación por correo electrónico.
+
+.Paso
+. Para deshabilitar la notificación de resumen de varios perfiles en una base de datos de repositorio, escriba el siguiente comando:
++
+`*smsap notification remove-summary-notification -repository -port _repo_port_ -dbname _repo_service_name_ -host _repo_host_ -login-username _repo_username_*`
+
+
+
+'''
+En el siguiente ejemplo se muestra la desactivación de la notificación de resumen para varios perfiles en una base de datos de repositorio:
+
+[listing]
+----
+
+smsap notification remove-summary-notification –repository –port 1521 –dbname repo2 –host 10.72.197.133 –login –username oba5
+----
+'''

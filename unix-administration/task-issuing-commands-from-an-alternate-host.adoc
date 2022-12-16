@@ -1,0 +1,25 @@
+---
+permalink: unix-administration/task-issue-commands-from-an-alternate-host.html 
+sidebar: sidebar 
+keywords: issue, cli, command, host, database, snapmanager, route, issuing, alternate 
+summary: Puede emitir comandos de la CLI desde un host distinto al host de la base de datos y SnapManager enrutará los comandos que introduzca al host adecuado. 
+---
+= Emita comandos desde un host alternativo
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede emitir comandos de la CLI desde un host distinto al host de la base de datos y SnapManager enrutará los comandos que introduzca al host adecuado.
+
+*Acerca de esta tarea*
+
+Para que el sistema pueda enviar una operación al host correcto, primero debe saber dónde encontrar el perfil para la operación. En este procedimiento, el sistema mantiene el perfil en la información de asignación de repositorios para un archivo en el directorio principal del usuario en el host local.
+
+.Paso
+. Para que el directorio principal del usuario local conozca las asignaciones de perfil a repositorio de modo que pueda enrutar la solicitud de operación, introduzca el siguiente comando:
++
+`*smsap profile sync -repository-dbname _repo_dbname_ -host _repo_host_ -port _repo_port_ -login-username _repo_username_ [-quiet | -verbose]*`
+
+

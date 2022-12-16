@@ -1,0 +1,33 @@
+---
+permalink: unix-administration/concept-advantages-and-disadvantages-of-using-fast-restore.html 
+sidebar: sidebar 
+keywords: dba, aware, advantage, disadvantage, volume-base, fast, restore, disadvantage 
+summary: Los administradores de bases de datos deben conocer las ventajas y desventajas que supone el uso de restauraciones rápidas basadas en volúmenes. 
+---
+= Ventajas e inconvenientes del uso de la restauración rápida
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Los administradores de bases de datos deben conocer las ventajas y desventajas que supone el uso de restauraciones rápidas basadas en volúmenes.
+
+La restauración de backups de base de datos mediante restauraciones rápidas ofrece las siguientes ventajas:
+
+* Las restauraciones basadas en volúmenes reducen el tiempo necesario para restaurar backups.
+* SnapManager ofrece comprobaciones rápidas de los requisitos para las restauraciones. SnapManager analiza el backup de la base de datos y muestra información sobre si puede ejecutar la restauración basada en volúmenes.
+* Puede obtener una vista previa de la operación de restauración y decidir si continuar con la ruta recomendada o anular la recomendación con el proceso seleccionado.
+
+
+La restauración de backups de base de datos mediante restauraciones rápidas presenta las siguientes desventajas:
+
+* Se revierte todo el sistema de archivos, incluidos los archivos que no se consideraron parte de la copia de seguridad. También se revierten otros archivos, sistemas de archivos o LUN del volumen.
+* SnapManager quita todas las copias Snapshot que se realizaron después de que la Snapshot a la que se está revirtiendo. De hecho, pierde el historial después de la fecha de la copia Snapshot. Por ejemplo, no puede restaurar la copia de seguridad del martes si ya ha restaurado la copia de seguridad del lunes.
+
+
+Puede evitar estas desventajas si sigue estas recomendaciones:
+
+* Optimice el diseño de la base de datos de acuerdo con prácticas recomendadas.
+* Proteger los backups en el almacenamiento secundario. Sin embargo, si elimina copias Snapshot del almacenamiento primario, no puede usar restauraciones rápidas para restaurarlas desde el almacenamiento secundario.
+

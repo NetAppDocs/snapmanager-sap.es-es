@@ -1,0 +1,102 @@
+---
+permalink: unix-administration/task-customize-e-mail-subject-for-a-new-profile.html 
+sidebar: sidebar 
+keywords: customize, email, subject, profile, create, customizing 
+summary: Puede personalizar el asunto del correo electrónico para el nuevo perfil cuando lo cree. 
+---
+= Personalice el asunto del correo electrónico para un perfil nuevo
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede personalizar el asunto del correo electrónico para el nuevo perfil cuando lo cree.
+
+Puede personalizar el asunto del correo electrónico utilizando el patrón \{profile}_\{operation-name}_\{dB-sid}_\{dB-host}_\{start-date}_\{end-date}_\{status} o bien introducir su propio texto.
+
+[cols="1a,3a,2a"]
+|===
+| Nombre de la variable | Descripción | Valor de ejemplo 
+
+
+ a| 
+`_profile_`
+ a| 
+Nombre de perfil utilizado para la operación de base de datos
+ a| 
+PROF1
+
+
+
+ a| 
+`_operation-name_`
+ a| 
+Nombre de la operación de base de datos
+ a| 
+Backup, copia de seguridad de datos, copia de seguridad de registros de datos y archivos
+
+
+
+ a| 
+`_db-sid_`
+ a| 
+SID de la base de datos
+ a| 
+DB1
+
+
+
+ a| 
+`_db-host_`
+ a| 
+Nombre del servidor host
+ a| 
+Hosta
+
+
+
+ a| 
+`_start-date_`
+ a| 
+La hora de inicio de la operación de la base de datos en el formato mdd:hh:ss yyyy
+ a| 
+Abril 27 21:00:45 PST 2012
+
+
+
+ a| 
+`_end-date_`
+ a| 
+Hora de finalización de la operación de la base de datos en el formato mdd:hh:ss yyyy
+ a| 
+Abril 27 21:10:45 PST 2012
+
+
+
+ a| 
+`_status_`
+ a| 
+Estado de la operación de base de datos
+ a| 
+Correcto
+
+|===
+Si no se proporciona ningún valor para las variables, SnapManager muestra el siguiente mensaje de error: `Missing value(s) -subject.`
+
+. Introduzca el siguiente comando:
++
+`*smsap profile create -profile _profile_ [-profile-password _profile_password_] -repository -dbname _repo_service_name_ -host _repo_host_ -portrepo_port-login -username _repo_username_ -database -dbname _db_dbname_ -host _db_host_ [-sid _db_sid_] [-login -username _db_username_ -password _db_password_ -port _db_port_] [-rman {-controlfile | {-login-username _rman_username_ -password _rman_password_ -tnsname _rman_tnsname_} } ] -osaccount _osaccount_ -osgroup _osgroup_ [-retain [-hourly [-count _n_] [-duration _m_]] [-daily [-count _n_] [-duration _m_]] [-weekly [-count _n_] [-duration _m_]] [-monthly [-count _n_] [-duration _m_]]] [-comment _comment_][-snapname-pattern _pattern_][-protect [-protection-policy _policy_name_]] [-notification [-success -email _email_address1,email_address2_ -subject _subject_pattern_] [-failure -email _email_address1,email_address2_ -subject _subject_pattern_]]*`
+
+
+
+'''
+A continuación se muestra un ejemplo que muestra el patrón del asunto del correo electrónico:
+
+[listing]
+----
+
+smsap profile create -profile sales1 -profile-password admin1 -repository -dbname repo2 -host 10.72.197.133 -port 1521 -login -username admin2 -database -dbname DB1 -host 10.72.197.142 -sid DB1
+-osaccount oracle -osgroup dba -profile-notification -success -email admin@org.com -subject {profile}_{operation-name}_{db-sid}_{db-host}_{start-date}_{end-date}_{status}
+----
+'''

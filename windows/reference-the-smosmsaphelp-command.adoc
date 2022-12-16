@@ -1,0 +1,50 @@
+---
+permalink: windows/reference-the-smosmsaphelp-command.html 
+sidebar: sidebar 
+keywords: run, help, command, display, information, snapmanager, option, name, syntax, smsap 
+summary: Puede ejecutar el comando help para mostrar información acerca de los comandos de la SnapManager y sus opciones. Si no proporciona un nombre de comando, se muestra una lista de comandos válidos. Si proporciona un nombre de comando, muestra la sintaxis de ese comando. 
+---
+= El comando smsap help
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede ejecutar el `help` Comando para mostrar información acerca de los comandos de la SnapManager y sus opciones. Si no proporciona un nombre de comando, se muestra una lista de comandos válidos. Si proporciona un nombre de comando, muestra la sintaxis de ese comando.
+
+
+
+== Sintaxis
+
+[listing]
+----
+
+smsap help
+[][backup|cmdfile|clone|credential|help|operation|profile|repository|system|version|plugin|diag|history|schedule|notification|storage|get]
+[-quiet | -verbose]
+----
+
+
+== Parámetros
+
+A continuación se muestran algunos nombres de comandos que puede utilizar con este comando:
+
+* `backup`
+* `clone`
+* `cmdfile`
+* `credential`
+* `diag`
+* `get`
+* `notification`
+* `help`
+* `history`
+* `operation`
+* `plugin`
+* `profile`
+* `repository`
+* `schedule`
+* `storage`
+* `system`
+* `version`
+

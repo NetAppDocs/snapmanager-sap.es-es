@@ -1,0 +1,40 @@
+---
+permalink: unix-administration/concept-how-to-collect-dump-files.html 
+sidebar: sidebar 
+keywords: dump, snapmanager, command, collect, file, successful, fail, operation 
+summary: Es posible incluir -dump en el comando SnapManager para recoger los archivos de volcado después de una operación de SnapManager correcta o con errores. 
+---
+= Cómo recopilar archivos de volcado
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede incluir `-dump` En el comando SnapManager para recoger los archivos de volcado después de una operación SnapManager correcta o con errores.
+
+Es posible recoger archivos de volcado para las siguientes operaciones de SnapManager:
+
+* Creación de perfiles
+* Actualizando perfiles
+* Crear backups
+* Verificación de backups
+* Eliminar backups
+* Liberando backups
+* Montar backups
+* Desmontaje de backups
+* Restaurar backups
+* Crear clones
+* Eliminar clones
+* Dividir clones
+
+
+
+NOTE: Al crear un perfil, puede recopilar archivos de volcado sólo si la operación se realiza correctamente. Si se produce un error al crear un perfil, debe utilizar `smsap system dump` comando. Para perfiles correctos, puede utilizar `smsap operation dump` y.. `smsap profile dump` comandos para recoger los archivos de volcado.
+
+*ejemplo*
+
+[listing]
+----
+ smsap backup create -profile targetdb1_prof1 -auto -full -online -dump
+----

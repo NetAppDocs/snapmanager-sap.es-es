@@ -1,0 +1,78 @@
+---
+permalink: windows/concept-considerations-for-cloning-a-database-to-an-alternate-host.html 
+sidebar: sidebar 
+keywords: clone, host, database, reside, requirement, consideration, clone, alternate 
+summary: Para poder clonar en un host distinto al que reside la base de datos, deben cumplirse algunos requisitos. 
+---
+= Consideraciones para clonar una base de datos en un host alternativo
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Para poder clonar en un host distinto al que reside la base de datos, deben cumplirse algunos requisitos.
+
+En la siguiente tabla se muestran los requisitos de configuración del host de origen y de destino:
+
+|===
+| Requisitos previos de configuración | Requisito 
+
+
+ a| 
+Arquitectura
+ a| 
+Debe ser igual en los hosts de origen y objetivo
+
+
+
+ a| 
+Sistema operativo y versión
+ a| 
+Debe ser igual en los hosts de origen y objetivo
+
+
+
+ a| 
+SnapManager para SAP
+ a| 
+Se debe instalar y ejecutar en los hosts de origen y objetivo
+
+
+
+ a| 
+Credenciales
+ a| 
+Se debe configurar para que el usuario acceda al host de destino
+
+
+
+ a| 
+Oracle
+ a| 
+Se debe instalar la misma versión de software en los hosts de origen y destino.
+
+Oracle Listener debe ejecutarse en el host de destino.
+
+
+
+ a| 
+Pila de almacenamiento compatible
+ a| 
+Debe ser igual en los hosts de origen y objetivo
+
+
+
+ a| 
+Protocolo utilizado para acceder a los archivos de datos
+ a| 
+Debe ser igual en los hosts de origen y objetivo
+
+
+
+ a| 
+Dominio
+ a| 
+Tanto el host remoto como el host en el que reside la base de datos deben estar en el dominio y no en el grupo de trabajo
+
+|===

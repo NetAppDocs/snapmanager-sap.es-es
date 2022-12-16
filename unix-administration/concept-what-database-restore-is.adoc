@@ -1,0 +1,135 @@
+---
+permalink: unix-administration/concept-what-database-restore-is.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, volume-based, file-based, backup, restore, operation, database, restore 
+summary: SnapManager permite realizar operaciones de backup y restauración basadas en volúmenes o archivos. 
+---
+= Qué es la restauración de base de datos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager permite ejecutar operaciones de backup y restauración basadas en archivos orbasadas en volúmenes.
+
+En la siguiente tabla se describen los métodos de restauración:
+
+[cols="1a,3a"]
+|===
+| Proceso de restauración | Detalles 
+
+
+ a| 
+Restauraciones rápidas basadas en volúmenes (desde el almacenamiento primario)
+ a| 
+SnapManager restaura los archivos de datos de una base de datos mediante la restauración de un volumen completo. Este proceso predeterminado es el método más rápido para restaurar la base de datos.
+
+
+
+ a| 
+Restauraciones basadas en archivos
+ a| 
+Restauración de sistema de archivos completo en el almacenamiento (desde el principal o el secundario): SnapManager realiza una restauración completa del número de unidad lógica (LUN).
+
+
+
+ a| 
+Restauración de archivos del lado del almacenamiento: SnapManager realiza una restauración de snap de archivos única (SFSR) en un entorno NAS. En SFSR, se restaura cada uno de los archivos o LUN que representan los objetos protegidos.
+
+
+
+ a| 
+Restauración de copias de archivos del lado del host (desde el principal o secundario): SnapManager clona el backup local con una LUN o un FlexClone. El clon se monta y, a continuación, SnapManager copia los archivos host del clon en el sistema de archivos activo.
+
+|===
+
+NOTE: No es posible restaurar un backup desde el almacenamiento secundario si el backup también existe en el almacenamiento principal.
+
+Cuando se completa la operación de restauración rápida, SnapManager realiza las siguientes tareas:
+
+* Libera backups más recientes (que se toman después de la restauración del backup) en el mismo perfil, ya que sus copias Snapshot ya no existen en el almacenamiento principal.
+* Elimina todas las copias Snapshot para backups del mismo perfil que tenía cualquier copia Snapshot eliminada automáticamente por el proceso de restauración rápida.
++
+Esto evita que los backups se liberen parcialmente. Por ejemplo, primero se creó Backup_A y, a continuación, se creó Backup_B. Cada uno tiene una copia snapshot para los archivos de datos y uno para los registros de archivos. Una vez que SnapManager restaura Backup_A mediante el proceso de restauración rápida, SnapManager elimina automáticamente la copia snapshot de los archivos de datos de Backup_B. Dado que el registro de archivos no se restaura en el proceso de restauración rápida, SnapManager debe eliminar la copia Snapshot de los registros de archivos de Backup_B una vez completado el proceso de restauración rápida.
+
+
+
+
+
+== Restauración rápida
+
+La restauración rápida o la restauración basada en volúmenes se denominan porque es el método de restauración más rápido posible. Todo el volumen del sistema de almacenamiento vuelve a una copia Snapshot. En el nivel de almacenamiento, esta restauración es casi instantánea. No obstante, al restaurar un volumen, se pueden producir las siguientes consecuencias negativas y, por lo tanto, se debe usar con precaución:
+
+* Se revierte todo el volumen en el lado del almacenamiento, incluidos los siguientes:
++
+** Archivos que no se consideraron como parte de la copia de seguridad
+** Otros archivos, sistemas de archivos o LUN en el volumen
+
+
+* Se eliminan todas las copias Snapshot que se crearon después de la copia Snapshot en la que se revierte el volumen.
++
+Por ejemplo, ya no puede restaurar el backup del martes si el backup del lunes fue restaurado.
+
+* Las relaciones con los sistemas de almacenamiento secundario se interrumpen si la copia Snapshot restaurada es más antigua que la copia Snapshot básica de la relación.
+
+
+
+
+== Restauración de todo el sistema de archivos en el lado del almacenamiento
+
+Se realiza una restauración de sistema de archivos completo en el lado del almacenamiento cuando no es posible realizar una restauración de volumen, pero es posible restaurar todo el sistema de archivos en el sistema de almacenamiento.
+
+Cuando se realiza una restauración del sistema de archivos en el almacenamiento, se produce lo siguiente:
+
+* En un entorno SAN, todas las LUN utilizadas por el sistema de archivos (y el grupo de volúmenes subyacente, si las hubiera) se restauran en el sistema de almacenamiento.
+* En un entorno NAS, todos los archivos del sistema de archivos se restauran en el sistema de almacenamiento.
++
+En los entornos NAS, este mecanismo de restauración no proporciona ventajas adicionales con respecto a la restauración de archivos del almacenamiento.
+
+
+
+Cuando se realiza una restauración del sistema de archivos en el almacenamiento, se produce lo siguiente, según la ubicación del almacenamiento:
+
+* Cuando las restauraciones de SnapManager desde sistemas de almacenamiento primario, se restauran las LUN (SAN) o los archivos (NAS) mediante SFSR.
+* Cuando SnapManager restaura desde sistemas de almacenamiento secundario, los LUN (SAN) o los archivos (NAS) se copian desde los sistemas de almacenamiento secundario de vuelta al sistema de almacenamiento primario a través de la red.
+
+
+Como el sistema de archivos se restaura por completo, se revierten los archivos que no sean parte del backup. Se requiere una anulación si los archivos, que no forman parte de la restauración, se encuentran en el sistema de archivos que se está restaurando.
+
+
+
+== Restauración de archivos del lado del almacenamiento
+
+En ocasiones, se realiza una restauración de archivos en el lado del almacenamiento cuando no se puede realizar una restauración del sistema de archivos en el lado del almacenamiento. En una restauración de archivos del almacenamiento, los archivos individuales de un sistema de archivos se restauran directamente en los sistemas de almacenamiento.
+
+Este tipo de restauración solo se puede realizar en entornos NFS o, en ciertos casos, en entornos ASM.
+
+Cuando se realiza una restauración de archivos en el almacenamiento, se produce lo siguiente:
+
+* Cuando SnapManager restaura archivos NFS de sistemas de almacenamiento primario, se restauran los archivos individuales mediante SFSR.
+* Cuando SnapManager restaura archivos NFS desde sistemas de almacenamiento secundario, los archivos individuales se vuelven a copiar en el sistema de almacenamiento primario a través de la red de almacenamiento.
+
+
+
+
+== Restauración de archivos del lado del host
+
+Una restauración de copias de archivos en el lado del host se usa como último recurso en entornos SAN cuando no se pueden realizar restauraciones rápidas, restauraciones del sistema de archivos en el lado del almacenamiento y restauración de archivos en el lado del almacenamiento.
+
+Una restauración de copias de archivos del host implica las siguientes tareas:
+
+* Clonar el almacenamiento
+* Conectar el almacenamiento clonado al host
+* Copiar archivos de los sistemas de archivos clonados de nuevo en los sistemas de archivos activos
+* Desconectar el almacenamiento de clones del host
+* Eliminar el almacenamiento del clon
+
+
+Cuando se restaura desde el almacenamiento secundario, SnapManager intenta primero restaurar los datos directamente desde el sistema de almacenamiento secundario al sistema de almacenamiento primario (sin afectar el host). Si SnapManager no puede realizar este tipo de restauración (por ejemplo, si los archivos no forman parte de la restauración existen en un sistema de archivos), SnapManager realizará una restauración de copia de archivos del lado del host. SnapManager tiene dos métodos para realizar una restauración de copia de archivos en el lado del host desde el almacenamiento secundario. El método SnapManager selecciona se configura en la `smsap.config` archivo.
+
+* Directo: SnapManager clona los datos del almacenamiento secundario, monta los datos clonados del sistema de almacenamiento secundario en el host, y después copia los datos del clon en el entorno activo. Esta es la directiva de acceso secundaria predeterminada.
+* Indirecto: SnapManager copia primero los datos en un volumen temporal del sistema de almacenamiento primario y, a continuación, monta los datos del volumen temporal en el host y, a continuación, copia los datos del volumen temporal en el entorno activo. Esta normativa de acceso secundario se debe utilizar solo si el host no tiene acceso directo al sistema de almacenamiento secundario. Las restauraciones mediante este método tardan el doble de tiempo que la normativa de acceso secundario directo, ya que se realizan dos copias de los datos.
+
+
+La decisión de utilizar el método directo o indirecto se controla mediante el valor del `restore.secondaryAccessPolicy` en la `smsap.config` archivo de configuración. El valor predeterminado es directa.

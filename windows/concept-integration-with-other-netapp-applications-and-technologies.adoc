@@ -1,0 +1,62 @@
+---
+permalink: windows/concept-integration-with-other-netapp-applications-and-technologies.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, stand-alone, product, integrate, feature, netapp, enable, backup, amount, space, integration, application, technology, technologies 
+summary: SnapManager para SAP es un producto independiente que integra las funciones de otros productos de NetApp para permitir backups rápidos que requieren sólo una pequeña cantidad de espacio. 
+---
+= Integración con otras aplicaciones y tecnologías de NetApp
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager para SAP es un producto independiente que integra las funciones de otros productos de NetApp para permitir backups rápidos que requieren sólo una pequeña cantidad de espacio.
+
+SnapManager se integra con las siguientes aplicaciones y tecnologías de NetApp:
+
+|===
+| Aplicaciones y tecnologías | Descripción 
+
+
+ a| 
+SnapDrive
+ a| 
+SnapManager utiliza SnapDrive para crear copias Snapshot del almacenamiento. Las copias Snapshot garantizan que los backups ocupan poco espacio y son más rápidos que los backups de disco a disco.
+
+
+
+ a| 
+FlexClone (una función con licencia de Data ONTAP)
+ a| 
+SnapManager utiliza la función FlexClone para crear clones de backups con rapidez y gestión eficiente del espacio.
+
+
+
+ a| 
+Snapshot (una función de Data ONTAP)
+ a| 
+La tecnología Snapshot crea copias puntuales de la base de datos.
+
+
+
+ a| 
+SnapRestore (función con licencia de Data ONTAP)
+ a| 
+SnapManager reduce el tiempo medio de recuperación de una base de datos mediante SnapRestore. SnapRestore puede recuperar archivos independientes en un volumen de varios terabytes para que las operaciones se puedan reanudar rápidamente.
+
+
+
+ a| 
+SnapVault (función con licencia de Data ONTAP)
+ a| 
+SnapVault aprovecha los backups basados en disco para realizar backups y recuperaciones de bases de datos fiables y de baja sobrecarga.
+
+
+
+ a| 
+SnapMirror (función con licencia de Data ONTAP)
+ a| 
+SnapMirror replica los datos de bases de datos a alta velocidad a través de una red global de forma sencilla, fiable y rentable.
+
+|===

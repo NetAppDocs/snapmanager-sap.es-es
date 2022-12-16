@@ -1,0 +1,68 @@
+---
+permalink: windows/reference-the-smosmsapoperation-dump-command.html 
+sidebar: sidebar 
+keywords: run, operation, dump, command, jar, file, diagnostic, information, smsap 
+summary: Puede ejecutar el comando operation dump para crear un archivo JAR que contenga información de diagnóstico acerca de una operación. 
+---
+= El comando dump de operación smsap
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede ejecutar el `operation dump` Comando para crear un archivo JAR que contenga información de diagnóstico acerca de una operación.
+
+
+
+== Sintaxis
+
+[listing]
+----
+
+smsap operation dump
+-profile profile_name
+[-label label_name | -id guid]
+[-quiet | -verbose]
+----
+
+
+== Parámetros
+
+* *`-profile _profile_name_`*
++
+Especifica el perfil para el que desea crear los archivos de volcado. El perfil contiene el identificador de la base de datos y otra información de la base de datos.
+
+* *`-label _label_name_`*
++
+Crea archivos de volcado para la operación y asigna la etiqueta especificada.
+
+* *`-id _guid_`*
++
+Crea archivos de volcado para la operación con el GUID especificado. SnapManager genera el GUID cuando se inicia la operación.
+
+* *`-quiet`*
++
+Muestra sólo mensajes de error en la consola. El valor predeterminado es mostrar mensajes de error y advertencia.
+
+* *`-verbose`*
++
+Muestra mensajes de error, advertencia e informativos en la consola.
+
+
+
+
+
+== Ejemplo
+
+En el siguiente ejemplo se crea el archivo de volcado para la copia de seguridad:
+
+[listing]
+----
+smsap operation dump -profile SALES1
+-id 8abc01ec0e78f3e2010e78f3fdd00001
+----
+[listing]
+----
+Dump file created Path: C:\userhomedirectory\netapp\smsap\3.3\smsap_dump_8abc01ec0e78f3e2010e78f3fdd00001.jar
+----

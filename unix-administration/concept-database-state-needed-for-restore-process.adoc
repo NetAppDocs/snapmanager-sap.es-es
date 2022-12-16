@@ -1,0 +1,42 @@
+---
+permalink: unix-administration/concept-database-state-needed-for-restore-process.html 
+sidebar: sidebar 
+keywords: state, database, restore, process, perform 
+summary: El estado de la base de datos que se va a restaurar depende del tipo de proceso de restauración que se desee realizar y del tipo de archivos que se incluirán. 
+---
+= Estado de la base de datos necesario para el proceso de restauración
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El estado de la base de datos que se va a restaurar depende del tipo de proceso de restauración que se desee realizar y del tipo de archivos que se incluirán.
+
+En la siguiente tabla, se muestra el estado en el que la base de datos debe estar según la opción de restauración seleccionada y el tipo de archivos que se desea incluir en la restauración:
+
+[cols="1,1,1,1"]
+|===
+| Tipo de restauración | Archivos incluidos | Estado de la base de datos para esta instancia | Estado de la base de datos para otra instancia (solo RAC) 
+
+
+.3+| Solo restauración | Archivos de control | Apagado | Apagado 
+
+
+| Archivos del sistema | Montaje o apagado | Montaje o apagado 
+
+
+| No hay archivos del sistema | Cualquier estado | Cualquier estado 
+
+
+.3+| Restauración y recuperación | Archivos de control | Apagado | Apagado 
+
+
+| Archivos del sistema | Montaje | Montaje o apagado 
+
+
+| No hay archivos del sistema | Montar o abrir | Cualquiera 
+|===
+El estado de la base de datos que requiere SnapManager para una operación de restauración depende del tipo de restauración que se ejecute (archivos completos, parciales o de control). SnapManager no realiza la transición de la base de datos a un estado inferior (por ejemplo, de Open a Mount) a menos que se especifique la opción force.
+
+SnapManager para SAP no verifica si se está ejecutando SAP. SnapManager para SAP espera a que transcurra un tiempo de espera y luego cierra la base de datos, que puede agregar una hora de tiempo de restauración adicional.

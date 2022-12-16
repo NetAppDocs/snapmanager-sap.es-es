@@ -1,0 +1,48 @@
+---
+permalink: unix-administration/concept-what-protection-states-are.html 
+sidebar: sidebar 
+keywords: snapmanager, state, backup, administrator, monitor, protection 
+summary: SnapManager muestra el estado de cada backup. Los administradores deben conocer los distintos estados y supervisar el estado de sus backups. 
+---
+= Qué estados de protección son
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager muestra el estado de cada backup. Los administradores deben conocer los distintos estados y supervisar el estado de sus backups.
+
+Un backup de la base de datos puede tener los siguientes estados de protección:
+
+[cols="1a,2a,3a"]
+|===
+| Estado | Definición | Explicación 
+
+
+ a| 
+Protegido
+ a| 
+Se solicitó protección y se ha activado.
+ a| 
+La protección está habilitada para el backup en SnapManager y Protection Manager copió correctamente el backup en otro conjunto de discos físicos (también denominado almacenamiento secundario). Si Protection Manager quita un backup del almacenamiento secundario debido a una política de retención, puede que el backup regrese a un estado no protegido.
+
+
+
+ a| 
+Sin proteger
+ a| 
+Se solicitó protección, pero no se completó.
+ a| 
+La protección se habilita para el backup, pero el backup no se copia en otro conjunto de discos físicos. El backup aún no está protegido o falló la protección, o estaba protegido antes, pero ya no está protegido. Cuando se crea un backup, el estado de protección inicial del backup no se solicita o no está protegido. Si el backup no está protegido, se protege al transferirse a un almacenamiento secundario.
+
+
+
+ a| 
+No solicitado
+ a| 
+No se solicitó protección.
+ a| 
+La protección no está habilitada para el backup. Existe una copia lógica de los datos en los mismos discos físicos (también conocidos como backup local). Si el backup no se solicita con la protección, la protección del backup siempre se muestra como no solicitada.
+
+|===

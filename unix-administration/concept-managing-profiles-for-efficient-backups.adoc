@@ -1,0 +1,106 @@
+---
+permalink: unix-administration/concept-managing-profiles-for-efficient-backups.html 
+sidebar: sidebar 
+keywords: create, profile, snapmanager, database, operation, manage, managing, efficient 
+summary: Debe crear un perfil en SnapManager para la base de datos donde desea realizar una operación. Debe seleccionar el perfil y, a continuación, seleccionar la operación que desea realizar. 
+---
+= Gestionar perfiles para backups eficientes
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe crear un perfil en SnapManager para la base de datos donde desea realizar una operación. Debe seleccionar el perfil y, a continuación, seleccionar la operación que desea realizar.
+
+
+
+== Tareas relacionadas con perfiles
+
+Es posible realizar las siguientes tareas:
+
+* Cree perfiles para permitir backups completos o parciales y backups en almacenamiento primario, secundario o incluso terciario.
++
+También es posible crear perfiles para separar los backups de registros de archivo de los backups de archivos de datos.
+
+* Verificar perfiles.
+* Actualizar perfiles.
+* Eliminar perfiles.
+
+
+
+
+== Acerca de los perfiles y la autenticación
+
+Al crear un perfil, puede especificar una base de datos y elegir uno de los siguientes métodos para conectarse a la base de datos:
+
+* Autenticación de Oracle con un nombre de usuario, contraseña y puerto
+* Autenticación del sistema operativo (SO) sin nombre de usuario, contraseña ni puerto.
++
+Para la autenticación del sistema operativo, debe introducir la información de usuario y del grupo de cuenta del sistema operativo.
+
++
+
+NOTE: Para utilizar la autenticación del sistema operativo para las bases de datos de Real Application Cluster (RAC), el servidor SnapManager debe estar en ejecución en cada nodo del entorno RAC y la contraseña de la base de datos debe ser la misma para todas las instancias de Oracle de un entorno RAC. SnapManager utiliza el nombre de usuario y la contraseña de la base de datos para conectarse a cada instancia de RAC del perfil.
+
+* Autenticación de base de datos cuando `sqlnet.authentication_services` se establece en `*NONE*`. A continuación, SnapManager utiliza el nombre de usuario y la contraseña de la base de datos para todas las conexiones con la base de datos de destino.
++
+
+NOTE: Para utilizar la autenticación de la base de datos para una instancia de Automatic Storage Management (ASM), se debe introducir el nombre de usuario y la contraseña que se utilizan para iniciar sesión en la instancia de ASM.
+
+
+
+Puede ajustar `sqlnet.authentication_services` para `*NONE*` sólo en los siguientes entornos:
+
+[cols="1a,1a,1a,1a"]
+|===
+| Distribución de la base de datos | Versión de Oracle | Es compatible con la autenticación de la base de datos de destino | Es compatible con la autenticación de base de datos para la instancia de ASM 
+
+
+ a| 
+Cualquier base de datos que no sea ASM y que no sea RAC
+ a| 
+Oracle 10g y Oracle 11g (inferior a 11.2.0.3)
+ a| 
+Sí
+ a| 
+No
+
+
+
+ a| 
+Base de datos ASM independiente en UNIX
+ a| 
+Oracle 11.2.0.3 y posterior
+ a| 
+Sí
+ a| 
+Sí
+
+
+
+ a| 
+Instancia de ASM en base de datos RAC en UNIX
+ a| 
+Oracle 11.2.0.3
+ a| 
+No
+ a| 
+No
+
+
+
+ a| 
+Base de datos RAC en NFS
+ a| 
+Oracle 11.2.0.3
+ a| 
+Sí
+ a| 
+No
+
+|===
+
+NOTE: Después de deshabilitar `sqlnet.authentication_services` y cambie el método de autenticación a autenticación de base de datos, debe configurar `sqlnet.authentication_services` para `*NONE*`.
+
+Si accede a un perfil por primera vez, debe introducir la contraseña de su perfil. Después de introducir sus credenciales, es posible ver los backups de la base de datos dentro del perfil.

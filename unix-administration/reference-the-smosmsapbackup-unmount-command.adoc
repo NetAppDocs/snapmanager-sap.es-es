@@ -1,0 +1,95 @@
+---
+permalink: unix-administration/reference-the-smosmsapbackup-unmount-command.html 
+sidebar: sidebar 
+keywords: run, backup, unmount, command, smsap 
+summary: Puede ejecutar el comando backup umount para desmontar un backup. 
+---
+= El comando smsap backup unmount
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede ejecutar el `backup unmount` comando para desmontar un backup.
+
+
+
+== Sintaxis
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap backup unmount
+-profile _profile_name_
+[-label _label_ [-data | -archivelogs\] | [-id _id_\]
+[-force\]
+[-dump\][-quiet | -verbose\]]
+----
+
+
+== Parámetros
+
+* ``*-profile _profile_name_*``
++
+Especifica el perfil para el que desea desmontar un backup. El perfil contiene el identificador de la base de datos y otra información de la base de datos.
+
+* ``*-id _id_*``
++
+Desmonta el backup con el GUID especificado. SnapManager genera el GUID cuando se crea un backup. Puede utilizar el comando smsap backup list para mostrar el GUID de cada copia de seguridad.
+
+* ``*-label _label_*``
++
+Desmonta el backup con la etiqueta especificada.
+
+* ``*-data*``
++
+Especifica los archivos de datos.
+
+* ``*-archivelogs*``
++
+Especifica los archivos de registro de archivos.
+
+* ``*-dump*``
++
+Recoge los archivos de volcado después de una operación de desmontaje correcta o con errores.
+
+* ``*-force*``
++
+Desmonta el backup incluso si hay problemas en la liberación de los recursos asociados con el backup. SnapManager intenta desmontar el backup y borrar todos los recursos asociados. El registro muestra la operación de desmontaje correcta, pero es posible que deba limpiar los recursos de forma manual si hay errores en el registro.
+
+* ``*-quiet*``
++
+Muestra sólo mensajes de error en la consola. El valor predeterminado es mostrar mensajes de error y advertencia.
+
+* ``*-verbose*``
++
+Muestra mensajes de error, advertencia e informativos en la consola.
+
+
+
+'''
+
+
+== Ejemplo
+
+A continuación se muestra un ejemplo de una operación de desmontaje:
+
+[listing]
+----
+# smsap backup unmount -label test -profile SALES1 -verbose
+----
+[listing]
+----
+SMSAP-13046 [INFO ]: Operation GUID 8abc013111b909eb0111b90a02f50001 starting on Profile SALES1
+SMSAP-08028 [INFO ]: Beginning to disconnect connected mount(s)
+[/u/user1/mnt/_mnt_ssys1_logs_SMSAP_SALES1_hsdb1_F_C_1_8abc013111a450480111a45066210001,
+ /u/user1/mnt/_mnt_ssys1_data_SMSAP_SALES1_hsdb1_F_C_1_8abc013111a450480111a45066210001].
+SMSAP-08030 [INFO ]: Done disconnecting connected mount(s)
+[/u/user1/mnt/_mnt_ssys1_logs_SMSAP_SALES1_hsdb1_F_C_1_8abc013111a450480111a45066210001,
+ /u/user1//mnt/_mnt_ssys1_data_SMSAP_SALES1_hsdb1_F_C_1_8abc013111a450480111a45066210001].
+SMSAP-13037 [INFO ]: Successfully completed operation: Backup Unmount
+SMSAP-13048 [INFO ]: Operation Status: SUCCESS
+SMSAP-13049 [INFO ]: Elapsed Time: 0:00:33.715
+Operation Id [8abc013111b909eb0111b90a02f50001] succeeded.
+----
+'''

@@ -1,0 +1,83 @@
+---
+permalink: unix-administration/concept-dump-files.html 
+sidebar: sidebar 
+keywords: dump, file, compress, log, contain, snapmanager, environment, file, system, dump 
+summary: Los archivos de volcado son archivos de registro comprimidos que contienen información acerca de SnapManager y su entorno. Los diferentes tipos de archivos de registro creados son operación, perfil y archivo de volcado del sistema. 
+---
+= Volcar archivos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Los archivos de volcado son archivos de registro comprimidos que contienen información acerca de SnapManager y su entorno. Los diferentes tipos de archivos de registro creados son operación, perfil y archivo de volcado del sistema.
+
+Puede utilizar el comando dump o la ficha *Create Diagnostics* de la interfaz gráfica de usuario (GUI) para recopilar información sobre una operación, un perfil o el entorno. Un volcado del sistema no requiere un perfil; sin embargo, los volcados de perfil y operación requieren perfiles.
+
+SnapManager incluye la siguiente información de diagnóstico en el archivo de volcado:
+
+* Los pasos realizados
+* El tiempo que tarda cada paso en completarse
+* El resultado de cada paso
+* Error, si hay alguno, que ocurrió durante la operación
+
+
+
+NOTE: Los archivos de registro o los archivos de volcado de SnapManager permiten permisos de lectura y escritura sólo para los usuarios raíz y los demás usuarios que pertenecen al grupo de usuarios raíz.
+
+SnapManager también incluye la siguiente información en el archivo:
+
+* Arquitectura y versión del sistema operativo
+* Variables de entorno
+* Versión de Java
+* Arquitectura y versión de SnapManager
+* Preferencias de SnapManager
+* Mensajes de SnapManager
+* propiedades log4j
+* Arquitectura y versión de SnapDrive
+* Archivos de registro de SnapDrive
+* Versión de Oracle
+* Detalles del inventario local de Oracle OPatch
+* Detalles del inventario local de OPatch de la instancia de Automatic Storage Management (ASM)
+* Versión del sistema de almacenamiento
+* Archivo oratab de Oracle
+* Estado del listener de Oracle
+* Archivos de configuración de red de Oracle (`listener.ora` y.. `tnsnames.ora`)
+* Versión de Oracle de la base de datos del repositorio
+* Tipo de base de datos de destino (clústeres de aplicaciones reales (RAC) o en soporte)
+* Función de base de datos de destino (primaria, física en espera o lógica en espera)
+* Configuración de Oracle Recovery Manager (RMAN) de la base de datos de destino (sin integración de RMAN, RMAN con archivos de control o RMAN con archivo de catálogo)
+* Versión de la instancia de ASM de la base de datos de destino
+* Versión de Oracle de la base de datos de destino
+* Identificador del sistema (SID) de la base de datos de destino
+* Nombre del servicio de base de datos del repositorio
+* Instancias de base de datos instaladas en el host
+* Descriptor perfil
+* Memoria compartida máxima
+* Intercambie información de espacio
+* Información de la memoria
+* Versión del kernel
+* FSTAB
+* Protocolo que utiliza SnapDrive
+* Entorno multivía
+* RAC
+* Gestor de volúmenes admitido
+* Versión de Operations Manager
+* Sistema de archivos compatible
+* Versión de utilidades de host
+* Versiones de interfaz BACKINT
+* Versión de la herramienta BR
+* Nivel de parche
+* Salida del `system verify` comando
+* Salida del `sdconfcheck` comando
+
+
+Los archivos de volcado de SnapManager también contienen el archivo de recopilador de datos de SnapDrive y el archivo de registro de alertas de Oracle. Puede recopilar el archivo de registro de alertas de Oracle mediante el `smsap operation` volcado y. `smsap profile dump` comandos.
+
+
+NOTE: El volcado del sistema no contiene registros de alertas de Oracle; sin embargo, los volcados de alerta y de operación contienen los registros de alerta.
+
+Aunque no se esté ejecutando el servidor host SnapManager, puede acceder a la información de volcado mediante la interfaz de línea de comandos (CLI) o la interfaz gráfica de usuario.
+
+Si se encuentra con un problema que no se puede resolver, puede enviar estos archivos a los servicios globales de NetApp.

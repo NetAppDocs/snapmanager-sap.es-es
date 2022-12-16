@@ -1,0 +1,31 @@
+---
+permalink: unix-installation-7mode/task-create-the-repository-database-instance.html 
+sidebar: sidebar 
+keywords: repository, database, instance, oracle, create, snapmanager, repository, stand-alone, target, creating 
+summary: La instancia de la base de datos del repositorio es una base de datos de Oracle en la que se crea el repositorio de SnapManager. La instancia de la base de datos del repositorio debe ser una base de datos independiente y no puede ser la base de datos de destino. 
+---
+= Cree la instancia de la base de datos del repositorio
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La instancia de la base de datos del repositorio es una base de datos de Oracle en la que se crea el repositorio de SnapManager. La instancia de la base de datos del repositorio debe ser una base de datos independiente y no puede ser la base de datos de destino.
+
+Debe tener una base de datos de Oracle y una cuenta de usuario para acceder a la base de datos.
+
+. Iniciar sesión en SQL *Plus: `sqlplus '/ as sysdba'`
+. Crear un nuevo espacio de tabla para el repositorio de SnapManager: `create tablespacetablespace_name datafile ′/u01/app/oracle/oradata/datafile/tablespace_name.dbf′ size 100M autoextend on;`
++
+tablespace_name es el nombre del tablespace.
+
+. Compruebe el tamaño de bloque del tablespace: `select tablespace_name, block_size from dba_tablespaces;`
++
+SnapManager requiere un tamaño de bloque mínimo de 4 K para el espacio de tabla.
+
+
+
+*Información relacionada*
+
+http://www.netapp.com/us/media/tr-3761.pdf["Informe técnico de NetApp 3761: SnapManager para Oracle: Prácticas recomendadas"]

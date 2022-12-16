@@ -1,0 +1,21 @@
+---
+permalink: unix-administration/task-delete-backup-schedules.html 
+sidebar: sidebar 
+keywords: delete, backup, schedule, deleting 
+summary: Es posible eliminar programaciones de backup cuando ya no sean necesarias. 
+---
+= Eliminar programaciones de backup
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Es posible eliminar programaciones de backup cuando ya no sean necesarias.
+
+.Paso
+. Para eliminar la programación de backup, introduzca este comando:
++
+`*smsap schedule delete -profile _profile_name_ -schedule-name _schedulename_ [-quiet | -verbose]*`
+
+

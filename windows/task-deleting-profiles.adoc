@@ -1,0 +1,21 @@
+---
+permalink: windows/task-deleting-profiles.html 
+sidebar: sidebar 
+keywords: delete, profile, successful, incomplete, backup, free, deleting 
+summary: Puede eliminar un perfil en cualquier momento, siempre que no contenga copias de seguridad correctas o incompletas. Es posible eliminar perfiles que contengan copias de seguridad liberadas o eliminadas. 
+---
+= Eliminar perfiles
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede eliminar un perfil en cualquier momento, siempre que no contenga copias de seguridad correctas o incompletas. Es posible eliminar perfiles que contengan copias de seguridad liberadas o eliminadas.
+
+. Para eliminar un perfil, escriba este comando:``smsap profile delete -profileprofile_name``
+
+
+*Información relacionada*
+
+xref:reference-the-smosmsapprofile-delete-command.adoc[El comando smsap profile delete]

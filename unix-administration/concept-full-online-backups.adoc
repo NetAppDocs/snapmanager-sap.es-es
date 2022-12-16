@@ -1,0 +1,35 @@
+---
+permalink: unix-administration/concept-full-online-backups.html 
+sidebar: sidebar 
+keywords: full, online, backup, snapmanager, database, create, snapshot, copies, copy, volume, level, tablespace 
+summary: 'Durante un backup online completo, SnapManager realiza un backup de toda la base de datos y crea copias Snapshot en el nivel del volumen (no en el nivel de espacio de tabla).' 
+---
+= Backups completos en línea
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Durante un backup online completo, SnapManager realiza un backup de toda la base de datos y crea copias Snapshot en el nivel del volumen (no en el nivel de espacio de tabla).
+
+SnapManager crea dos copias Snapshot para cada backup. Si todos los archivos necesarios para la base de datos se encuentran en un único volumen, las dos copias de Snapshot aparecen en ese volumen.
+
+Cuando se especifica un backup completo, SnapManager realiza las siguientes acciones:
+
+. Coloca toda la base de datos en el modo de copia de seguridad en línea
+. Crea copias snapshot de todos los volúmenes que contienen archivos de base de datos
+. Saca la base de datos del modo de backup en línea
+. Fuerza un conmutador de registro y, a continuación, archiva los archivos de registro
++
+Esto también vacía la información de redo en el disco.
+
+. Genera archivos de control de copia de seguridad
+. Crea una copia snapshot de los archivos de registro y los archivos de control de copia de seguridad
+
+
+Cuando se realiza un backup completo, SnapManager coloca toda la base de datos en el modo de backup en línea. Un tablespace individual (por ejemplo, `/oracle/CER/sapdata1/system_1/system.data1`) está en el modo de copia de seguridad en línea más largo que determinados tablespaces o archivos de datos que se especificaron.
+
+Cuando una base de datos entra en modo de backup, Oracle escribe bloques completos en los registros y no se limita a escribir el delta entre backups. Como las bases de datos trabajan más en modo de backup en línea, elegir un backup completo supone una mayor carga en el host.
+
+Aunque realizar backups completos supone una mayor carga en el host, los backups completos requieren menos copias Snapshot, lo que produce menos requisitos de almacenamiento.

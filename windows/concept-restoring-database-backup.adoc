@@ -1,0 +1,36 @@
+---
+permalink: windows/concept-restoring-database-backup.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, enable, restore, database, snapshot, copy, backup, mean-time-to-recovery, mttrm restore 
+summary: 'SnapManager para SAP le permite restaurar una base de datos al estado que tenía cuando se tomó una copia Snapshot. Debido a que los backups se crean con más frecuencia, se reduce el número de registros que se debe aplicar, lo que reduce el tiempo medio de recuperación (MTTR) de una base de datos.' 
+---
+= Restaurar backups de base de datos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager para SAP le permite restaurar una base de datos al estado que tenía cuando se tomó una copia Snapshot. Debido a que los backups se crean con más frecuencia, se reduce el número de registros que se debe aplicar, lo que reduce el tiempo medio de recuperación (MTTR) de una base de datos.
+
+A continuación, se muestran algunas de las tareas que se pueden realizar en relación con la restauración y la recuperación de datos en bases de datos:
+
+* Realice una restauración basada en archivos.
+* Restaure todo el backup o parte del mismo.
++
+Cuando se restaura una parte de la misma, se especifica un grupo de espacios de tablas o un grupo de archivos de datos. También puede restaurar los archivos de control junto con los datos o solo los propios archivos de control.
+
+* Recupere los datos en función de un momento específico o de todos los registros disponibles, que almacena la última transacción comprometida con la base de datos.
++
+El punto en el tiempo puede ser un número de cambio de sistema (SCN) de Oracle o una fecha y hora (aaaa-mm-dd:hh:mm:ss). SnapManager utiliza el reloj de 24 horas.
+
+* Restauración desde backups en el almacenamiento principal (backups locales).
+* Restaurar y recuperar la copia de seguridad mediante SnapManager, o usar SnapManager para restaurar la copia de seguridad y utilizar otra herramienta, como Recovery Manager (RMAN), para recuperar los datos.
+* Restaurar backups desde ubicaciones alternativas.
+
+
+Para obtener más información, consulte .
+
+Puede restaurar una copia de seguridad realizada por una versión anterior de SnapManager utilizando SnapManager 3.0 y versiones posteriores.
+
+Los administradores pueden realizar operaciones de restauración o recuperación mediante la interfaz gráfica de usuario (GUI) de SnapManager o mediante la interfaz de línea de comandos (CLI).

@@ -1,0 +1,60 @@
+---
+permalink: windows/task-performing-backup-restore-and-clone-operations-using-prescript-and-post-scripts.html 
+sidebar: sidebar 
+keywords: script, initiating, initiate, backup, restore, clone, operation, snapmanager, task-enabling, page, create, wizard, restore, recover, create, parameter, prescript, post-script 
+summary: Puede usar su propio script para iniciar una operación de backup, restauración o clonado. SnapManager muestra una página Task-abling en el asistente Backup Create, el asistente Restore or Recover o el asistente Clone Create, donde puede seleccionar el script y proporcionar valores a los parámetros que requiera el script. 
+---
+= Realizar operaciones de backup, restauración y clonado mediante scripts previos y posteriores
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede usar su propio script para iniciar una operación de backup, restauración o clonado. SnapManager muestra una página Task-abling en el asistente Backup Create, el asistente Restore or Recover o el asistente Clone Create, donde puede seleccionar el script y proporcionar valores a los parámetros que requiera el script.
+
+* Instale los scripts de los plugins en la ubicación correcta de instalación de SnapManager.
+* Compruebe que los complementos estén instalados correctamente con el comando smsap plugin check.
+* Asegúrese de que está utilizando el shell BASH.
+
+
+En la interfaz de línea de comandos (CLI), enumere el nombre del script, seleccione los parámetros y configure los valores.
+
+. Para verificar que está utilizando el shell BASH, introduzca el siguiente comando en el símbolo del sistema:``bash``
++
+Como alternativa, puede introducir el comando cuál-bash en el símbolo del sistema y utilizar el resultado del comando como parámetro de inicio del script.
+
++
+El shell BASH funciona correctamente si no ve un error.
+
+. Para la operación de backup, introduzca la opción -taskspec y proporcione la ruta absoluta del archivo XML de especificación de tareas para realizar un preprocesamiento o una actividad de posprocesamiento que se debe realizar antes o después de la operación de backup:
++
+`smsap backup create -profile profile_name {[-full {-online | -offline | -auto} [-retain {-hourly | [-daily | -weekly | -monthly | -unlimited}] [-verify] | [-data [[-filesfiles [files]] | [-tablespaces-tablespaces [-tablespaces]] [-datalabellabel] {-online | -offline | -auto} [-retain {-hourly | [-daily | -weekly | -monthly | -unlimited]} [-verify] | [-archivelogs [-labellabel] [-commentcomment] [-backup-destpath1 [,[path2]]] [-exclude-destpath1 [,path2]]] [-prunelogs {-all | -untilSCNuntilSCN | -before {-dateyyyy-MM-dd HH:mm:ss | -months | -days | -weeks | -hours}} -prune-destprune_dest1,[prune_dest2]] [-taskspectaskspec] [-include-with-online-backups | -no-include-with-online-backups]} -dump [-force] [-quiet | -verbose]`
+
++
+Si se produce un error en la operación del plugin de backup, solo se muestran el nombre del plugin y el código de devolución. El script del plugin debe incluir mensajes de registro y redirigir los mensajes a los archivos de registro definidos por el usuario.
+
+. Para la operación de restauración de backup, introduzca la opción -taskspec y proporcione la ruta absoluta del archivo XML de especificación de tareas para realizar un preprocesamiento o una actividad de posprocesamiento que debe tener lugar antes o después de la operación de restauración:
++
+`smsap backup restore -profileprofile_name {-label<label> | -id<id>} {-files<files>|-tablespaces<tablespaces\> | -complete | -controlfiles} [-recover {-alllogs | -nologs | -until <until>}][-restorespec<restorespec>] [-taskspec<taskspec>] [-verify][-force] backup restore -fast [require | override | fallback | off] [-preview] -dump [-quiet | -verbose]`
+
++
+Si se produce un error en la operación del plugin de restauración, solo se muestran el nombre del plugin y el código de devolución. El script del plugin debe incluir mensajes de registro y redirigir los mensajes a los archivos de registro definidos por el usuario.
+
+. Para la operación de creación de clones, introduzca la opción -taskspec y proporcione la ruta absoluta del archivo XML de especificación de tareas para realizar un procesamiento previo o una actividad de procesamiento posterior que debe tener lugar antes o después de la operación de clonado:
++
+`smsap clone create -profileprofile_name {-backup-labelbackup_name | -backup-id<backup-id>| -current} -newsidnew_sid-clonespecfull_path_to_clonespecfile [-reserve<yes, no, inherit>] [-host<host>] [-label<label>] [-comment<comment>] {-taskspec<taskspec>] -dump [-quiet | -verbose]`
+
++
+Si se produce un error en la operación del plugin de clonado, solo se muestran el nombre del plugin y el código de devolución. El script del plugin debe incluir mensajes de registro y redirigir los mensajes a los archivos de registro definidos por el usuario.
+
+
+
+
+
+== Ejemplo de creación de una copia de seguridad utilizando el archivo XML de especificación de tareas
+
+[listing]
+----
+smsap backup create -profile SALES1 -full -online -taskspec sales1_taskspec.xml -force -verify
+----

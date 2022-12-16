@@ -1,0 +1,213 @@
+---
+permalink: unix-administration/concept-variables-available-in-custom-script-for-restore-operation.html 
+sidebar: sidebar 
+keywords: snapmanager, context, information, form, environment, variable, script, restore, operation, host 
+summary: SnapManager proporciona información de contexto en la forma de variables de entorno relacionadas con la operación de restauración que se está realizando. Por ejemplo, el script puede recuperar el nombre del host original y la etiqueta del backup que se restaura. 
+---
+= Variables disponibles en los scripts de tareas para la operación de restauración
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager proporciona información de contexto en la forma de variables de entorno relacionadas con la operación de restauración que se está realizando. Por ejemplo, el script puede recuperar el nombre del host original y la etiqueta del backup que se restaura.
+
+En la siguiente tabla, se enumeran las variables de entorno que se pueden utilizar en los scripts:
+
+[cols="2a,3a,1a"]
+|===
+| Variables | Descripción | Formato 
+
+
+ a| 
+`_SM_OPERATION_ID_`
+ a| 
+Especifica el ID de la operación actual
+ a| 
+cadena
+
+
+
+ a| 
+`_SM_PROFILE_NAME_`
+ a| 
+Especifica el nombre del perfil utilizado
+ a| 
+cadena
+
+
+
+ a| 
+`_SM_HOST_`
+ a| 
+Especifica el nombre de host de la base de datos
+ a| 
+cadena
+
+
+
+ a| 
+`_SM_OS_USER_`
+ a| 
+Especifica el propietario del sistema operativo (SO) de la base de datos
+ a| 
+cadena
+
+
+
+ a| 
+`_SM_OS_GROUP_`
+ a| 
+Especifica el grupo del sistema operativo de la base de datos
+ a| 
+cadena
+
+
+
+ a| 
+`_SM_BACKUP_TYPE_`
+ a| 
+Especifica el tipo de backup (en línea, sin conexión o automático)
+ a| 
+cadena
+
+
+
+ a| 
+`_SM_BACKUP_LABEL_`
+ a| 
+Especifica la etiqueta de backup
+ a| 
+cadena
+
+
+
+ a| 
+`_SM_BACKUP_ID_`
+ a| 
+Especifica el ID del backup
+ a| 
+cadena
+
+
+
+ a| 
+`_SM_BACKUP_PROFILE_`
+ a| 
+Especifica el perfil utilizado para el backup
+ a| 
+cadena
+
+
+
+ a| 
+`_SM_RECOVERY_TYPE_`
+ a| 
+Especifica la información de configuración de recuperación
+ a| 
+cadena
+
+
+
+ a| 
+`_SM_VOLUME_RESTORE_MODE_`
+ a| 
+Especifica la configuración de restauración de volúmenes
+ a| 
+cadena
+
+
+
+ a| 
+`_SM_TARGET_FILER_NAME_`
+ a| 
+Especifica el nombre del sistema de almacenamiento de destino
+
+
+NOTE: Si se utiliza más de un sistema de almacenamiento, los nombres de los sistemas de almacenamiento deben separarse con comas.
+ a| 
+cadena
+
+
+
+ a| 
+`_SM_TARGET_VOLUME_NAME_`
+ a| 
+Especifica el nombre del volumen objetivo
+
+
+NOTE: El nombre del volumen de destino debe estar precedido por el nombre del dispositivo de almacenamiento, por ejemplo, SM_TARGET_FILER_NAME/SM_TARGET_VOLUME_NAME.
+ a| 
+cadena
+
+
+
+ a| 
+`_SM_HOST_FILE_SYSTEM_`
+ a| 
+Especifica el sistema de archivos del host
+ a| 
+cadena
+
+
+
+ a| 
+`_SM_SNAPSHOT_NAMES_`
+ a| 
+Especifica la lista Snapshot
+
+
+NOTE: El nombre de las copias de Snapshot debe prefijarse con el nombre del sistema de almacenamiento y el nombre del volumen. Los nombres de las copias Snapshot están separados por comas.
+ a| 
+matriz de cadenas
+
+
+
+ a| 
+`_SM_ARCHIVE_LOGS_DIRECTORY_`
+ a| 
+Especifica el directorio de registros de archivos
+
+
+NOTE: Si los registros de archivos se encuentran en más de un directorio, los nombres de esos directorios se separan con comas.
+ a| 
+matriz de cadenas
+
+
+
+ a| 
+`_SM_REDO_LOGS_DIRECTORY_`
+ a| 
+Especifica el directorio redo logs
+
+
+NOTE: Si los redo logs se encuentran en más de un directorio, los nombres de esos directorios se separan con comas.
+ a| 
+matriz de cadenas
+
+
+
+ a| 
+`_SM_CONTROL_FILES_DIRECTORY_`
+ a| 
+Especifica el directorio de archivos de control
+
+
+NOTE: Si los archivos de control se encuentran en más de un directorio, los nombres de esos directorios se separan con comas.
+ a| 
+matriz de cadenas
+
+
+
+ a| 
+`_SM_DATA_FILES_DIRECTORY_`
+ a| 
+Especifica el directorio de archivos de datos
+
+
+NOTE: Si los archivos de datos se encuentran en más de un directorio, los nombres de esos directorios se separan con comas.
+ a| 
+matriz de cadenas
+
+|===

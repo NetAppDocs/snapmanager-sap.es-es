@@ -1,0 +1,19 @@
+---
+permalink: windows/concept-introduction-to-data-protection-in-snapmanager.html 
+sidebar: sidebar 
+keywords: snapmanager, support, data, protection, protect, backup, secondary, tertiary, storage, system, snapmirror, snapvault, relationship, source, destination, volume 
+summary: SnapManager admite protección de datos para proteger los backups en sistemas de almacenamiento secundarios o terciarios. Debe configurar las relaciones de SnapMirror y SnapVault entre los volúmenes de origen y de destino. 
+---
+= Introducción a la protección de datos en SnapManager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager admite protección de datos para proteger los backups en sistemas de almacenamiento secundarios o terciarios. Debe configurar las relaciones de SnapMirror y SnapVault entre los volúmenes de origen y de destino.
+
+
+NOTE: Los backups creados con BR*Tools no se pueden proteger con SnapManager para SAP.
+
+Puede utilizar las secuencias de comandos posteriores al backup tanto desde la interfaz de línea de comandos (CLI) como desde la interfaz gráfica de usuario (GUI) para proteger los backups en un sistema de almacenamiento principal.

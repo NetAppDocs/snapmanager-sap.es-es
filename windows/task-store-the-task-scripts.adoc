@@ -1,0 +1,103 @@
+---
+permalink: windows/task-store-the-task-scripts.html 
+sidebar: sidebar 
+keywords: store, pretask, post-task, policy, task, script, directory, target, server, backup, clone, create, restore, operation 
+summary: Debe almacenar los scripts de tareas previas, posteriores a tareas y de políticas en un directorio especificado en el servidor de destino donde se crearán los backups o clones. Para la operación de restauración, los scripts deben colocarse en el directorio especificado en el servidor de destino donde se desea restaurar el backup. 
+---
+= Almacenar los scripts de tareas
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe almacenar los scripts de tareas previas, posteriores a tareas y de políticas en un directorio especificado en el servidor de destino donde se crearán los backups o clones. Para la operación de restauración, los scripts deben colocarse en el directorio especificado en el servidor de destino donde se desea restaurar el backup.
+
+.Pasos
+. Cree el script.
+. Guarde el script en una de las siguientes ubicaciones:
++
+*Para la operación de copia de seguridad*
+
++
+|===
+| Directorio | Descripción 
+
+
+ a| 
+`*<default_install_directory >\plugins\backup\create\policy*`
+ a| 
+Los scripts de políticas se ejecutan antes de las operaciones de backup.
+
+
+
+ a| 
+`*<default_install_directory >\plugins\backup\create\pre*`
+ a| 
+Los scripts de preprocesamiento ejecutan el antes de las operaciones de backup.
+
+
+
+ a| 
+`*<default_install_directory >\plugins\backup\create\pre*`
+ a| 
+Los scripts de procesamiento posterior se ejecutan después de las operaciones de backup.
+
+|===
++
+*Para la operación de restauración*
+
++
+|===
+| Directorio | Descripción 
+
+
+ a| 
+`*<default_install_directory >\plugins\restore\create\policy*`
+ a| 
+Los scripts de políticas se ejecutan antes de las operaciones de restauración.
+
+
+
+ a| 
+`*<default_install_directory >\plugins\restore\create\pre*`
+ a| 
+Las secuencias de comandos de preprocesamiento se ejecutan antes de las operaciones de restauración.
+
+
+
+ a| 
+`*<default_install_directory >\plugins\restore\create\post*`
+ a| 
+Los scripts posteriores al procesamiento se ejecutan después de las operaciones de restauración.
+
+|===
++
+*Para la operación de clonación*
+
++
+|===
+| Directorio | Descripción 
+
+
+ a| 
+`*<default_install_directory >\plugins\clone\create\policy*`
+ a| 
+Los scripts de políticas se ejecutan antes de las operaciones de clonado.
+
+
+
+ a| 
+`*<default_install_directory >\plugins\clone\create\pre*`
+ a| 
+Los scripts de procesamiento previo se ejecutan antes de las operaciones de clonado.
+
+
+
+ a| 
+`*<default_install_directory >\plugins\clone\create\post*`
+ a| 
+Los scripts de procesamiento posterior se ejecutan después de las operaciones de clonado.
+
+|===
+

@@ -1,0 +1,39 @@
+---
+permalink: unix-administration/concept-snapmanager-for-oraclefor-sap-command-reference.html 
+sidebar: sidebar 
+keywords: snapmanager, command, reference, valid, syntax, option, parameter, argument, sap 
+summary: La referencia del comando SnapManager incluye la sintaxis de uso, las opciones, los parámetros y los argumentos que debe proporcionar con los comandos, junto con ejemplos. 
+---
+= Referencia de comandos de SnapManager para SAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La referencia del comando SnapManager incluye la sintaxis de uso, las opciones, los parámetros y los argumentos que debe proporcionar con los comandos, junto con ejemplos.
+
+Los siguientes problemas se aplican al uso de comandos:
+
+* Los comandos distinguen mayúsculas de minúsculas.
+* SnapManager acepta hasta 200 caracteres y etiquetas de hasta 80 caracteres.
+* Si el shell del host limita el número de caracteres que pueden aparecer en una línea de comandos, puede utilizar `cmdfile` comando.
+* No utilice espacios en nombres de perfiles ni nombres de etiquetas.
+* En la especificación del clon, no utilice espacios en la ubicación del clon.
+
+
+SnapManager puede mostrar tres niveles de mensajes en la consola:
+
+* Mensajes de error
+* Mensajes de advertencia
+* Mensajes informativos
+
+
+Puede especificar cómo desea que se muestren los mensajes. Si no especifica nada, SnapManager solo muestra mensajes de error y advertencias en la consola. Para controlar la cantidad de salida que SnapManager muestra en la consola, utilice una de las siguientes opciones de línea de comandos:
+
+* `-quiet`: Muestra sólo los mensajes de error en la consola.
+* `-verbose`: Muestra mensajes de error, advertencia e informativos en la consola.
+
+
+
+NOTE: Independientemente del comportamiento predeterminado o del nivel de detalle especificado para la pantalla, SnapManager siempre escribe todos los tipos de mensaje en los archivos de registro.

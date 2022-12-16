@@ -1,0 +1,56 @@
+---
+permalink: unix-administration/reference-the-smosmsap-clone-stopsplit-command.html 
+sidebar: sidebar 
+keywords: command, stop, run, clone, split, process, split-stop, smsap 
+summary: Este comando detiene el proceso de división de clones en ejecución. 
+---
+= El comando smsap clone split-stop
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este comando detiene el proceso de división de clones en ejecución.
+
+
+
+== Sintaxis
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap clone split-stop
+-profile _profile_
+[-host _hostname_\]
+[-label _split-label_ | -id _split-id_\]
+[-quiet | -verbose\]]
+----
+
+
+== Parámetros
+
+* `*-profile _profile_*`
++
+Especifica el nombre del perfil del clon.
+
+* `*-host _hostname_*`
++
+Especifica el nombre de host en el que existe el clon.
+
+* `*-label _split-label_*`
++
+Especifica el nombre de etiqueta generado por el proceso de clonado.
+
+* `*-id _split-id_*`
++
+Especifica el ID único generado por el proceso de clonado.
+
+* `*-quiet*`
++
+Muestra sólo mensajes de error en la consola. El valor predeterminado es mostrar mensajes de error y advertencia.
+
+* `*-verbose*`
++
+Muestra mensajes de error, advertencia e informativos en la consola.
+
+

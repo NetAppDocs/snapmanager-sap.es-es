@@ -1,0 +1,51 @@
+---
+permalink: unix-administration/concept-database-backups-created-using-brbackup-and-brarchive.html 
+sidebar: sidebar 
+keywords: brbackup, command, create, backup, sap, database, snapshot, copy, storage, system, cli, interface, offline, redo, log, file, brarchive 
+summary: 'El comando BRBACKUP crea un respaldo de la base de datos SAP mediante copia Snapshot en el sistema de almacenamiento. Puede ejecutar el comando BRBACKUP desde la interfaz de línea de comandos (CLI) del host SAP, la CLI de BR*Tools o la interfaz gráfica de usuario (GUI). Para realizar una copia de seguridad de los archivos redo log sin conexión, puede utilizar el comando BRARCHIVE.' 
+---
+= Copias de seguridad de bases de datos creadas con BRBACKUP y BRARCHIVE
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El comando BRBACKUP crea un respaldo de la base de datos SAP mediante copia Snapshot en el sistema de almacenamiento. Puede ejecutar el `BRBACKUP` Comando desde la interfaz de línea de comandos (CLI) del host SAP, la CLI de BR*Tools o la interfaz gráfica de usuario (GUI). Para realizar una copia de seguridad de los archivos redo log sin conexión, puede utilizar la `BRARCHIVE` comando.
+
+BRBACKUP realiza una copia de seguridad de los archivos de datos, archivos de control y archivos redo log en línea de la base de datos SAP. Debería realizar una copia de seguridad de los otros archivos de configuración de SAP, por ejemplo, archivos de registro de SAP, archivos del kernel y transportar solicitudes mediante `BRBACKUP` con la `SAP_DIR` y restaurar mediante `BRRESTORE`.
+
+Si el valor de `_SQLNET.AUTHENTICATION_SERVICES_` en la `sqlnet.ora` se establece en `*NONE*`, Asegúrese de que el usuario de la base de datos Oracle (sistema) tiene privilegios sysoper. El sistema es el usuario predeterminado que se crea durante la creación de la base de datos de Oracle. Para activar los privilegios SYSOPER, ejecute el siguiente comando:
+
+`*grant sysoper to system;*`
+
+Debe utilizar los comandos BR*Tools o los comandos SnapManager para administrar los archivos de registro de archivos.
+
+No debe utilizar la combinación de perfiles SnapManager y los comandos BR*Tools para administrar las copias de seguridad del registro de archivo con respecto a las operaciones siguientes:
+
+* Creación de copias de seguridad independientes de archivos de datos y archivos de registro de archivo mediante los comandos BRBACKUP y BRARCHIVE con el perfil SnapManager (creado con la opción para separar las copias de seguridad de registros de archivo)
+* Eliminar archivos de registro de archivos mientras se crea el backup con el perfil SnapManager
+
+
+
+NOTE: SnapManager no muestra ningún mensaje de advertencia o error cuando utiliza una combinación de perfiles SnapManager para SAP y los comandos BR*Tools para administrar los archivos de registro de archivos.
+
+Debe crear un perfil sin usar la opción de separar las copias de seguridad de los registros de archivos y utilizar este perfil para las operaciones normales de BR*Tools.
+
+Para restaurar el backup, se puede utilizar `BRRESTORE`. Para los backups de la base de datos (los backups incluyen archivos de datos, archivos de control o archivos de registro de recuperación en línea) creados con el uso `BRBACKUP` con la `-m all` o. `-m full` Opción, también puede restaurar el backup con la interfaz gráfica de línea de comandos o la interfaz gráfica de usuario de SnapManager.
+
+Para obtener más información acerca de cómo SnapManager controla la copia de seguridad, consulte _copia de seguridad de bases de datos_.
+
+Consulte la documentación de SAP para obtener las instrucciones y la sintaxis específicas de `BRBACKUP` y.. `BRARCHIVE` comandos. Antes de utilizar los comandos BRBACKUP y BRARCHIVE con un sistema de almacenamiento, asegúrese de que se cumplen las siguientes condiciones:
+
+* Si el nombre del perfil SnapManager es diferente del identificador del sistema de la base de datos SAP, especifique el nombre del archivo de parámetros que contiene el nombre del perfil SnapManager.
++
+Puede hacerlo de una de las siguientes maneras:
+
++
+** Especifique el archivo de parámetros de la utilidad de copia de seguridad (`initSID.utl`) utilizando la opción -r con el `BRBACKUP` comando.
+** Especifique el archivo de parámetros en el archivo de inicialización (`initSID.sap`). Para obtener más información, vea _Specifying the profile for BR*Tools backups_.
+
+
+* Si se considera adecuado para su entorno, cree backups adicionales de sus datos SAP utilizando un medio diferente, como la cinta. Las copias Snapshot están diseñadas para realizar respaldos y restauraciones rápidos. Se almacenan en los mismos soportes físicos que los datos de los que se realiza el backup y no están pensados para la recuperación ante desastres a menos que se copien a otros dispositivos de almacenamiento.
+

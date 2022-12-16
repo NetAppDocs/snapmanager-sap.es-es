@@ -1,0 +1,97 @@
+---
+permalink: windows/reference-the-smosmsapprofile-list-command.html 
+sidebar: sidebar 
+keywords: command, display, list, profile, smsap 
+summary: Este comando muestra una lista de los perfiles actuales. 
+---
+= El comando smsap profile list
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este comando muestra una lista de los perfiles actuales.
+
+
+
+== Sintaxis
+
+[listing]
+----
+
+smsap profile list
+[-quiet | -verbose]
+----
+
+
+== Parámetros
+
+* *`-quiet`*
++
+Muestra sólo mensajes de error en la consola. El valor predeterminado es mostrar mensajes de error y advertencia.
+
+* *`-verbose`*
++
+Muestra mensajes de error, advertencia e informativos en la consola.
+
+
+
+
+
+== Comando de ejemplo
+
+En el siguiente ejemplo se muestran los perfiles existentes con sus detalles.
+
+[listing]
+----
+smsap profile list -verbose
+Profile name: FGTER
+Repository:
+  Database name: SMSAPREPO
+  SID: SMSAPREPO
+  Host: hotspur
+  Port: 1521
+  Username: swagrahn
+  Password: ********
+Profile name: TEST_RBAC
+Repository:
+  Database name: smsaprep
+  SID: smsaprep
+  Host: elbe.rtp.org.com
+  Port: 1521
+  Username: smsapsaal
+  Password: ********
+Profile name: TEST_RBAC_DP_PROTECT
+Repository:
+  Database name: smsaprep
+  SID: smsaprep
+  Host: elbe.rtp.org.com
+  Port: 1521
+  Username: smsapsaal
+  Password: ********
+Profile name: TEST_HOSTCREDEN_OFF
+Repository:
+  Database name: smsaprep
+  SID: smsaprep
+  Host: elbe.rtp.org.com
+  Port: 1521
+  Username: smsapsaal
+  Password: ********
+Profile name: SMK_PRF
+Repository:
+  Database name: smsaprep
+  SID: smsaprep
+  Host: elbe.rtp.org.com
+  Port: 1521
+  Username: smsapsaal
+  Password: ********
+Profile name: FGLEX
+Repository:
+  Database name: SMSAPREPO
+  SID: SMSAPREPO
+  Host: hotspur
+  Port: 1521
+  Username: swagrahn
+  Password: ********
+----

@@ -1,0 +1,28 @@
+---
+permalink: unix-administration/concept-disabling-client-access-to-snapshot-copies.html 
+sidebar: sidebar 
+keywords: storage, system, volume, nfs, protocol, sap, tools, snapshot, copies, copy, snapshot, directory, directories, backup, diable, disabling, client, access 
+summary: En el caso de cualquier volumen del sistema de almacenamiento que utilice el protocolo NFS y contenga los datos de SAP de los que se realice un backup mediante BR*Tools, debe deshabilitar el acceso del cliente a las copias Snapshot de ese volumen. Si el acceso de cliente está activado, BR*Tools intentará crear copias de seguridad de los directorios .snapshot ocultos que contengan copias de seguridad anteriores. 
+---
+= Deshabilitar el acceso del cliente a las copias Snapshot
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+En el caso de cualquier volumen del sistema de almacenamiento que utilice el protocolo NFS y contenga los datos de SAP de los que se realice un backup mediante BR*Tools, debe deshabilitar el acceso del cliente a las copias Snapshot de ese volumen. Si el acceso de cliente está activado, BR*Tools intentará crear copias de seguridad de los directorios .snapshot ocultos que contengan copias de seguridad anteriores.
+
+Para deshabilitar el acceso de los clientes, utilice uno de los métodos siguientes.
+
+* Con Data ONTAP: Con la interfaz de línea de comandos de Data ONTAP, introduzca el siguiente comando: vol options volume_name nosinnapdir en donde volume_name es el nombre del volumen que contiene datos de SAP, por ejemplo, `/vol/falls_sap_cer9i_data1`
+* Utilizando FilerView: Para desactivar el acceso mediante la interfaz gráfica de usuario de FilerView, ya se necesita una copia snapshot del volumen.
++
+.. En el panel izquierdo de FilerView, seleccione *volúmenes* > *instantáneas* > *gestionar*.
+.. En la página Manage Snapshots, haga clic en el nombre del volumen en la columna Volume.
+.. En la página Configurar instantáneas, desactive la casilla de verificación Directorio de instantáneas visible y haga clic en *aplicar.*
+
+
+
+
+Para obtener más información acerca de cómo desactivar el acceso de los clientes a las copias snapshot, consulte el capítulo sobre la administración de instantáneas de la _Guía de recuperación y copia de seguridad en línea de protección de datos de Data ONTAP_ correspondiente a su versión de Data ONTAP.

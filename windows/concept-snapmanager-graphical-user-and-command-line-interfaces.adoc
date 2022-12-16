@@ -1,0 +1,14 @@
+---
+permalink: windows/concept-snapmanager-graphical-user-and-command-line-interfaces.html 
+sidebar: sidebar 
+keywords: snapmanager, client, graphical, user, interface, gui, command-line, cli 
+summary: 'El cliente SnapManager incluye tanto una interfaz gráfica de usuario (GUI) como una interfaz de línea de comandos (CLI).' 
+---
+= Interfaces gráficas de usuario y de línea de comandos de SnapManager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El cliente SnapManager incluye tanto una interfaz gráfica de usuario (GUI) como una interfaz de línea de comandos (CLI).

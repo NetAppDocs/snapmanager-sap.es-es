@@ -1,0 +1,26 @@
+---
+permalink: windows/task-set-the-path-for-br-tools.html 
+sidebar: sidebar 
+keywords: set, path, br, tools, command 
+summary: Debe establecer la ruta de acceso para BR*Tools para usar el comando BR*Tools. 
+---
+= Establezca la ruta de acceso para BR*Tools
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe establecer la ruta de acceso para BR*Tools para usar el comando BR*Tools.
+
+
+
+== Acerca de esta tarea
+
+Si la ruta de acceso no está establecida e intenta realizar la operación de volcado del sistema utilizando BR*Tools, se inicia el siguiente mensaje de error `config_summary.txt: 'brtools' is not recognized as an internal or external command, operable program or batch file`
+
+.Pasos
+. Haga clic en *Inicio* > *Mi PC* y, a continuación, haga clic con el botón derecho del ratón en *Propiedades* > *Avanzado* > *variables ambientales*.
+. En la ventana *variables ambientales*, haga clic en *Nuevo* para agregar una nueva ruta BR*tools o *Editar* para editar la ruta de acceso BR*Tools existente tanto para las variables del sistema como para las variables de usuario.
+. Haga clic en *Aceptar* para guardar los cambios.
+

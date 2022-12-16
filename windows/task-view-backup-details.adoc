@@ -1,0 +1,75 @@
+---
+permalink: windows/task-view-backup-details.html 
+sidebar: sidebar 
+keywords: view, detail, information, backup, profile, smsap, show, command 
+summary: Puede ver la información detallada sobre un backup concreto de un perfil mediante el comando smsap backup show. 
+---
+= Ver detalles de backup
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede ver la información detallada sobre un backup concreto de un perfil mediante la `smsap backup show` comando.
+
+
+
+== Acerca de esta tarea
+
+La `smsap backup show` el comando muestra la siguiente información de cada backup:
+
+* El ID de la copia de seguridad
+* Si la copia de seguridad se ha realizado correctamente o ha fallado
+* Alcance de backup (completo, parcial, en línea o sin conexión)
+* Modo de backup
+* Estado de montaje
+* La etiqueta de backup
+* Comentar
+* La fecha y la hora en que se inició y finalizó la operación
+* Información sobre si se verificó el backup
+* La clase de retención de copias de seguridad
+* La base de datos y el nombre de host
+* El número de cambio de sistema de punto de comprobación (SCN)
+* El SCN de backup final (solo para backups en línea)
+* Los espacios de tablas y los archivos de datos de la base de datos de la que se realizó un backup
+* Los archivos de control de la base de datos de la que se realizó un backup
+* Los registros de archivos de la base de datos de la que se realizó un backup
+* El sistema de almacenamiento y los volúmenes donde se encuentran los archivos
+* Las copias Snapshot realizadas y su ubicación
+* El estado de los recursos de almacenamiento principales
+* El estado de la protección de backup
+* Modo de backup
+
+
+Si especifica el `-verbose` opción, se muestra la siguiente información adicional:
+
+* Los clones del backup, si los hay
+* Información de verificación
+* Si se monta el backup, SnapManager muestra los puntos de montaje que están en uso
+
+
+Para el backup de archivos de registro de archivos, se muestra la misma información que la del otro backup de base de datos excepto la siguiente información:
+
+* SCN de punto de comprobación
+* SCN de backup final
+* Tablespace
+* Archivos de control
+
+
+Sin embargo, el backup del archivo de registro de archivos contiene la siguiente información adicional:
+
+* El primer número de cambio del backup
+* El siguiente número de cambio del backup
+* Número de rosca
+* Restablecer ID de registros
+* Encarnación
+* Nombre de archivo de registro
+
+
+.Paso
+. Introduzca el siguiente comando:
++
+`*smsap backup show -profile _profile_name_ {-label _label_ [data | -archivelogs] | -id _id_ [-quiet | -verbose]*`
+
+

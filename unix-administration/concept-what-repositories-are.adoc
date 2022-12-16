@@ -1,0 +1,28 @@
+---
+permalink: unix-administration/concept-what-repositories-are.html 
+sidebar: sidebar 
+keywords: snapmanager, organize, information, profile, repository, repositories, data 
+summary: SnapManager organiza la información en perfiles, que a continuación se asocian con repositorios. Los perfiles contienen información acerca de la base de datos que se está gestionando, mientras que el repositorio contiene datos acerca de las operaciones que se realizan en los perfiles. 
+---
+= Qué repositorios son
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager organiza la información en perfiles, que a continuación se asocian con repositorios. Los perfiles contienen información acerca de la base de datos que se está gestionando, mientras que el repositorio contiene datos acerca de las operaciones que se realizan en los perfiles.
+
+El repositorio registra el momento en que se realizó un backup, qué archivos se hicieron de backup y si se creó un clon a partir del backup. Cuando los administradores de bases de datos restauran una base de datos o recuperan una parte del mismo, SnapManager consulta el repositorio para determinar qué se ha realizado un backup.
+
+Como el repositorio almacena los nombres de las copias Snapshot de la base de datos creadas durante las operaciones de backup, la base de datos del repositorio no puede existir en la misma base de datos y tampoco puede formar parte de la misma base de datos de la que se realiza el backup de SnapManager. Debe tener al menos dos bases de datos (la base de datos del repositorio de SnapManager y la base de datos de destino que gestiona SnapManager) en funcionamiento cuando se ejecutan operaciones de SnapManager.
+
+Si intenta abrir la interfaz gráfica de usuario (GUI) cuando la base de datos del repositorio está inactiva, el siguiente mensaje de error se registra en el `sm_gui.log` Archivo: [ADVERTIR]: `SMSAP-01106: Error occurred while querying the repository: No more data to read from socket`. Además, se produce un error en las operaciones de SnapManager cuando la base de datos del repositorio está inactiva. Para obtener más información acerca de los diferentes mensajes de error, consulte _solución de problemas conocidos_.
+
+Es posible usar cualquier nombre de host, nombre de servicio o nombre de usuario válido para realizar operaciones. Para que un repositorio admita operaciones SnapManager, el nombre de usuario y el nombre de servicio del repositorio sólo deben contener los siguientes caracteres: Caracteres alfabéticos (A-Z), dígitos (0-9), signo menos (-), guión bajo (_) y punto (.).
+
+El puerto de repositorio puede ser cualquier número de puerto válido y el nombre de host del repositorio puede ser cualquier nombre de host válido. El nombre de host debe estar formado por caracteres alfabéticos (A-Z), dígitos (0-9), signo menos (-) y punto (.), pero no un guión bajo (_).
+
+El repositorio debe crearse en una base de datos de Oracle. La base de datos que utiliza SnapManager debe configurarse de acuerdo con los procedimientos de Oracle para la configuración de la base de datos.
+
+Un único repositorio puede contener información acerca de varios perfiles; sin embargo, cada base de datos normalmente se asocia a un único perfil. Puede tener varios repositorios, donde cada repositorio contiene varios perfiles.

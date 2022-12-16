@@ -1,0 +1,88 @@
+---
+permalink: windows/reference-the-smosmsap-history-list-command.html 
+sidebar: sidebar 
+keywords: command, enable, view, list, history, detail, snapmanager, operation, smsap 
+summary: Este comando le permite ver una lista de detalles del historial de la operación SnapManager. 
+---
+= El comando smsap history list
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este comando le permite ver una lista de detalles del historial de la operación SnapManager.
+
+
+
+== Sintaxis
+
+[listing]
+----
+
+smsap history list
+-profile {-name profile_name [profile_name1, profile_name2] | -all
+-repository
+-login [-password repo_password]
+-username repo_username
+-host repo_host
+-dbname repo_dbname
+-port repo_port}
+-operation {-operations operation_name [operation_name1, operation_name2] | -all}
+[-delimiter character]
+[-quiet | -verbose]
+----
+
+
+== Parámetros
+
+* *`-profile _profile_`*
++
+Especifica el nombre del perfil. Este nombre puede tener hasta 30 caracteres y debe ser único dentro del host.
+
+* *`-repository`*
++
+Las opciones que siguen -repository especifican los detalles de la base de datos que almacena el perfil.
+
+* *`-dbname _repo_dbname_`*
++
+Especifica el nombre de la base de datos que almacena el perfil. Utilice el nombre global o el SID.
+
+* *`-host _repo_host_`*
++
+Especifica el nombre o la dirección IP del equipo host en el que se ejecuta la base de datos del repositorio.
+
+* *`-login`*
++
+Inicia los detalles de inicio de sesión en el repositorio.
+
+* *`-username _repo_username_`*
++
+Especifica el nombre de usuario necesario para acceder a la base de datos que almacena el repositorio.
+
+* *`-port _repo_port_`*
++
+Especifica el número de puerto TCP utilizado para acceder a la base de datos que almacena el repositorio.
+
+* *`-operation {-operationsoperation_name [operation_name1, operation_name2] | -all`*
++
+Especifica la operación SnapManager para la que se configura el historial.
+
+* *`-quiet`*
++
+Muestra sólo mensajes de error en la consola. El valor predeterminado es mostrar mensajes de error y advertencia.
+
+* *`-verbose`*
++
+Muestra mensajes de error, advertencia e informativos en la consola.
+
+
+
+
+
+== Comando de ejemplo
+
+[listing]
+----
+smsap history list -profile -name PROFILE1 -operation -operations backup -verbose
+----

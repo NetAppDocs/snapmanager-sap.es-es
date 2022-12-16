@@ -1,0 +1,60 @@
+---
+permalink: unix-administration/reference-the-smosmsap-profile-destroy-command.html 
+sidebar: sidebar 
+keywords: command, delete, split, clone, database, profile, snapmanager, process, smsap, destroy 
+summary: 'Este comando elimina la división de clones (base de datos) junto con el perfil que genera SnapManager durante el proceso de división de clones.' 
+---
+= El comando smsap profile destroy
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este comando elimina la división de clones (base de datos) junto con el perfil que genera SnapManager durante el proceso de división de clones.
+
+
+
+== Sintaxis
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap profile destroy
+-profile _profile_
+[-host _hostname_\]
+[-quiet | -verbose\]]
+----
+
+
+== Parámetros
+
+* `*-profile _profile_*`
++
+Especifica el perfil que genera SnapManager después de un proceso de división de clones correcto.
+
+* `*-host _hostname_*`
++
+Especifica el nombre de host en el que existe el clon dividido.
+
+* `*-quiet*`
++
+Muestra sólo mensajes de error en la consola. El valor predeterminado es mostrar mensajes de error y advertencia.
+
+* `*-verbose*`
++
+Muestra mensajes de error, advertencia e informativos en la consola.
+
+
+
+'''
+
+
+== Comando de ejemplo
+
+En el ejemplo siguiente se elimina el perfil denominado SALES1.
+
+[listing]
+----
+smsap profile destroy -profile SALES1
+----
+'''

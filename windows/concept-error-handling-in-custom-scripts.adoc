@@ -1,0 +1,63 @@
+---
+permalink: windows/concept-error-handling-in-custom-scripts.html 
+sidebar: sidebar 
+keywords: snapmanager, custom, script, return, code, clone, process, influence, standard, output, execution, error, handle 
+summary: SnapManager procesa la secuencia de comandos personalizada según los códigos de retorno específicos. Por ejemplo, si el script personalizado devuelve el valor 0, 1, 2 o 3, SnapManager continúa con el proceso de clonado. El código de retorno también influye en el modo en que SnapManager procesa y devuelve la salida estándar de la ejecución de la secuencia de comandos. 
+---
+= Error al manejar en scripts personalizados
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager procesa la secuencia de comandos personalizada según los códigos de retorno específicos. Por ejemplo, si el script personalizado devuelve el valor 0, 1, 2 o 3, SnapManager continúa con el proceso de clonado. El código de retorno también influye en el modo en que SnapManager procesa y devuelve la salida estándar de la ejecución de la secuencia de comandos.
+
+|===
+| Código de retorno | Descripción | Continúe procesando la operación 
+
+
+ a| 
+0
+ a| 
+El script se ha completado correctamente.
+ a| 
+Sí
+
+
+
+ a| 
+1
+ a| 
+El script se ha completado correctamente, con mensajes informativos.
+ a| 
+Sí
+
+
+
+ a| 
+2
+ a| 
+La secuencia de comandos se ha completado, pero incluye advertencias
+ a| 
+Sí
+
+
+
+ a| 
+3
+ a| 
+La secuencia de comandos falla, pero la operación continúa.
+ a| 
+Sí
+
+
+
+ a| 
+4 o >4
+ a| 
+El script falla y la operación se detiene.
+ a| 
+No
+
+|===

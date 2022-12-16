@@ -1,0 +1,49 @@
+---
+permalink: unix-administration/task-use-protection-manager-to-provision-the-new-dataset.html 
+sidebar: sidebar 
+keywords: smsap_paydb, dataset, create, storage, administrator, protection, manager, assign, system, resource, provision, backup, node 
+summary: Después de crear el conjunto de datos smsap_paydb, el administrador de almacenamiento utiliza Protection Manager para asignar recursos del sistema de almacenamiento a fin de aprovisionar el nodo copia de seguridad del conjunto de datos. 
+---
+= Utilice Protection Manager para aprovisionar el nuevo conjunto de datos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Una vez creado el conjunto de datos smsap_paydb, el administrador de almacenamiento utiliza Protection Manager para asignar recursos del sistema de almacenamiento a fin de aprovisionar el nodo Backup del conjunto de datos.
+
+*Lo que necesitará*
+
+Antes de aprovisionar el conjunto de datos recién creado, el administrador de almacenamiento consulta al partner DBA el nombre del conjunto de datos especificado en el perfil.
+
+En este caso, el nombre del conjunto de datos es smsap_prod01.sample.com_P01.
+
+.Pasos
+. Vaya a la Consola de gestión de NetApp de Protection Manager.
+. En la barra de menús, haga clic en *datos* > *conjuntos de datos* > *Descripción general*.
++
+La pestaña Datasets de la ventana Datasets muestra una lista de conjuntos de datos que incluye el conjunto de datos que acaba de crear mediante SnapManager.
+
+. Localice y seleccione el conjunto de datos *smsap_prod01.sample.com_p01*.
++
+Al seleccionar este conjunto de datos, el área del gráfico muestra el conjunto de datos smSAP_p01 sin aprovisionar con su nodo de backup. Su estado de conformidad se Marca como no conforme.
+
+. Con el conjunto de datos smsap_p01 todavía resaltado, haga clic en *Editar*.
++
+La consola de gestión de NetApp de Protection Manager muestra la ventana Editar conjunto de datos para el conjunto de datos *smsap_prod01.sample.com_p01*. El panel de navegación de la ventana muestra las opciones de configuración del nodo principal del conjunto de datos, la conexión de backup y el nodo de backup.
+
+. En el panel de navegación, busque las opciones del nodo de copia de seguridad del conjunto de datos y seleccione *agrupaciones de aprovisionamiento/recursos*.
++
+La ventana Edit Dataset muestra una configuración de la política de aprovisionamiento predeterminada y una lista de pools de recursos disponibles.
+
+. Para este ejemplo, seleccione el pool de recursos *p01_backup_resource* y haga clic en *>*.
++
+El pool de recursos seleccionado aparece en el campo "Pools de recursos para este nodo".
+
+. Haga clic en *Finalizar* para guardar los cambios.
+
+
+*resultado*
+
+Protection Manager aprovisiona automáticamente el nodo de copia de seguridad secundario con recursos del pool de recursos paydb_backup_resource.

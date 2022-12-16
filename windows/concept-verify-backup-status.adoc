@@ -1,0 +1,16 @@
+---
+permalink: windows/concept-verify-backup-status.html 
+sidebar: sidebar 
+keywords: snapmanager, integrity, backup, standard, oracle, verification, operation, verify, status 
+summary: SnapManager puede confirmar la integridad del backup mediante las operaciones estándar de verificación de backup de Oracle. 
+---
+= Comprobar el estado del backup
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager puede confirmar la integridad del backup mediante las operaciones estándar de verificación de backup de Oracle.
+
+Los administradores de bases de datos pueden realizar la verificación como parte de la operación de backup o al mismo tiempo. Los administradores de bases de datos pueden configurar la operación de verificación para que se produzca durante un tiempo de pico de actividad cuando la carga en los servidores host es menor o durante un período de mantenimiento programado.

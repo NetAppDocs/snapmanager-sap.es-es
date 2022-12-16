@@ -1,0 +1,34 @@
+---
+permalink: unix-administration/task-enable-autosupport-in-snapmanager.html 
+sidebar: sidebar 
+keywords: enable, autosupport, storage, system, receive, message, snapmanager, server, successful, backup, operation, enabling 
+summary: Debe habilitar AutoSupport, de modo que los sistemas de almacenamiento reciban mensajes del servidor SnapManager para cada operación de backup realizada correctamente. 
+---
+= Habilite AutoSupport en SnapManager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe habilitar AutoSupport, de modo que los sistemas de almacenamiento reciban mensajes del servidor SnapManager para cada operación de backup realizada correctamente.
+
+*Acerca de esta tarea*
+
+AutoSupport se puede habilitar de dos formas:
+
+* De forma predeterminada, la nueva instalación de SnapManager no contiene `auto_support.on` en la `smsap.config` archivo de configuración. Esto implica que AutoSupport está habilitado.
+* Puede configurar manualmente el `auto_support.on` parámetro.
+
+
+.Pasos
+. Detenga el servidor SnapManager.
+. En la `smsap.config` archivo de configuración, establezca el valor de `auto_support.on` parámetro a. `*TRUE*`.
++
+*ejemplo*
+
++
+auto_support.on=TRUE
+
+. Reinicie el servidor SnapManager.
+

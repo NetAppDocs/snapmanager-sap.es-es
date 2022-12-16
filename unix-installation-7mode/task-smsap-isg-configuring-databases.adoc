@@ -1,0 +1,14 @@
+---
+permalink: unix-installation-7mode/task-smsap-isg-configure-databases.html 
+sidebar: sidebar 
+keywords: configure, database, target, back, up, snapmanager, repository, store, metadata, configuring 
+summary: Debe configurar al menos dos bases de datos. Una base de datos de destino que se desea realizar un backup con SnapManager y una base de datos del repositorio para almacenar los metadatos de la base de datos de destino. La base de datos de destino y la base de datos del repositorio de SnapManager deben estar configuradas y en línea antes de ejecutar operaciones de SnapManager. 
+---
+= Configurar las bases de datos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe configurar al menos dos bases de datos: Una base de datos de destino en la que se desea realizar backup con SnapManager y una base de datos de repositorio para almacenar los metadatos de la base de datos de destino. La base de datos de destino y la base de datos del repositorio de SnapManager deben estar configuradas y en línea antes de ejecutar operaciones de SnapManager.

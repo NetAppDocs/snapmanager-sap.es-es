@@ -1,0 +1,30 @@
+---
+permalink: windows/task-deleting-backups.html 
+sidebar: sidebar 
+keywords: delete, backup, free, space, occupy, remove, snapshot, copies, copy, volume, deleting 
+summary: Debe eliminar backups cuando ya no los necesite, lo que libera el espacio que estos backups ocupan. Si elimina los backups, reducirá la posibilidad de alcanzar el límite de 255 copias snapshot por volumen. 
+---
+= Eliminar backups
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe eliminar backups cuando ya no los necesite, lo que libera el espacio que estos backups ocupan. Si elimina los backups, reducirá la posibilidad de alcanzar el límite de 255 copias snapshot por volumen.
+
+* Debe asegurarse de que el backup no se haya usado para crear un clon.
+
+
+Puede eliminar backups retenidos de forma ilimitada sin cambiar la clase de retención.
+
+Opcionalmente, es posible recoger los archivos de volcado después de la operación de eliminación de backup exitosa o con errores.
+
+Si desea eliminar los backups de registros de archivos, debe comprobar la duración de retención establecida para el backup de registros de archivos. Si el backup de registros de archivos se encuentra dentro de la duración de retención y se requieren archivos de registro de archivos para la recuperación de una base de datos restaurada, no se puede eliminar el backup de registros de archivos.
+
+. Compruebe que las operaciones se han completado introduciendo el comando siguiente: `smsap operation list -profileprofile_name-dump-quiet-verbose`
+. Para eliminar un backup, introduzca el siguiente comando:``smsap backup delete -profile profile_name [-label label [data | -archivelogs] | -idid | -all] [-force] [ -dump] [-quiet | -verbose]``
++
+Utilice la opción -force para forzar la eliminación del backup. Forzar la eliminación de un backup que tenga operaciones incompletas podría dejar el backup en estado incoherente.
+
+

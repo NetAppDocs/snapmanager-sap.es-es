@@ -1,0 +1,75 @@
+---
+permalink: unix-administration/task-use-protection-manager-to-configure-secondary-backup-schedules.html 
+sidebar: sidebar 
+keywords: support, backup, database, secondary, storage, administrator, protection, manager, configure, schedule 
+summary: Para admitir el backup de la base de datos en el almacenamiento secundario, el administrador de almacenamiento usa Protection Manager para configurar una programación de backups. 
+---
+= Use Protection Manager para configurar las programaciones de backups secundarios
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Para admitir el backup de la base de datos en el almacenamiento secundario, el administrador de almacenamiento usa Protection Manager para configurar una programación de backups.
+
+*Lo que necesitará*
+
+Antes de configurar la programación para las copias de seguridad secundarias, el administrador de almacenamiento consulta al partner DBA la siguiente información:
+
+* La programación que el administrador de bases de datos desea que se sigan los backups secundarios.
++
+En este caso, los backups únicos diarios se realizan a las 7 p. m. Y los backups una vez semanales se realizan el sábado a las 1:00
+
+
+
+.Pasos
+. Vaya a la Consola de gestión de NetApp de Protection Manager.
+. En la barra de menús, haga clic en *políticas* > *Protección* > *programas*.
++
+Se muestra la pestaña Schedules de la ventana Protection Policies.
+
+. Seleccione el horario diario ** Diario a las 8:00 PM** en la lista de horarios.
+. Haga clic en *Copiar*.
++
+En la lista se muestra un nuevo horario diario, *copia del diario a las 8:00 PM*. Ya está seleccionado.
+
+. Haga clic en *Editar*.
++
+La hoja de propiedades Editar horario diario se abre a la ficha Programación.
+
+. Cambie el nombre del programa a *nómina diaria a las 7 PM*, actualice la descripción y, a continuación, haga clic en *aplicar*.
++
+Se guardan los cambios.
+
+. Haga clic en la ficha *Eventos diarios*.
++
+La hora actual de copia de seguridad diaria de la programación es de 8:00 p.m. aparece en pantalla.
+
+. Haga clic en *Agregar* e introduzca *7:00 PM* en el nuevo campo Hora y, a continuación, haga clic en *aplicar*.
++
+La hora actual de copia de seguridad diaria del programa es ahora a las 7:00 p.m.
+
+. Haga clic en *Aceptar* para guardar los cambios y salir de la hoja de propiedades.
++
+Su nuevo horario diario, *Payroll Daily a las 7 PM*, se muestra en la lista de horarios.
+
+. Seleccione el horario semanal ** Domingo a las 8:00 PM más diariamente** en la lista de horarios.
+. Haga clic en *Copiar*.
++
+En la lista se muestra un nuevo horario semanal, *copia del domingo a las 8:00 PM más diario*. Ya está seleccionado.
+
+. Haga clic en *Editar*.
++
+La hoja de propiedades Editar horario semanal se abre a la ficha Programación.
+
+. Cambie el nombre del programa a *Payroll Saturday a la 1 AM PLUS Daily a las 7 PM* y actualice la descripción.
+. En la lista desplegable *Horario diario*, seleccione el horario diario que acaba de crear, *Payroll Daily a las 7 PM*.
++
+Seleccionar *nómina diaria a las 7 PM* significa que este programa define cuándo se producen las operaciones diarias cuando se aplica a una política el programa *nómina de sábado a la 1 AM más diario a las 7 PM*.
+
+. Haga clic en *Aceptar* para guardar los cambios y salir de la hoja de propiedades.
++
+Su nuevo horario semanal, *Payroll Saturday a la 1 AM más diariamente a las 7 PM*, se muestra en la lista de horarios.
+
+

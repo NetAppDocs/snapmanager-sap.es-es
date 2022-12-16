@@ -1,0 +1,32 @@
+---
+permalink: unix-administration/concept-restoring-a-backup-from-secondary-storage-to-a-different-location.html 
+sidebar: sidebar 
+keywords: brrestore, smsap, restore, command, secondary, backup, location, host, snapmanager, restoring 
+summary: Puede utilizar el comando BRRESTORE o smSAP restore para restaurar una copia de seguridad secundaria en una ubicación diferente. El nuevo host también debe ejecutar SnapManager. 
+---
+= Restauración de un backup desde un almacenamiento secundario a otra ubicación
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede utilizar el `BRRESTORE` o. `smsap restore` comando para restaurar un backup secundario a otra ubicación. El nuevo host también debe ejecutar SnapManager.
+
+Debe configurar el `preferred_backup_locations` y.. `restore_from_nearest_backup_location` parámetros en la `initSID.utl` archivo para restaurar la copia de seguridad secundaria a la ubicación deseada.
+
+. Edite el `initSID.utl` archivo.
+. Agregar `preferred_backup_locations` y.. `restore_from_nearest_backup_location` en el archivo.
++
+
+NOTE: La `PREFERRED_BACKUP_LOCATIONS` la variable de entorno anula el valor establecido para `preferred_backup_locations` Parámetro en el archivo initSID.utl.
+
+
+
+[NOTE]
+====
+* Si el valor para `preferred_backup_locations` no coincide con ningún nombre de nodo de política de protección y. `restore_from_nearest_backup_location` se establece en `*No*`, la operación falla.
+* Si existe el valor para `preferred_backup_locations` no está configurado o. `restore_from_nearest_backup_location` se establece en `*Yes*`, la operación de restauración se puede realizar desde la ubicación de copia de seguridad más cercana.
+
+
+====

@@ -1,0 +1,118 @@
+---
+permalink: unix-installation-7mode/task-prepare-storage-systems-for-snapmirror-replication-7-mode.html 
+sidebar: sidebar 
+keywords: snapmanager, snapmirror, technology, mirror, snapshot, copies, copy, configure, initialize, data-protection, relationship, destination, volume, prepare, preparing, storage, system, replication 
+summary: Para poder utilizar la tecnología SnapMirror integrada de SnapManager para reflejar copias Snapshot, debe configurar e inicializar una relación de protección de datos entre los volúmenes de origen y de destino. Durante la inicialización, SnapMirror realiza una copia Snapshot del volumen de origen, a continuación transfiere la copia y todos los bloques de datos que hace referencia al volumen de destino. También transfiere cualquier otra copia Snapshot menos reciente del volumen de origen al volumen de destino. 
+---
+= Preparar los sistemas de almacenamiento para la replicación de SnapMirror
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de poder utilizar la tecnología SnapMirror integrada de SnapManager para reflejar copias Snapshot, debe configurar e inicializar una relación de protección de datos entre los volúmenes de origen y de destino. Durante la inicialización, SnapMirror realiza una copia Snapshot del volumen de origen, a continuación transfiere la copia y todos los bloques de datos que hace referencia al volumen de destino. También transfiere cualquier otra copia Snapshot menos reciente del volumen de origen al volumen de destino.
+
+*Acerca de esta tarea*
+
+Es posible usar la CLI de ONTAP o OnCommand System Manager para ejecutar estas tareas. El siguiente procedimiento se basa en el supuesto de que está utilizando la CLI. Para obtener más información, consulte https://library.netapp.com/ecm/ecm_download_file/ECMP1368826["Guía de recuperación y backup en línea de protección de datos de Data ONTAP 8.2 para 7-Mode"^].
+
+
+NOTE: No se puede utilizar SnapManager para reflejar qtrees. SnapManager admite solo mirroring de volúmenes.
+
+No se puede usar SnapManager para el mirroring síncrono. SnapManager solo admite mirroring asíncrono.
+
+
+IMPORTANT: Si va a almacenar archivos de base de datos y registros de transacciones en diferentes volúmenes, debe crear relaciones entre los volúmenes de origen y de destino para los archivos de base de datos y entre los volúmenes de origen y de destino para los registros de transacciones.
+
+. En la consola del sistema de origen, utilice `options snapmirror.access` comando para especificar los nombres de host de los sistemas con permiso para copiar datos directamente desde el sistema de origen.
++
+*ejemplo*
+
++
+La entrada siguiente permite la replicación a Destination_systemB:
+
++
+[listing]
+----
+options snapmirror.access host=destination_systemB
+----
+. En el sistema de destino, cree o edite el `/etc/snapmirror.conf` archivo para especificar el volumen que se va a copiar.
++
+*ejemplo*
+
++
+La siguiente entrada especifica la replicación de vol0 de source_Systema a vol2 de Destination_systemB:
+
++
+[listing]
+----
+source_systemA:vol0 destination_systemB:vol2
+----
+. En las consolas del sistema de origen y de destino, utilice `snapmirror on` Comando para habilitar SnapMirror.
++
+*ejemplo*
+
++
+El siguiente comando habilita SnapMirror:
+
++
+[listing]
+----
+snapmirror on
+----
+. En la consola del sistema de destino, utilice `vol create` Comando para crear un volumen de destino de SnapMirror con un tamaño igual o superior que el volumen de origen.
++
+*ejemplo*
+
++
+El siguiente comando crea un volumen de destino de 2 GB denominado vol2 en el agregado aggr1:
+
++
+[listing]
+----
+vol create vol2 aggr1 2g
+----
+. En la consola del sistema de destino, utilice el comando vol restrict para marcar el volumen de destino como restringido.
++
+*ejemplo*
+
++
+El siguiente comando Marca el volumen de destino vol2 como restringido:
+
++
+[listing]
+----
+vol restrict vol2
+----
+. En la consola del sistema de origen, utilice `snap sched` comando para deshabilitar cualquier transferencia programada.
++
+*ejemplo*
+
++
+Debe deshabilitar las transferencias programadas para evitar que se produzcan conflictos de programación con SnapDrive.
+
++
+El siguiente comando deshabilita las transferencias programadas:
+
++
+[listing]
+----
+snap sched vol1 -----
+----
+. En la consola del sistema de destino, utilice `snapmirror initialize` comando para crear una relación entre los volúmenes de origen y de destino, e inicializar la relación.
++
+El proceso de inicialización realiza una _transferencia basal_ al volumen de destino. SnapMirror realiza una copia Snapshot del volumen de origen y, a continuación, transfiere la copia y todos los bloques de datos que hace referencia al volumen de destino. También transfiere cualquier otra copia Snapshot del volumen de origen al volumen de destino.
+
++
+*ejemplo*
+
++
+El siguiente comando crea una relación de SnapMirror entre el volumen de origen vol0 en source_Systema y el volumen de destino vol2 en Destination_systemB, e inicializa la relación:
+
++
+[listing]
+----
+snapmirror initialize -S source_systemA:vol0 destination_systemB:vol2
+----
+

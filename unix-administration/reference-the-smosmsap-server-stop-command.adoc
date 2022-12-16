@@ -1,0 +1,50 @@
+---
+permalink: unix-administration/reference-the-smosmsap-server-stop-command.html 
+sidebar: sidebar 
+keywords: command, stop, snapmanager, host, server, root, smsap_server 
+summary: Este comando detiene el servidor host de SnapManager y se introduce en la raíz. 
+---
+= El comando smsap_Server stop
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este comando detiene el servidor host de SnapManager y se introduce en la raíz.
+
+
+
+== Sintaxis
+
+[listing]
+----
+smsap_server stop
+[-quiet | -verbose]
+----
+
+
+== Parámetros
+
+* `*-quiet*`
++
+Especifica que sólo se muestran mensajes de error en la consola. El valor predeterminado es mostrar mensajes de error y advertencia.
+
+* `*-verbose*`
++
+Especifica que los mensajes de error, advertencia e informativos se muestran en la consola.
+
+
+
+'''
+
+
+== Comando de ejemplo
+
+En el ejemplo siguiente se utiliza la `smsap_server` comando stop.
+
+[listing]
+----
+smsap_server stop
+----
+'''

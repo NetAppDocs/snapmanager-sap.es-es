@@ -1,0 +1,212 @@
+---
+permalink: unix-administration/concept-what-br-tools-are.html 
+sidebar: sidebar 
+keywords: information, sap, storage, system, br, tools 
+summary: Encontrará información que necesitaría para utilizar SAP con los sistemas de almacenamiento. 
+---
+= Qué son las BR*Tools
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Encontrará información que necesitaría para utilizar SAP con los sistemas de almacenamiento.
+
+Para obtener información general sobre el uso de BR*Tools, incluida la sintaxis de comandos, consulte la documentación de SAP, como BR*Tools para la administración de bases de datos Oracle en línea.
+
+
+
+== Requisitos de perfil
+
+El perfil de SnapManager para SAP debe nombrarse correctamente para trabajar con BR*Tools. De forma predeterminada, BACKINT usa el perfil, que tiene el mismo nombre que el SID de SAP, del repositorio determinado por el ID de usuario que emite los comandos BR*Tools.
+
+Debe utilizar un nombre de perfil diferente si el SID de SAP no es único en su entorno. Para obtener más información, vea _uso del perfil para copias de seguridad_ de BR* Tools.
+
+Usted debe tener un enlace del directorio BR*Tools al `/opt/NetApp/smsap/bin/backint` Archivo instalado por SnapManager para SAP. Para obtener información acerca de cómo crear el vínculo, vea _integrar con SAP BR* Tools_.
+
+Los backups creados con versiones anteriores a BR*Tools 7.00 no se pueden verificar. El tamaño de bloque del tablespace o del archivo de datos es necesario para completar la verificación; sin embargo, las versiones anteriores a BR*Tools 7.00 no lo proporcionan.
+
+
+
+== Acerca de la combinación de las interfaces BR*Tools y SnapManager para SAP
+
+Puede utilizar una combinación de BR*Tools y la interfaz gráfica de usuario (GUI) de SnapManager for SAP o la interfaz de línea de comandos (CLI) para realizar las siguientes operaciones:
+
+[cols="1a,1a"]
+|===
+| Funcionamiento | Interfaces que puede utilizar 
+
+
+ a| 
+Enumerar, restaurar, recuperar y eliminar copias de seguridad de la base de datos (copias de seguridad que incluyen archivos de datos, archivos de control o archivos redo log en línea) creadas con BRBACKUP
+ a| 
+SnapManager para la CLI y GUI de SAP
+
+
+NOTE: BR*Tools puede enumerar y restaurar sólo las copias de seguridad creadas mediante BR*Tools.
+
+
+
+ a| 
+Enumerar y eliminar copias de seguridad de otros conjuntos de archivos creados con BRBACKUP
+ a| 
+SnapManager para la CLI y GUI de SAP
+
+
+
+ a| 
+Clonar copias de seguridad de otros conjuntos de archivos creados con BRBACKUP
+ a| 
+Se puede clonar un backup completo en línea o sin conexión utilizando el comando BRBACKUP mediante la SnapManager para la CLI o GUI de SAP.
+
+|===
+
+
+== Opciones disponibles bajo BR*Tools CLI con SnapManager para SAP
+
+Las siguientes opciones están disponibles bajo la CLI de BR*Tools:
+
+[cols="1a,2a"]
+|===
+| Opción | Tareas que se pueden realizar 
+
+
+ a| 
+Gestión de instancias
+ a| 
+Registrar todas las acciones en las tablas del sistema de archivos y de la base de datos y guardar también los registros y perfiles de copia de seguridad en los medios de copia de seguridad.
+
+
+
+ a| 
+Gestión del espacio
+ a| 
+Permite una gestión de volúmenes completa. Para utilizar las funciones proporcionadas en la administración de espacio, debe inicializar los volúmenes con BRBACKUP o BRARCHIVE para asegurarse de que incluyan una etiqueta específica de SAP.
+
+
+
+ a| 
+Backup y copia de la base de datos
+ a| 
+Crear un backup de una base de datos, realizar un registro de recuperación sin conexión (registro de archivo) y verificar backups.
+
+
+
+ a| 
+Restauración y recuperación
+ a| 
+Restaurar y recuperar backups.
+
+
+
+ a| 
+Estadísticas de la base de datos
+ a| 
+Mantener las estadísticas de tablas e índices.
+
+|===
+
+
+== Funciones similares disponibles bajo BR*Tools GUI
+
+Las siguientes operaciones están disponibles en la GUI de BR*Tools:
+
+[cols="1a,1a"]
+|===
+| Tipo de asistente | Tareas que se pueden realizar 
+
+
+ a| 
+Asistente para crear repositorio
+ a| 
+Crear un repositorio en una base de datos.
+
+
+
+ a| 
+Asistente de perfil
+ a| 
+Crear un perfil en un repositorio.
+
+
+
+ a| 
+Asistente Backup
+ a| 
+Cree una copia de seguridad del perfil.
+
+
+
+ a| 
+Asistente Restore and Recovery
+ a| 
+Restaurar y recuperar una copia de seguridad de un perfil.
+
+
+
+ a| 
+Asistente SnapManager Clone Delete
+ a| 
+Eliminar el clon de un backup.
+
+
+
+ a| 
+Asistente para la eliminación de copias de seguridad de SnapManager
+ a| 
+Eliminar la copia de seguridad de un perfil.
+
+|===
+
+
+== Acerca de la clonado de backups creados con BR*Tools
+
+Se puede clonar un backup completo en línea o sin conexión utilizando el comando BRBACKUP con la SnapManager para la CLI o GUI de SAP.
+
+Para crear un clon de la copia de seguridad de la base de datos creada mediante el comando BRBACKUP, asegúrese de establecer el parámetro de configuración brbackup.enable.clonable.backups en true en el archivo smSAP.config y, a continuación, reinicie SnapManager para el servidor SAP. Introduzca el siguiente comando: `brbackup.enable.cloneable.backups=true`
+
+Para los backups online creados con el comando BRBACKUP, SnapManager para SAP le permite clonar el backup sin realizar ningún cambio desde la CLI o GUI de SnapManager para SAP.
+
+Para los backups sin conexión creados con el comando BRBACKUP, SnapManager para SAP le permite clonar el backup desde la CLI o GUI de SnapManager para SAP después de realizar los siguientes pasos:
+
+. Agregue las siguientes variables de configuración en el archivo smsap.config.
++
+Los valores de las variables que se muestran a continuación son valores predeterminados. Puede conservar estos valores si desea establecerlos en valores predeterminados.
+
++
+** brbackup.oracle.maxfiles=254
+** brbackup.oracle.maxloghistory=1168
+** brbackup.oracle.maxinstances=50
+** brbackup.oracle.maxlogfiles=255
+** brbackup.oracle.maxlogmembers=3
+** brbackup.oracle.character_set=UTF8
+
+
+. Para cambiar cualquiera de estos valores de parámetros de configuración predeterminados en el archivo smSAP.config, ejecute el siguiente comando desde el símbolo del sistema SQL:
++
+`alter database backup controlfile to trace as file`
+
++
+El archivo puede ser cualquier nombre definido por el usuario y se crea en el mismo directorio desde donde se llama a SQL*Plus.
+
+. Abra el archivo para establecer estos valores en las variables de configuración correspondientes del archivo smSAP.config.
+. Reinicie el servidor SnapManager.
+
+
+
+
+== Acerca de la eliminación de copias de seguridad creadas con BR*Tools
+
+BR*Tools no elimina las copias de seguridad. Dado que los backups de SnapManager para SAP se basan en copias Snapshot, existe un límite para la cantidad de backups que puede retener. Es necesario garantizar que los backups se eliminen cuando ya no se necesiten.
+
+En el sistema de almacenamiento NetApp, cada volumen puede tener un máximo de 255 copias snapshot. Si un volumen alcanza el límite, se producirá un error en los backups. Un backup realizado con BRBACKUP suele crear dos copias Snapshot de cada volumen afectado.
+
+Para evitar llegar al máximo de la copia Snapshot de 255, puede gestionar los backups de las siguientes formas:
+
+* Puede establecer las opciones retain en el perfil usado para las operaciones BR*Tools.
++
+A continuación, SnapManager para SAP elimina automáticamente los backups más antiguos, según sea necesario.
+
+* Puede eliminar manualmente backups que ya no sean necesarios mediante la interfaz gráfica de usuario o la interfaz de línea de comandos de SnapManager para SAP.
+

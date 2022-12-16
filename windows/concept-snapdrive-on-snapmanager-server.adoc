@@ -1,0 +1,14 @@
+---
+permalink: windows/concept-snapdrive-on-snapmanager-server.html 
+sidebar: sidebar 
+keywords: snapmanager, snapdrive, windows, snapshot, copies, copy, storage, system, server 
+summary: SnapManager utiliza SnapDrive para Windows para crear copias Snapshot del sistema de almacenamiento. SnapDrive reside en el mismo servidor que SnapManager. 
+---
+= SnapDrive en el servidor SnapManager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager utiliza SnapDrive para Windows para crear copias Snapshot del sistema de almacenamiento. SnapDrive reside en el mismo servidor que SnapManager.

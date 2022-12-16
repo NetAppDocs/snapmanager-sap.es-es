@@ -1,0 +1,58 @@
+---
+permalink: windows/task-configuring-e-mail-notification-for-a-new-profile.html 
+sidebar: sidebar 
+keywords: creating, create, profile, configure, receive, email, notification, completion, database, operation, configuring, profile 
+summary: Cuando se crea un perfil nuevo, se puede configurar para recibir una notificación por correo electrónico al finalizar la operación de la base de datos. 
+---
+= Configuración de la notificación por correo electrónico para un perfil nuevo
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cuando se crea un perfil nuevo, se puede configurar para recibir una notificación por correo electrónico al finalizar la operación de la base de datos.
+
+* Debe configurar la dirección de correo electrónico desde la cual se envían las alertas.
+* Debe usar una lista separada por comas para varias direcciones de correo electrónico.
++
+Debe asegurarse de que no hay espacio entre la coma y la siguiente dirección de correo electrónico.
+
++
+
+NOTE: Asegúrese de introducir el conjunto de direcciones de correo electrónico entre comillas dobles.
+
+
+
+.Paso
+. Introduzca el siguiente comando:
++
+`smsap profile create -profileprofile [-profile-passwordprofile_password] -repository-dbnamerepo_service_name-hostrepo_host-portrepo_port-login-usernamerepo_username-database-dbnamedb_dbname-hostdb_host [-siddb_sid] [-login-usernamedb_username-passworddb_password-portdb_port] [-rman {-controlfile | \{-login-usernamerman_username-passwordrman_password-tnsnamerman_tnsname} } ] [-retain [-hourly [-countn] [-durationm]] [-daily [-countn] [-durationm]] [-weekly [-countn] [-durationm]] [-monthly [-countn] [-durationm]]] [-commentcomment][-snapname-patternpattern][-protect [ ]][-notification [-success-emailemail_address1,email_address2-subjectsubject_pattern] [-failure-emailemail_address1,email_address2-subjectsubject_pattern]]`
+
++
+Las demás opciones para este comando son las siguientes:
+
++
+[-fuerza]
+
++
+
+NOTE: SnapManager admite hasta 1000 caracteres para las direcciones de correo electrónico.
+
++
+Cuando se crea un backup de archivos de datos y archivos de registro de archivos junto con el perfil (para crear backups de registros de archivos independientes) y se produce un error en la creación del backup de archivos de datos, la notificación por correo electrónico se envía con el backup de datos como nombre de la operación en lugar de un backup de datos y un backup de registros de archivos. Cuando la operación de backup de archivo de datos y archivo de registro de archivo se realiza correctamente, se muestra el resultado de la siguiente manera:
+
++
+[listing]
+----
+
+Profile Name    : PROF_31
+Operation Name 	: Data Backup and Archive Logs Backup
+Database SID   	: TENDB1
+Database Host 	 : repo1.rtp.org.com
+Start Date 	    : Fri Sep 23 13:37:21 EDT 2011
+End Date 	      : Fri Sep 23 13:45:24 EDT 2011
+Status 	        : SUCCESS
+Error messages 	:
+----
+

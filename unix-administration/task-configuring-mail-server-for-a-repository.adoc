@@ -1,0 +1,75 @@
+---
+permalink: unix-administration/task-configure-mail-server-for-a-repository.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, specify, mail, server, details, email, alert, sent, repository, configuring, configure 
+summary: SnapManager permite especificar los detalles del servidor de correo desde los cuales se envían las alertas por correo electrónico. 
+---
+= Configurar un servidor de correo para un repositorio
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager permite especificar los detalles del servidor de correo desde los cuales se envían las alertas por correo electrónico.
+
+*Acerca de esta tarea*
+
+SnapManager permite especificar el nombre de host o la dirección IP del servidor de correo electrónico del remitente y el número de puerto del servidor de correo electrónico para un nombre de la base de datos de repositorio que requiere la notificación por correo electrónico. Puede configurar el número de puerto del servidor de correo en un intervalo comprendido entre 0 y 65535; el valor predeterminado es 25. Si requiere autenticación para la dirección de correo electrónico, puede especificar el nombre de usuario y la contraseña.
+
+Debe especificar el nombre o la dirección IP del servidor host que maneja la notificación por correo electrónico.
+
+.Paso
+. Para configurar el servidor de correo para que envíe alertas por correo electrónico, escriba el siguiente comando: `smsap notification set -sender-emailemail_address-mailhostmailhost-mailportmailport [-authentication-usernameusername-passwordpassword] -repository-portrepo_port-dbnamerepo_service_name-hostrepo_host-login-usernamerepo_username`
++
+Las demás opciones para este comando son las siguientes:
+
++
+``[-force]``
+
++
+``[-quiet | -verbose]``
+
++
+[cols="2a,4a"]
+|===
+| Para hacer lo siguiente... | Realice lo siguiente... 
+
+
+ a| 
+*Para especificar la dirección de correo electrónico del remitente.*
+ a| 
+Especifique el `-sender-email` opción. En SnapManager 3.2 para SAP, puede incluir guión (-) al especificar el nombre de dominio de la dirección de correo electrónico. Por ejemplo, puede especificar la dirección de correo electrónico del remitente como `-sender-email _user@org-corp.com_.`
+
+
+
+ a| 
+*Para especificar el nombre de host o la dirección IP del servidor de correo electrónico del remitente.*
+ a| 
+Especifique el `-mailhost` opción.
+
+
+
+ a| 
+*Especificar el número de puerto del servidor de correo electrónico para un nombre de base de datos de repositorio que requiere notificación por correo electrónico. Puede configurar el número de puerto del servidor de correo en un intervalo comprendido entre cero y 65535; el valor predeterminado es 25.*
+ a| 
+Especifique el `-mailport` opción.
+
+
+
+ a| 
+*Especifique el nombre de usuario y la contraseña si necesita autenticación para la dirección de correo electrónico.*
+ a| 
+Especifique `-authentication` opción seguida del nombre de usuario y la contraseña.
+
+|===
+
+
+'''
+En el siguiente ejemplo se configura el servidor de correo.
+
+[listing]
+----
+smsap notification set -sender-email admin1@org.com -mailhost hostname.org.com -mailport 25 authentication -username admin1 -password admin1 -repository -port 1521 -dbname SMSAPREPO -host hotspur -login -username grabal21 -verbose
+----
+'''

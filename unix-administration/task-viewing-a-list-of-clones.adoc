@@ -1,0 +1,34 @@
+---
+permalink: unix-administration/task-view-a-list-of-clones.html 
+sidebar: sidebar 
+keywords: view, list, clone, associate, profile 
+summary: Puede ver una lista de clones asociados con un perfil determinado. 
+---
+= Consulte una lista de clones
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede ver una lista de clones asociados con un perfil determinado.
+
+*Acerca de esta tarea*
+
+La lista incluye la siguiente información sobre los clones de un perfil:
+
+* El ID del clon
+* Estado de la operación de clonado
+* SID de Oracle para el clon
+* Host donde reside el clon
+* Etiqueta del clon
+
+
+Si especifica el `-verbose` opción, el resultado también muestra los comentarios introducidos para el clon.
+
+.Paso
+. Para mostrar una lista de todos los clones de un perfil, introduzca el siguiente comando
++
+`*smsap clone list -profile _profile_name_ [-quiet | -verbose]*`
+
+

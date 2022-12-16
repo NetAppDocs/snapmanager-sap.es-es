@@ -1,0 +1,44 @@
+---
+permalink: unix-administration/concept-what-user-authentication-is.html 
+sidebar: sidebar 
+keywords: role-base, access, control, snapmanager, authenticate, operating, system, os, smsap, credential, set, authentication 
+summary: 'Además de utilizar el control de acceso basado en roles (RBAC), SnapManager autentica al usuario por medio de un inicio de sesión en el sistema operativo (SO) en el host en el que se ejecuta el servidor SnapManager. Puede habilitar la autenticación de usuario mediante mensajes de contraseña en las operaciones o mediante el conjunto de credenciales smSAP.' 
+---
+= Qué es la autenticación de usuario
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Además de utilizar el control de acceso basado en roles (RBAC), SnapManager autentica al usuario por medio de un inicio de sesión en el sistema operativo (SO) en el host en el que se ejecuta el servidor SnapManager. Puede habilitar la autenticación de usuario mediante solicitudes de contraseña en las operaciones o mediante el `smsap credential set`.
+
+Los requisitos de autenticación de usuario dependen de dónde se realice la operación.
+
+* Si el cliente SnapManager está en el mismo servidor que el host SnapManager, se autenticará mediante las credenciales del sistema operativo.
++
+No se le solicita una contraseña porque ya ha iniciado sesión en el host donde se ejecuta el servidor SnapManager.
+
+* Si el cliente SnapManager y el servidor SnapManager están en hosts diferentes, SnapManager debe autenticarse con ambas credenciales de sistema operativo.
++
+SnapManager solicita contraseñas para cualquier operación si no se guardaron las credenciales del sistema operativo en la caché de credenciales del usuario SnapManager. Si introduce el `smsap credential set -host` Comando, puede guardar las credenciales del sistema operativo en su archivo de caché de credenciales de SnapManager, por lo que SnapManager no solicita la contraseña de ninguna operación.
+
+
+
+Si está autenticado con el servidor SnapManager, se considera el usuario efectivo. El usuario efectivo para cualquier operación debe ser una cuenta de usuario válida en el host donde se ejecuta la operación. Por ejemplo, si ejecuta una operación de clonado, debe poder iniciar sesión en el host de destino del clon.
+
+
+NOTE: SnapManager para SAP podría fallar al autorizar a los usuarios creados en Servicios de Active Directory central, como LDAP Y ANUNCIOS. Para garantizar que la autenticación no falle, debe configurar `configurable auth.disableServerAuthorization` para `*true*`.
+
+Como usuario eficaz, puede gestionar las credenciales de las siguientes maneras:
+
+* De manera opcional, es posible configurar SnapManager para almacenar credenciales de usuario en el archivo de credenciales de usuario de SnapManager.
++
+De manera predeterminada, SnapManager no almacena las credenciales del host. Puede resultar conveniente cambiar esto, por ejemplo, si tiene scripts personalizados que requieren acceso en un host remoto. La operación de clonado remoto es un ejemplo de una operación SnapManager que necesita las credenciales de inicio de sesión de un usuario para un host remoto. Para que SnapManager recuerde credenciales de inicio de sesión de host de usuario en la caché de credenciales de usuario de SnapManager, configure el `host.credentials.persist` propiedad a. `*true*` en la `smsap.config` archivo.
+
+* Puede autorizar el acceso de los usuarios al repositorio.
+* Puede autorizar el acceso de los usuarios a los perfiles.
+* Es posible ver todas las credenciales de usuario.
+* Es posible borrar las credenciales de un usuario para todos los recursos (hosts, repositorios y perfiles).
+* Es posible eliminar credenciales de recursos individuales (hosts, repositorios y perfiles).
+

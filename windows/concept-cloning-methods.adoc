@@ -1,0 +1,38 @@
+---
+permalink: windows/concept-cloning-methods.html 
+sidebar: sidebar 
+keywords: clone, method, database, create, operation 
+summary: Es posible clonar una base de datos mediante uno de estos dos métodos. El método seleccionado afecta a la operación de creación de clon. 
+---
+= Métodos de clonación
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Es posible clonar una base de datos mediante uno de estos dos métodos. El método seleccionado afecta a la operación de creación de clon.
+
+En la siguiente tabla se describen los métodos de clonado y su efecto en el `clone create` funcionamiento y su `-reserve` opción. Una LUN se puede clonar mediante cualquiera de los dos métodos.
+
+|===
+| Método de clonación | Descripción | clone create -reserve 
+
+
+ a| 
+Clonado de LUN
+ a| 
+Se crea un nuevo LUN clon en el mismo volumen.
+ a| 
+Cuando `-reserve` Para una LUN está configurada en `yes`, Se reserva espacio para el tamaño completo de LUN en el volumen.
+
+
+
+ a| 
+Clonado de volúmenes
+ a| 
+Se crea un nuevo FlexClone y la LUN clonada existe dentro del nuevo volumen clonado. Utiliza la tecnología FlexClone.
+ a| 
+Cuando `-reserve` para un volumen se establece en `yes`, se reserva espacio para el tamaño de volumen completo dentro del agregado.
+
+|===

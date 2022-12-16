@@ -1,0 +1,106 @@
+---
+permalink: unix-installation-7mode/task-prepare-storage-systems-for-snapvault-replication-7-mode.html 
+sidebar: sidebar 
+keywords: snapmanager, integrate, snapvault, technology, archive, snapshot, copies, copy, disk, configure, intialize, data-protection, relationship, source, volume, destination, volume, initialization, data, block, preparing, prepare, storage, system, replication 
+summary: Antes de poder utilizar la tecnología SnapVault integrada de SnapManager para archivar copias Snapshot en disco, debe configurar e inicializar una relación de protección de datos entre los volúmenes de origen y de destino. Durante la inicialización, SnapVault realiza una copia Snapshot del volumen de origen, a continuación transfiere la copia y todos los bloques de datos que hace referencia al volumen de destino. 
+---
+= Preparar los sistemas de almacenamiento para la replicación SnapVault
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de poder utilizar la tecnología SnapVault integrada de SnapManager para archivar copias Snapshot en disco, debe configurar e inicializar una relación de protección de datos entre los volúmenes de origen y de destino. Durante la inicialización, SnapVault realiza una copia Snapshot del volumen de origen, a continuación transfiere la copia y todos los bloques de datos que hace referencia al volumen de destino.
+
+*Lo que necesitará*
+
+* Debe haber configurado un conjunto de datos para la ubicación de almacenamiento principal en el asistente de configuración de SnapManager.
+* Todas las LUN deben estar en qtrees, con una LUN por qtree.
+
+
+
+IMPORTANT: Si va a almacenar archivos de base de datos y registros de transacciones en diferentes volúmenes, debe crear relaciones entre los volúmenes de origen y de destino para los archivos de base de datos y entre los volúmenes de origen y de destino para los registros de transacciones.
+
+.Pasos
+. En las consolas del sistema de origen y de destino, active SnapVault:
++
+*ejemplo*
+
++
+[listing]
+----
+options snapvault.enable on
+----
+. En la consola del sistema de origen, utilice `options snapvault.access` comando para especificar los nombres de host de los sistemas con permiso para copiar datos directamente desde el sistema de origen.
++
+*ejemplo*
+
++
+El comando siguiente permite la replicación a Destination_systemB:
+
++
+[listing]
+----
+options snapvault.access host=destination_systemB
+----
+. En la consola del sistema de destino, utilice `options snapvault.access` comando para especificar los nombres de host de los sistemas a los que se pueden restaurar los datos copiados.
++
+*ejemplo*
+
++
+El siguiente comando permite restaurar los datos copiados en source_Systema:
+
++
+[listing]
+----
+options snapvault.access host=destination_systemA
+----
+. En la consola del sistema de origen, utilice `ndmpd on` Comando para habilitar NDMP.
++
+*ejemplo*
+
++
+El siguiente comando habilita NDMP:
+
++
+[listing]
+----
+ndmpd on
+----
+. En la consola del sistema de destino, utilice `vol create` Comando para crear un volumen de destino de SnapMirror con un tamaño igual o superior que el volumen de origen.
++
+*ejemplo*
+
++
+El siguiente comando crea un volumen de destino de 2 GB denominado vol2 en el agregado aggr1:
+
++
+[listing]
+----
+vol create vol2 aggr1 2g
+----
+. En la consola de gestión de NetApp de OnCommand Unified Manager (UM), añada el pool de recursos para el volumen de destino:
++
+.. Haga clic en *datos* > *grupos de recursos* para abrir la página *grupos de recursos*.
+.. En la página Pools de recursos, haga clic en *Agregar* para iniciar el asistente *Agregar grupo de recursos*.
+.. Siga las instrucciones del asistente para especificar el agregado del volumen de destino.
+.. Haga clic en *Finalizar* para salir del asistente.
+
+
+. En la consola de gestión de UM de NetApp, asigne el pool de recursos al conjunto de datos que haya creado en el asistente de configuración de SnapManager:
++
+.. Haga clic en *Data* > *Datasets* para abrir la página Datasets.
+.. En la página *Datasets*, seleccione el conjunto de datos que ha creado y haga clic en *Editar*.
+.. En la página *Editar conjunto de datos*, haga clic en *copia de seguridad* > *grupos de aprovisionamiento/recursos* para abrir el asistente *Configurar nodo de conjunto de datos*.
+.. Siga las instrucciones del asistente para asignar el pool de recursos al conjunto de datos.
++
+La asignación de pool de recursos especifica la relación de protección de datos entre los volúmenes de origen y destino.
+
+.. Haga clic en *Finalizar* para salir del asistente e inicializar la relación de protección de datos.
++
+El proceso de inicialización realiza una _transferencia basal_ al volumen de destino. SnapVault realiza una copia Snapshot del volumen de origen y, a continuación, transfiere la copia y todos los bloques de datos que hace referencia al volumen de destino.
+
+
+
+

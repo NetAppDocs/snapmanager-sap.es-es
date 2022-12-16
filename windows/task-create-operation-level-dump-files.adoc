@@ -1,0 +1,33 @@
+---
+permalink: windows/task-create-operation-level-dump-files.html 
+sidebar: sidebar 
+keywords: smsap, operation, dump, command, name, id, fail, log, information, level, profile, host, environment, create, operation-level 
+summary: Puede utilizar el comando dump de operación smsap con el nombre o el ID de la operación fallida para obtener información de registro sobre una operación determinada. Es posible especificar niveles de registro diferentes para recopilar información sobre una operación, un perfil, un host o un entorno específicos. 
+---
+= Crear archivos de volcado en el nivel de las operaciones
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede utilizar el `smsap operation dump` Comando con el nombre o el ID de la operación que ha fallado para obtener información del registro acerca de una operación en particular. Es posible especificar niveles de registro diferentes para recopilar información sobre una operación, un perfil, un host o un entorno específicos.
+
+.Paso
+. Introduzca el siguiente comando:
++
+`*smsap operation dump -id _guid_*`
+
++
+
+NOTE: La `smsap operation dump` el comando proporciona un superconjunto de la información proporcionada por `smsap profile dump` comando, que a su vez proporciona un superconjunto de la información proporcionada por el `smsap system dump` comando.
+
++
+Ubicación del archivo de volcado:
+
++
+[listing]
+----
+Path:\<user-home>\Application Data\NetApp\smsap\3.3.0\smsap_dump_8abc01c814649ebd0114649ec69d0001.jar
+----
+

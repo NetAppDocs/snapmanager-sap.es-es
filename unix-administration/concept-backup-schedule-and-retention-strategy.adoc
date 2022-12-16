@@ -1,0 +1,69 @@
+---
+permalink: unix-administration/concept-backup-schedule-and-retention-strategy.html 
+sidebar: sidebar 
+keywords: dba, ensure, backup, loss, data, disaster, regulatory, reason, retention, policy, database, schedule 
+summary: El administrador de bases de datos quiere asegurarse de que los backups estén disponibles en caso de pérdida de datos, en caso de siniestro y por motivos normativos. Esto requiere una política de retención de pensamiento detenidamente para las distintas bases de datos. 
+---
+= Programa de backup y estrategia de retención
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El administrador de bases de datos quiere asegurarse de que los backups estén disponibles en caso de pérdida de datos, en caso de siniestro y por motivos normativos. Esto requiere una política de retención de pensamiento detenidamente para las distintas bases de datos.
+
+Para la base de datos de nóminas de producción, el DBA se adhiere a la siguiente estrategia de retención de TechCo:
+
+[cols="1a,1a,1a,1a"]
+|===
+| Frecuencia de backup | Duración de la retención | El tiempo de los backups | Tipo de almacenamiento 
+
+
+ a| 
+Una vez al día
+ a| 
+10 días
+ a| 
+7 p. m.
+ a| 
+Primario (local)
+
+
+
+ a| 
+Una vez al día
+ a| 
+10 días
+ a| 
+7 p. m.
+ a| 
+Secundario (archivado)
+
+
+
+ a| 
+Una vez por semana
+ a| 
+52 semanas
+ a| 
+Sábados 1:00 a.m.
+ a| 
+Secundario (archivado)
+
+|===
+* *Ventajas de copia de seguridad local*
++
+El backup local diario proporciona protección de bases de datos, que es instantánea, utiliza cero ancho de banda de red, utiliza un mínimo de espacio de almacenamiento adicional, ofrece una restauración instantánea y ofrece funciones de backup y restauración de datos muy detalladas.
+
++
+Como los backups semanales finales de la base de datos de nóminas se conservan durante un mínimo de 52 semanas en un site de almacenamiento secundario, no es necesario conservar los backups diarios durante más de 10 días.
+
+* *Ventajas de copia de seguridad protegida*
++
+Los backups diarios y semanales a un almacenamiento secundario en una ubicación remota garantizan que si los datos del site de almacenamiento principal presentan daños, la base de datos objetivo sigue estando protegida y podrá restaurarse a partir del almacenamiento secundario.
+
++
+Se realizan los backups diarios al almacenamiento secundario para protegerse frente a daños en el sistema de almacenamiento primario. Como los backups semanales finales de la base de datos de nóminas se conservan durante un mínimo de 52 semanas, no es necesario conservar los backups diarios durante más de 10 días.
+
+

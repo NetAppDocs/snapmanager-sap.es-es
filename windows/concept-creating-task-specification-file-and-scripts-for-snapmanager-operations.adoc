@@ -1,0 +1,87 @@
+---
+permalink: windows/concept-creating-task-specification-file-and-scripts-for-snapmanager-operations.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, task, specification, extensible, markup, language, xml, file, pretask, post-task, backup, restore, clone, operation, create 
+summary: 'SnapManager para SAP utiliza un archivo XML (lenguaje de marcado extensible) de la especificación de tareas que indica las tareas previas y las tareas posteriores para las operaciones de copia de seguridad, restauración y clonado. Es posible añadir los nombres de las tareas previas y las secuencias de comandos posteriores a las tareas en el archivo XML para que las tareas se realicen antes o después de las operaciones de backup, restauración y clonado.' 
+---
+= Creación de archivos de especificación de tareas y secuencias de comandos para operaciones de SnapManager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager para SAP utiliza un archivo XML (lenguaje de marcado extensible) de la especificación de tareas que indica las tareas previas y las tareas posteriores para las operaciones de copia de seguridad, restauración y clonado. Es posible añadir los nombres de las tareas previas y las secuencias de comandos posteriores a las tareas en el archivo XML para que las tareas se realicen antes o después de las operaciones de backup, restauración y clonado.
+
+En SnapManager (3.1 o anterior), puede ejecutar los scripts de tareas previas y posteriores a la tarea solo para la operación de clonado. En SnapManager (3.2 o posterior) para SAP, puede ejecutar las secuencias de comandos previas y posteriores a las tareas para las operaciones de backup, restauración y clonado.
+
+En SnapManager (3.1 o anterior), la sección de especificación de tareas forma parte del archivo XML de especificación del clon. Desde SnapManager 3.2 para SAP, la sección de especificación de tareas es un archivo XML independiente.
+
+
+NOTE: SnapManager 3.3 o versiones posteriores no admiten el uso del archivo XML de especificación del clon creado en las versiones anteriores a SnapManager 3.2.
+
+En SnapManager (3.2 o posterior) para SAP, debe asegurarse de que se cumplan las siguientes condiciones para efectuar correctamente las operaciones de SnapManager:
+
+* Para las operaciones de copia de seguridad y restauración, utilice el archivo XML de especificación de tareas.
+* Para la operación de clonado, proporcione dos archivos de especificación: Un archivo XML de especificación del clon y un archivo XML de especificación de tareas.
++
+Si desea habilitar la actividad de tareas previas o posteriores a la tarea, también puede agregar el archivo XML de especificación de tareas.
+
+
+
+Puede crear el archivo de especificación de la tarea mediante la interfaz gráfica de usuario (GUI) de SnapManager, la interfaz de línea de comandos (CLI) o un editor de texto. Debe utilizar una extensión .xml para el archivo con el fin de habilitar las características de edición adecuadas. Puede guardar este archivo para usarlo para operaciones de backup, restauración y clonado futuras.
+
+El archivo XML de especificación de tareas incluye dos secciones:
+
+* La sección de tareas previas incluye scripts que se pueden ejecutar antes de las operaciones de backup, restauración y clonado.
+* La sección tareas posteriores incluye scripts que se pueden ejecutar después de las operaciones de backup, restauración y clonado.
+
+
+Los valores incluidos en las secciones de tareas previas y tareas posteriores deben cumplir las siguientes directrices:
+
+* Nombre de la tarea: El nombre de la tarea debe coincidir con el nombre del script, que se muestra cuando se ejecuta el `plugin.sh -describe` comando.
++
+
+NOTE: Si hay un error de coincidencia, es posible que reciba el siguiente mensaje de error: `the file not found`.
+
+* Nombre del parámetro: El nombre del parámetro debe ser una cadena que se puede utilizar como valor de variable de entorno.
++
+La cadena debe coincidir con el nombre del parámetro en el script personalizado, que se muestra al ejecutar el `plugin.sh -describe` comando.
+
+
+
+Puede crear el archivo de especificación según la estructura del siguiente archivo de especificación de tareas de ejemplo:
+
+[listing]
+----
+
+<task-specification>
+  <pre-tasks>
+<task>
+      <name>name</name>
+      <parameter>
+          <name>name</name>
+          <value>value</value>
+       </parameter>
+    </task>
+  </pre-tasks>
+  <post-tasks>
+    <task>
+      <name>name</name>
+      <parameter>
+          <name>name</name>
+          <value>value</value>
+       </parameter>
+    </task>
+  </post-tasks>
+</task-specification>
+----
+
+NOTE: El archivo XML de especificación de tareas no debe contener ninguna directiva.
+
+En la interfaz gráfica de usuario de SnapManager, es posible establecer el valor del parámetro y guardar el archivo XML. Puede utilizar la página activación de tareas del asistente Crear copia de seguridad, del asistente Restaurar o recuperación y del asistente Crear copia de seguridad, para cargar el archivo XML de especificación de tareas existente y utilizar el archivo seleccionado para la actividad de tareas previas o posteriores a la tarea.
+
+Una tarea se puede ejecutar varias veces, ya sea con combinaciones de parámetros y valores iguales o diferentes. Por ejemplo, puede utilizar una tarea Guardar para guardar varios archivos.
+
+
+NOTE: SnapManager utiliza las etiquetas XML que se proporcionan en el archivo de especificación de tareas para el procesamiento previo o la actividad de posprocesamiento para las operaciones de backup, restauración y clonado, independientemente de la extensión del archivo de especificación de la tarea.

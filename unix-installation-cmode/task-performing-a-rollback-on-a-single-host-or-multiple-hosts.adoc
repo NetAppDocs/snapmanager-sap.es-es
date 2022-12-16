@@ -1,0 +1,79 @@
+---
+permalink: unix-installation-cmode/task-perform-a-rollback-on-a-single-host-or-multiple-hosts.html 
+sidebar: sidebar 
+keywords: perform, rollback, single, multiple, snapmanager, server, host, command-line, interface, cli 
+summary: 'Puede realizar una reversión en una sola o varios hosts de servidor SnapManager con la interfaz de línea de comandos (CLI).' 
+---
+= Ejecute una reversión en un solo host o varios hosts
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede realizar una reversión en una sola o varios hosts de servidor SnapManager con la interfaz de línea de comandos (CLI).
+
+
+
+== Lo que necesitará
+
+Se debe asegurarse de que se hayan completado todos los requisitos previos para realizar una reversión.
+
+.Pasos
+. Para realizar una reversión en un solo host, introduzca el siguiente comando:
++
+`*smsap repository rollback -repository -dbname _repo_service_name_ -host _repo_host_ -login -username _repo_username_ -port _repo_port_ -rollbackhost _host_with_target_database_*`
+
++
+*ejemplo*
+
++
+En el ejemplo siguiente se muestra el comando para revertir todas las bases de datos de destino montadas en Hosta y una base de datos de repositorio denominada REPOA ubicada en el host de repositorio, repo_host:
+
++
+[listing]
+----
+
+smsap repository rollback
+    -repository
+      -dbname repoA
+      -host repo_host
+      -login
+       -username repouser
+       -port 1521
+     -rollbackhost hostA
+----
+. Para realizar una reversión en varios hosts, introduzca el siguiente comando:
++
+`*smsap repository rollback -repository-dbname _repo_service_name_ -host _repo_host_ -login -username _repo_username_ -port _repo_port_ -rollbackhost _host_with_target_database1_,_host_with_target_database2_*`
+
++
+
+NOTE: Si desea introducir varios hosts, introduzca los nombres de host separados por una coma y asegúrese de que no haya espacio entre la coma y el siguiente nombre de host.
+
++
+Si utiliza una configuración de RAC, debe revertir manualmente todos los hosts asociados de RAC. Puede utilizar `-allhosts` para realizar una reversión de todos los hosts.
+
++
+*ejemplo*
+
++
+En el ejemplo siguiente se muestra el comando para revertir todas las bases de datos de destino montadas en los hosts, Hosta, HostB y una base de datos de repositorio denominada REPOA ubicada en el host de repositorios, repo_host:
+
++
+[listing]
+----
+
+smsap repository rollback
+    -repository
+      -dbname repoA
+      -host repo_host
+      -login
+       -username repouser
+       -port 1521
+     -rollbackhost hostA,hostB
+----
++
+Los hosts, los perfiles, las programaciones, los backups y los clones que están asociados con los perfiles de las bases de datos de destino para el host se revierten al repositorio anterior.
+
+

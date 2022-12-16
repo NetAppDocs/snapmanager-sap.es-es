@@ -1,0 +1,43 @@
+---
+permalink: windows/task-deleting-clones.html 
+sidebar: sidebar 
+keywords: delete, clone, size, snapshot, copy, backup, data, deleting 
+summary: 'Puede eliminar los clones cuando el tamaño de la copia Snapshot alcance entre un 10% y un 20% del backup. Así también se garantiza que el clon tenga los datos más recientes.' 
+---
+= Eliminar clones
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede eliminar los clones cuando el tamaño de la copia Snapshot alcance entre un 10% y un 20% del backup. Así también se garantiza que el clon tenga los datos más recientes.
+
+La etiqueta es el identificador único de cada clon en un perfil. Puede usar la etiqueta o el ID del clon, pero no el identificador del sistema (SID) para eliminar el clon.
+
+
+NOTE: El SID del clon y la etiqueta del clon no son iguales.
+
+Cuando elimina un clon, la base de datos debe estar en ejecución. De lo contrario, no se eliminarán muchos ficheros y directorios del clon existente, lo que hará que se realice más trabajo antes de crear otro clon.
+
+Los directorios especificados para ciertos parámetros de Oracle del clon se destruyen cuando se elimina el clon y solo deben contener datos para la base de datos clonada: Destinos de registro de archivo, destinos de fondo, núcleo y destinos de volcado de usuario. No se eliminan los archivos de auditoría.
+
+
+NOTE: No es posible eliminar un clon cuando se utiliza en otras operaciones.
+
+Opcionalmente, es posible recoger los archivos de volcado después de una operación de eliminación de clonado correcta o con errores.
+
+. Introduzca el siguiente comando: `smsap clone delete -profileprofile_name [-labellabel | -idguid] [-force][-dump][-quiet]|[-verbose]`
+
+
+
+
+== Ejemplo
+
+[listing]
+----
+smsap clone delete -profile targetdb1_prof1 -label sales0908_clone1
+----
+*Información relacionada*
+
+xref:reference-the-smosmsapclone-delete-command.adoc[El comando smsap clone delete]

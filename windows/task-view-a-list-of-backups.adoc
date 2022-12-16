@@ -1,0 +1,21 @@
+---
+permalink: windows/task-view-a-list-of-backups.html 
+sidebar: sidebar 
+keywords: check, backup, create, profile, state, smsap, backup, command, display, information, view, list 
+summary: Puede comprobar qué backups se crearon para un perfil y el estado de copia de seguridad con el comando smsap backup list. Para cada perfil, el comando muestra primero la información sobre el backup más reciente y, a continuación, continúa hasta que se muestra la información de todos los backups. 
+---
+= Ver una lista de backups
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede comprobar qué backups se crearon para un perfil y su estado de backup mediante la `smsap backup list` comando. Para cada perfil, el comando muestra primero la información sobre el backup más reciente y, a continuación, continúa hasta que se muestra la información de todos los backups.
+
+.Paso
+. Introduzca el siguiente comando:
++
+`*smsap backup list -profile _profile_name_ [-delimiter _character_] [data | -archivelogs] [-quiet | -verbose]*`
+
+

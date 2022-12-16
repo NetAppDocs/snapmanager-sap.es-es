@@ -1,0 +1,57 @@
+---
+permalink: unix-administration/concept-workflow-summary-for-local-and-secondary-database-backup.html 
+sidebar: sidebar 
+keywords: dba, snapmanager, storage, administrator, netapp, management, console, data, protection, capability, local, backup, protect, database, target, workflow, summary, local, secondary, backup 
+summary: 'En este ejemplo, el administrador de bases de datos (con SnapManager) y el administrador de almacenamiento (con la función de protección de datos Management Console de NetApp) coordinan las acciones para configurar los backups locales y secundarios (también conocidos como backup protegido) de la base de datos de destino.' 
+---
+= Resumen de flujo de trabajo para backup de bases de datos local y secundario
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+En este ejemplo, el administrador de bases de datos (con SnapManager) y el administrador de almacenamiento (con la función de protección de datos Management Console de NetApp) coordinan las acciones para configurar los backups locales y secundarios (también conocidos como backup protegido) de la base de datos de destino.
+
+La secuencia de acciones realizadas se resume de la siguiente manera:
+
+* *Configuración del pool de recursos secundario*
++
+El administrador de almacenamiento usa la funcionalidad de protección de datos de NetApp Management Console para configurar un conjunto de recursos de sistemas de almacenamiento en el sitio secundario que puede usarse para almacenar el backup de base de datos de nóminas.
+
+* *Programación de copia de seguridad secundaria*
++
+El administrador de almacenamiento usa la funcionalidad de protección de datos de NetApp Management Console para configurar programaciones de backup secundarias.
+
+* *Configuración de la política de protección*
++
+El administrador de almacenamiento usa la funcionalidad de protección de datos de NetApp Management Console para configurar una normativa de protección de backup secundaria para la base de datos de destino. La política de protección incluye las programaciones y especifica el tipo base de protección para implementar la protección de backups (backup, reflejo o una combinación de ambos), y nombra políticas de retención para los datos primarios, secundarios y, en ocasiones, nodos de almacenamiento terciarios.
+
+* *Asignación de políticas de protección y configuración de perfiles de base de datos*
++
+El DBA utiliza SnapManager para crear o editar un perfil de la base de datos de destino que admita una copia de seguridad secundaria. Al configurar el perfil, el DBA:
+
++
+** Permite la protección de backups en el almacenamiento secundario.
+** Asigna a este perfil la nueva política de protección, que se creó en la funcionalidad de protección de datos de NetApp Management Console y se recuperó de ella.
++
+La asignación de la normativa de protección incluye automáticamente la base de datos de destino en un conjunto de datos parcialmente aprovisionado, pero no conforme con el conjunto de datos de la funcionalidad de protección de datos de la Consola de gestión de NetApp. Cuando está totalmente aprovisionado, la configuración del conjunto de datos permite realizar backups de la base de datos de destino en un almacenamiento secundario.
+
++
+El nombre del conjunto de datos utiliza la siguiente sintaxis: `_smsap_hostname_databasename_`, que se traduce a "smsap_prod01.sample.com_p01".
+
+
+
+* *Aprovisionamiento de almacenamiento secundario y terciario*
++
+El administrador de almacenamiento usa la funcionalidad de protección de datos de Management Console de NetApp para asignar pools de recursos con el fin de aprovisionar los nodos de almacenamiento secundario y, en ocasiones, terciario (si la política de protección asignada especifica nodos de almacenamiento terciarios).
+
+* *Backup en almacenamiento local*
++
+El administrador de bases de datos abre el perfil con la protección habilitada en SnapManager y crea un backup completo al almacenamiento local. El nuevo backup se muestra en SnapManager como programado para la protección, pero no protegido todavía.
+
+* *Confirmación de copia de seguridad secundaria*
++
+Como el backup se basa en un perfil habilitado para la protección, el backup se transfiere al volumen secundario según la programación de la política de protección. El administrador de bases de datos utiliza SnapManager para confirmar la transferencia del backup a un almacenamiento secundario. Una vez que el backup se ha copiado al almacenamiento secundario, SnapManager cambia el estado de protección de backup de "no protegido" a "protegido".
+
+

@@ -1,0 +1,182 @@
+---
+permalink: unix-administration/reference-sample-database-volume-layouts.html 
+sidebar: sidebar 
+keywords: sample, database, volume, layout, configuring, configure 
+summary: Puede consultar ejemplos de diseños de volumen de base de datos para obtener ayuda en la configuración de la base de datos. 
+---
+= Ejemplos de distribuciones de volúmenes de base de datos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede consultar ejemplos de diseños de volumen de base de datos para obtener ayuda en la configuración de la base de datos.
+
+
+
+== Bases de datos de instancia única
+
+[cols="1a,3a,1a,1a"]
+|===
+| Tipos de archivo | Nombres de volúmenes | Volumen dedicado para los tipos de archivo | Copias snapshot automáticas 
+
+
+ a| 
+Binarios de Oracle
+ a| 
+orabin_ `_host name_`
+ a| 
+Sí
+ a| 
+Encendido
+
+
+
+ a| 
+Archivos de datos
+ a| 
+oradata_ `_sid_`
+ a| 
+Sí
+ a| 
+Apagado
+
+
+
+ a| 
+Archivos de datos temporales
+ a| 
+temp_ `_sid_`
+ a| 
+Sí
+ a| 
+Apagado
+
+
+
+ a| 
+Archivos de control
+ a| 
+oracntrl01_ `_sid_` (Multiplexado)
+
+oracntrl02_ `_sid_` (Multiplexado)
+ a| 
+Sí
+ a| 
+Apagado
+
+
+
+ a| 
+Rehacer registros
+ a| 
+oralog01_ `_sid_` (Multiplexado)
+
+oralog02_ `_sid_` (Multiplexado)
+ a| 
+Sí
+ a| 
+Apagado
+
+
+
+ a| 
+Registros de archivo
+ a| 
+oraarch_ `_sid_`
+ a| 
+Sí
+ a| 
+Apagado
+
+|===
+
+
+== Bases de datos de Real Application Clusters (RAC)
+
+[cols="1a,3a,1a,1a"]
+|===
+| Tipos de archivo | Nombres de volúmenes | Volumen dedicado para los tipos de archivo | Copias snapshot automáticas 
+
+
+ a| 
+Binarios de Oracle
+ a| 
+orabin_ `_host name_`
+ a| 
+Sí
+ a| 
+Encendido
+
+
+
+ a| 
+Archivos de datos
+ a| 
+oradata_ `_dbname_`
+ a| 
+Sí
+ a| 
+Apagado
+
+
+
+ a| 
+Archivos de datos temporales
+ a| 
+temp_ `_dbname_`
+ a| 
+Sí
+ a| 
+Apagado
+
+
+
+ a| 
+Archivos de control
+ a| 
+oracntrl01_ `_dbname_` (Multiplexado)
+
+oracntrl02_ `_dbname_` (Multiplexado)
+ a| 
+Sí
+ a| 
+Apagado
+
+
+
+ a| 
+Rehacer registros
+ a| 
+oralog01_ `_dbname_` (Multiplexado)
+
+oralog02_ `_dbname_` (Multiplexado)
+ a| 
+Sí
+ a| 
+Apagado
+
+
+
+ a| 
+Registros de archivo
+ a| 
+oraarch_ `_dbname_`
+ a| 
+Sí
+ a| 
+Apagado
+
+
+
+ a| 
+Archivos de cluster
+ a| 
+oracrs_ `_clustername_`
+ a| 
+Sí
+ a| 
+Encendido
+
+|===

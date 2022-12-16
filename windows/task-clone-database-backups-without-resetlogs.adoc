@@ -1,0 +1,66 @@
+---
+permalink: windows/task-clone-database-backups-without-resetlogs.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, flexible, clone, recover, database, resetlog, data, guard, standby 
+summary: SnapManager le permite realizar clonados flexibles, de modo que puede recuperar la base de datos clonada manualmente en un momento determinado sin necesidad de abrir la base de datos mediante reaslogs. También puede configurar manualmente la base de datos clonada como una base de datos en espera de Data Guard. 
+---
+= Clonar backups de bases de datos sin reasentar registros
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager le permite realizar clonados flexibles, de modo que puede recuperar la base de datos clonada manualmente en un momento determinado sin necesidad de abrir la base de datos mediante reaslogs. También puede configurar manualmente la base de datos clonada como una base de datos en espera de Data Guard.
+
+
+
+== Acerca de esta tarea
+
+Cuando pueda seleccionar la `-no-resetlogs` Opción al crear el clon, SnapManager realiza las siguientes actividades para crear la base de datos clonada:
+
+.Pasos
+. Ejecuta la actividad de tarea de preprocesamiento, si se especifica, antes de iniciar la operación de clonado
+. Crea la base de datos clonada con el SID especificado por el usuario
+. Ejecuta las sentencias SQL emitidas con la base de datos clonada.
++
+Sólo se ejecutan correctamente las sentencias SQL que se pueden ejecutar en estado de montaje.
+
+. Ejecuta la actividad de la tarea de posprocesamiento, si se especifica.
+
+
+*Qué tareas debe realizar para recuperar la base de datos clonada manualmente*
+
+.Pasos
+. Monte los backups de registros de archivos y recupere la base de datos clonada manualmente mediante los archivos de registro de archivos desde la ruta montada.
+. Después de realizar la recuperación manual, abra la base de datos clonada recuperada con `-resetlogs` opción.
+. Cree espacios de tablas temporales, si es necesario.
+. Ejecute la utilidad DBNEWID.
+. Conceda un privilegio sysdba a las credenciales de la base de datos clonada.
+
+
+Al clonar los backups de la base de datos con la `-no-resetlogs` SnapManager deja la base de datos clonada en el estado montado para la recuperación manual.
+
+
+NOTE: La base de datos clonada creada con la `-no-resetlogs` la opción no es una base de datos completa. Por lo tanto, no debe ejecutar ninguna operación de SnapManager en esta base de datos, si bien SnapManager no le restringe la posibilidad de realizar ninguna operación.
+
+Si no especifica el `-no-resetlogs` SnapManager aplica los archivos de registro de archivo y abre la base de datos con reaslogs.
+
+.Paso
+. Introduzca el siguiente comando:
++
+`*smsap clone create -profile _profile_name_ [-backup-label _backup_name_ | -backup-id _backup_id_ | current] -newsid _new_sid_ -clonespec _full_path_to_clonespecfile_ -no-resetlogs*`
+
++
+Si intenta especificar ambas `-no-resetlogs` y.. `recover-from-location` Options, SnapManager no permite especificar ambas opciones juntas y muestra el mensaje de error: `SMSAP-04084: You must specify either one of the options: -no-resetlogs or -recover-from-location`.
+
+
+
+
+
+== Ejemplo
+
+[listing]
+----
+smsap clone create -profile product -backup-label full_offline -newsid PROD_CLONE -clonespec prod_clonespec.xml -label prod_clone-reserve -no-reset-logs
+----

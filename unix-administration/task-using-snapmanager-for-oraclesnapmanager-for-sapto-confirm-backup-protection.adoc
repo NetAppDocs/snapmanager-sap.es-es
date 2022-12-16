@@ -1,0 +1,25 @@
+---
+permalink: unix-administration/task-use-snapmanager-for-oraclesnapmanager-for-sapto-confirm-backup-protection.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, backup, associate, profile, enable, protection, view, retention, class, daily, weekly 
+summary: 'Con SnapManager para SAP, se puede ver una lista de backups asociados a un perfil, determinar si los backups estaban habilitados para la protección y ver la clase de retención (diaria o semanal, en este ejemplo).' 
+---
+= Utilice SnapManager para SAP para confirmar la protección del backup
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Con SnapManager para SAP, se puede ver una lista de backups asociados a un perfil, determinar si los backups estaban habilitados para la protección y ver la clase de retención (diaria o semanal, en este ejemplo).
+
+*Acerca de esta tarea*
+
+Al principio, el nuevo backup en este ejemplo se muestra como programado para la protección, pero no está protegido aún (en la interfaz gráfica de usuario de SnapManager y en el resultado del comando backup show). Una vez que el administrador de almacenamiento garantiza que el backup se haya copiado al almacenamiento secundario, SnapManager cambia el estado de protección de backup de "no protegido" a "protegido" en la interfaz gráfica de usuario y con el comando backup list.
+
+. Acceda al cliente de SnapManager para SAP.
+. En el árbol del repositorio de SnapManager, expanda el perfil para mostrar sus copias de seguridad.
+. Haga clic en la ficha *copias de seguridad/clones*.
+. En el panel Informes, seleccione *Detalles de copia de seguridad*.
+. Consulte la columna Protection y asegúrese de que el estado sea "Protected".
+

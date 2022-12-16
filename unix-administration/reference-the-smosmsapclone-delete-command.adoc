@@ -1,0 +1,114 @@
+---
+permalink: unix-administration/reference-the-smosmsapclone-delete-command.html 
+sidebar: sidebar 
+keywords: run, clone, delete, command, operation, smsap 
+summary: Puede ejecutar el comando clone delete para eliminar un clon. No es posible eliminar un clon si utiliza algún operación. 
+---
+= El comando smsap clone delete
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede ejecutar el `clone delete` comando para eliminar un clon. No es posible eliminar un clon si utiliza algún operación.
+
+
+
+== Sintaxis
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap clone delete
+-profile _profile_name_
+[-id _guid_ | -label _clone_name_\]
+[-login
+[-username _db_username_ -password _db_password_ -port _db_port_\]
+[-asminstance -asmusername _asminstance_username_ -asmpassword _asminstance_password_\]]]
+[-syspassword _syspassword_] -force
+[-dump] [-quiet | -verbose]
+
+----
+
+
+== Parámetros
+
+* ``*-profile _profile_name_*``
++
+Especifica el nombre del perfil que contiene el clon que se va a eliminar. El perfil contiene el identificador de la base de datos y otra información de la base de datos.
+
+* ``*-force*``
++
+Elimina el clon incluso si hay recursos asociados con el clon.
+
+* ``*-id _guid_*``
++
+Especifica el GUID del clon que se va a eliminar. SnapManager genera el GUID cuando se crea un clon. Puede utilizar el `smsap clone list` Comando para mostrar el GUID de cada clon.
+
+* ``*-label _name_*``
++
+Especifica la etiqueta del clon que se va a eliminar.
+
+* ``*-asminstance*``
++
+Especifica las credenciales que se utilizan para iniciar sesión en la instancia de Automatic Storage Management (ASM).
+
+* ``*-asmusername _asminstance_username_*``
++
+Especifica el nombre de usuario utilizado para iniciar sesión en la instancia de ASM.
+
+* ``*-asmpassword _asminstance_password_*``
++
+Especifica la contraseña utilizada para iniciar sesión en la instancia de ASM.
+
+* ``*-syspassword _syspassword_*``
++
+Especifica la contraseña para el usuario con privilegios sys.
+
++
+
+NOTE: Debe proporcionar la contraseña para el usuario con privilegios sys si las credenciales de la base de datos proporcionadas no son las mismas para el usuario con privilegios sys.
+
+* ``*-login*``
++
+Permite introducir los detalles de inicio de sesión de la base de datos.
+
+* ``*-username _db_username_*``
++
+Especifica el nombre de usuario necesario para acceder a la base de datos.
+
+* ``*-password _db_password_*``
++
+Especifica la contraseña necesaria para acceder a la base de datos.
+
+* ``*-port _db_port_*``
++
+Especifica el número de puerto TCP utilizado para acceder a la base de datos que describe el perfil.
+
+* ``*-dump*``
++
+Especifica que se recopilen los archivos de volcado después de la operación de eliminación de clones.
+
+* ``*-quiet*``
++
+Muestra sólo mensajes de error en la consola. El valor predeterminado es mostrar mensajes de error y advertencia.
+
+* ``*-verbose*``
++
+Muestra mensajes de error, advertencia e informativos en la consola.
+
+
+
+'''
+
+
+== Ejemplo
+
+En el ejemplo siguiente se elimina el clon:
+
+[listing]
+----
+smsap clone delete -profile SALES1 -label SALES_May
+Operation Id [8abc01ec0e79004b010e79006da60001] succeeded.
+----
+'''

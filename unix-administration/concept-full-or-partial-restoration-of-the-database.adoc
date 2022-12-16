@@ -1,0 +1,20 @@
+---
+permalink: unix-administration/concept-full-or-partial-restoration-of-the-database.html 
+sidebar: sidebar 
+keywords: snapmanager, provide, flexibility, restore, full, database, specific, tablespace, control, file, combination, full, partial 
+summary: SnapManager proporciona la flexibilidad necesaria para restaurar bases de datos completas, espacios de tablas específicos, archivos, archivos de control o una combinación de estas entidades. SnapManager le permite restaurar datos mediante un proceso de restauración basado en archivos o un proceso de restauración más rápido y basado en volumen. Los administradores de bases de datos pueden seleccionar el proceso que desean utilizar o dejar que SnapManager decida qué proceso es apropiado. 
+---
+= Restauración total o parcial de bases de datos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager proporciona la flexibilidad necesaria para restaurar bases de datos completas, espacios de tablas específicos, archivos, archivos de control o una combinación de estas entidades. SnapManager le permite restaurar datos mediante un procesador de restauración basado en archivos un proceso de restauración más rápido y basado en volúmenes. Los administradores de bases de datos pueden seleccionar el proceso que desean utilizar o dejar que SnapManager decida qué proceso es apropiado.
+
+SnapManager permite a los administradores de bases de datos obtener una vista previa de las operaciones de restauración. La función de vista previa permite a los administradores de bases de datos ver cada operación de restauración archivo por archivo.
+
+Los administradores de bases de datos pueden especificar el nivel en el que SnapManager restaura y recupera la información cuando se ejecutan operaciones de restauración. Por ejemplo, los administradores de bases de datos pueden restaurar y recuperar datos en momentos específicos. El punto de restauración puede ser una fecha y hora, o un número de cambio de sistema (SCN) de Oracle.
+
+SnapManager (3.2 o posterior) permite restaurar y recuperar backups de bases de datos de forma automática sin intervención del administrador de base de datos. Es posible usar SnapManager para crear backups de registros de archivo, y luego usarlos para restaurar y recuperar los backups de bases de datos. Aunque los archivos de registro de archivo del backup se gestionen en una ubicación de un registro de archivo externo, puede especificar esa ubicación externa para que los registros de archivos puedan ayudar a recuperar la base de datos restaurada.

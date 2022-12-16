@@ -1,0 +1,14 @@
+---
+permalink: unix-administration/concept-configuring-snapmanager-for-oraclesap.html 
+sidebar: sidebar 
+keywords: install, snapmanager, additional, configuration, environment, configuring, configure 
+summary: Después de instalar SnapManager, debe realizar algunas tareas de configuración adicionales según el entorno que utilice. 
+---
+= Configurando SnapManager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Después de instalar SnapManager, debe realizar algunas tareas de configuración adicionales según el entorno que utilice.

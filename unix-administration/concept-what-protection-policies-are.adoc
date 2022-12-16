@@ -1,0 +1,24 @@
+---
+permalink: unix-administration/concept-what-protection-policies-are.html 
+sidebar: sidebar 
+keywords: protection, policy, policies, govern, database, backup, profile 
+summary: Las políticas de protección son reglas que rigen el modo en que se protegen los backups de la base de datos. Puede seleccionar las políticas de protección mientras crea el perfil. 
+---
+= ¿Qué son las políticas de protección
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Las políticas de protección son reglas que rigen el modo en que se protegen los backups de la base de datos. Puede seleccionar las políticas de protección mientras crea el perfil.
+
+Una política de protección define los siguientes parámetros:
+
+* El momento de transferir copias a un almacenamiento secundario
+* La cantidad máxima de datos que se deben transferir a las horas programadas
+* El tiempo de retención de las copias de cada ubicación de respaldo
+* Umbrales de advertencia y error para tiempos de retraso
+
+
+Cuando la protección está habilitada, SnapManager crea un conjunto de datos para la base de datos. Un conjunto de datos consta de una colección de conjuntos de almacenamiento junto con la información de configuración asociada con sus datos. Los conjuntos de almacenamiento asociados a un conjunto de datos incluyen un conjunto de almacenamiento principal utilizado para exportar datos a clientes y el conjunto de réplicas y archivos que existen en otros conjuntos de almacenamiento. Los conjuntos de datos representan datos de usuario exportables. Si el administrador deshabilita la protección de una base de datos, SnapManager elimina el conjunto de datos.

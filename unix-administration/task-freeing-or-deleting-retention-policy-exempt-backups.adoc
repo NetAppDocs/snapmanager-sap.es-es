@@ -1,0 +1,33 @@
+---
+permalink: unix-administration/task-free-or-delete-retention-policy-exempt-backups.html 
+sidebar: sidebar 
+keywords: backup, retention, class, unlimited, delete, free, directly, assign, hourly, daily, weekly, monthly, deletion, eligible, exempt 
+summary: Los backups con clase de retención ilimitada no se pueden eliminar ni liberar directamente. Para eliminar o liberar estos backups, primero se debe asignar otra clase de retención, como por ejemplo cada hora, día, semana o mes. Para eliminar o liberar una copia de seguridad que esté exenta de la política de retención, primero debe actualizar la copia de seguridad para que sea elegible para su eliminación o su liberación. 
+---
+= Backups exentos de la política de retención o eliminarlos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Los backups con clase de retención "ilimitada" no se pueden eliminar ni liberar directamente. Para eliminar o liberar estos backups, primero se debe asignar otra clase de retención, como por ejemplo cada hora, día, semana o mes. Para eliminar o liberar una copia de seguridad que esté exenta de la política de retención, primero debe actualizar la copia de seguridad para que sea elegible para su eliminación o su liberación.
+
+.Pasos
+. Para actualizar el backup y poder borrarlo mediante la política de retención, escriba este comando:
++
+`*smsap backup update -profile _profile_name_ {-label _label_ [data | -archivelogs] | -id _id_} -retain [-hourly | -daily | -weekly | -monthly]*`
+
+. Después de actualizar el backup de modo que sea apto para su eliminación, puede eliminar el backup o liberar recursos de backup.
++
+** Para eliminar el backup, introduzca este comando:
++
+`*smsap backup delete -profile _profile_name_ {-label _label_ [data | -archivelogs] | -id _id_ | -all}*`
+
+** Para liberar los recursos del backup, en lugar de eliminarlo, escriba este comando:
++
+`*smsap backup free -profile _profile_name_ {-label _label_ [data | -archivelogs] | -id _id_ | -all} [-force] [ -dump] [-quiet | -verbose]*`
+
+
+
+

@@ -1,0 +1,63 @@
+---
+permalink: unix-administration/reference-the-smosmsap-storage-rename-command.html 
+sidebar: sidebar 
+keywords: command, update, name, ip, address, storage, system, smsap 
+summary: Este comando actualiza el nombre o la dirección IP del sistema de almacenamiento. 
+---
+= El comando smsap Storage rename
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este comando actualiza el nombre o la dirección IP del sistema de almacenamiento.
+
+
+
+== Sintaxis
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap storage rename
+-profile _profile_ -oldname _old_storage_name_ -newname _new_storage_name_
+[-quiet | -verbose\]]
+----
+
+
+== Parámetros
+
+* `*-profile _profile_*`
++
+Especifica el nombre del perfil. Este nombre puede tener hasta 30 caracteres y debe ser único dentro del host.
+
+* `*-oldname _old_storage_name_*`
++
+Especifica la dirección IP o el nombre del sistema de almacenamiento antes de cambiar el nombre del sistema de almacenamiento. Debe introducir la dirección IP o el nombre del sistema de almacenamiento que se muestra al ejecutar el `smsap storage list` comando.
+
+* `*-newname _new_storage_name_*`
++
+Especifica la dirección IP o el nombre del sistema de almacenamiento después de cambiar el nombre del sistema de almacenamiento.
+
+* `*-quiet*`
++
+Muestra sólo mensajes de error en la consola. El valor predeterminado es mostrar mensajes de error y advertencia.
+
+* `*-verbose*`
++
+Muestra mensajes de error, advertencia e informativos en la consola.
+
+
+
+'''
+
+
+== Ejemplo
+
+En el ejemplo siguiente se utiliza la `smsap storage rename` comando para cambiar el nombre del sistema de almacenamiento:
+
+[listing]
+----
+smsap storage rename -profile mjullian -oldname lech -newname hudson -verbose
+----
+'''

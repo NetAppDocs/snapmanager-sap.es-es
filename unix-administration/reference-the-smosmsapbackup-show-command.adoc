@@ -1,0 +1,110 @@
+---
+permalink: unix-administration/reference-the-smosmsapbackup-show-command.html 
+sidebar: sidebar 
+keywords: backup, show, command, display, detail, information, backup, protection, status, retention, class, primary, secondary, storage, smsap 
+summary: Puede usar el comando backup show para ver información detallada sobre un backup, incluido el estado de la protección, la clase de retención de backup y los backups en el almacenamiento principal y secundario. 
+---
+= El comando smsap backup show
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede utilizar el `backup show` comando para mostrar información detallada sobre un backup, incluidos el estado de protección, la clase de retención de backup y los backups en el almacenamiento principal y secundario.
+
+
+
+== Sintaxis
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap backup show
+-profile _profile_name_
+[-label _label_ [-data | -archivelogs\] | [-id _id_\]
+[-quiet | -verbose\]]
+----
+
+
+== Parámetros
+
+* `*-profile _profile_name_*`
++
+Especifica el perfil para el que se mostrarán las copias de seguridad. El perfil contiene el identificador de la base de datos y otra información de la base de datos.
+
+* ``*-label _label_*``
++
+Especifica la etiqueta del backup.
+
+* ``*-data*``
++
+Especifica los archivos de datos.
+
+* ``*-archivelogs*``
++
+Especifica los archivos de registro de archivos.
+
+* ``*-id _id_*``
++
+Especifica el ID del backup.
+
+* ``*-quiet*``
++
+Muestra sólo mensajes de error en la consola. El valor predeterminado es mostrar mensajes de error y advertencia.
+
+* ``*-verbose*``
++
+Muestra mensajes de error, advertencia e informativos de la consola, al igual que cualquier información de clonación y verificación.
+
+
+
+'''
+
+
+== Ejemplo
+
+El siguiente ejemplo muestra información detallada sobre el backup:
+
+[listing]
+----
+smsap backup show -profile SALES1 -label BTNFS -verbose
+Backup id: 8abc013111a450480111a45066210001
+Backup status: SUCCESS
+Primary storage resources: EXISTS
+Protection sate: PROTECTED
+Retention class: DAILY
+Backup scope: FULL
+Backup mode: OFFLINE
+Mount status: NOT MOUNTED
+Backup label: BTNFS
+Backup comment:
+
+Backup start time: 2007-03-30 15:26:30
+Backup end time: 2007-03-30 15:34:13
+Verification status: OK
+Backup Retention Policy: NORMAL
+Backup database: hsdb1
+Checkpoint: 2700620
+Tablespace: SYSAUX
+Datafile: /mnt/ssys1/data/hsdb/sysaux01.dbf [ONLINE]
+...
+Control Files:
+File: /mnt/ssys1/data/control03.ctl
+...
+Archive Logs:
+File: /mnt/ssys1/data/archive_logs/2_131_626174106.dbf
+...
+Host: Host1
+Filesystem: /mnt/ssys1/data
+File: /mnt/ssys1/data/hsdb/SMSAPBakCtl_1175283005231_0
+...
+Volume: hs_data
+Snapshot: SMSAP_HSDBR_hsdb1_F_C_1_
+8abc013111a450480111a45066210001_0
+File: /mnt/ssys1/data/hsdb/SMSAPBakCtl_1175283005231_0
+...
+Protected copies on Secondary Storage:
+  14448939 - manow
+  88309228 - graffe
+----
+'''

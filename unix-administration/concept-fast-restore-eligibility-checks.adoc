@@ -1,0 +1,341 @@
+---
+permalink: unix-administration/concept-fast-restore-eligibility-checks.html 
+sidebar: sidebar 
+keywords: perform, restore, backup, snapmanager, eligibility, check, fast 
+summary: Cuando decide realizar una restauración rápida de un backup, SnapManager realiza en primer lugar una comprobación de idoneidad para determinar si puede utilizar el proceso de restauración rápida. 
+---
+= Rápidas comprobaciones de cumplimiento de la restauración
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cuando decide realizar una restauración rápida de un backup, SnapManager realiza en primer lugar una comprobación de idoneidad para determinar si puede utilizar el proceso de restauración rápida.
+
+SnapManager ofrece los siguientes tipos de comprobaciones:
+
+* Comprobaciones obligatorias: SnapManager puede realizar el proceso de restauración rápida sólo si se cumplen todas las condiciones en esta fase de comprobación.
+* Comprobaciones anulables: Si las condiciones de esta comprobación fallan, los administradores pueden anular la comprobación para forzar un proceso de restauración rápida. Sin embargo, debe anular estas comprobaciones con precaución.
+
+
+En la siguiente tabla se enumeran los problemas que puede encontrar e indican si la comprobación de elegibilidad de la restauración rápida puede anularse:
+
+|===
+| Problema | Se requiere pasar | Detalles 
+
+
+ a| 
+ACFS, Voting Disk o OCR está presente en el grupo de discos ASM en 11gR2
+ a| 
+Sí
+ a| 
+No se puede realizar una restauración rápida. Resolución: Ninguna
+
+No se puede anular.
+
+
+
+ a| 
+Solo los backups creados con SnapManager 3.0 o posterior se pueden restaurar rápidamente
+ a| 
+Sí
+ a| 
+No se puede anular.
+
+
+
+ a| 
+Sólo se pueden restaurar rápidamente las copias snapshot creadas con SnapDrive para UNIX 4.0 o posterior
+ a| 
+Sí
+ a| 
+No se puede anular.
+
+
+
+ a| 
+El volumen es un volumen raíz
+ a| 
+Sí
+ a| 
+El volumen que se restaura es un volumen raíz en el sistema de almacenamiento. Resolución: No utilice el volumen raíz en el sistema de almacenamiento.
+
+No se puede anular.
+
+
+
+ a| 
+La restauración de volúmenes no está disponible en Windows
+ a| 
+Sí
+ a| 
+El volumen que se restaura es un volumen raíz en el sistema de almacenamiento. Resolución: Ninguna
+
+No se puede anular.
+
+
+
+ a| 
+Se deshabilita la restauración de volumen
+ a| 
+Sí
+ a| 
+Se deshabilitó la restauración de volúmenes. Resolución: Active la restauración de volúmenes seleccionando diferentes opciones al iniciar la restauración. En la interfaz de línea de comandos de, no se debe utilizar `-fast -off`.
+
+No se puede anular.
+
+
+
+ a| 
+Controle los archivos y los archivos de datos del mismo volumen
+ a| 
+Sí
+ a| 
+Para los backups en línea, los archivos de control y los archivos de datos no pueden estar en el mismo volumen porque SnapManager toma dos copias snapshot del volumen (una en la que los archivos de datos son consistentes en el modo de backup dinámico, y uno en el que los archivos de control de copia de seguridad son consistentes después de completar el modo de copia de seguridad en caliente). La restauración del volumen volverá a la primera copia snapshot, lo que elimina la segunda copia snapshot que contiene los archivos de control de backup. Si se produce una restauración solo de archivos de datos, los archivos de control se restauran en un estado incoherente, SnapManager restaura el archivo de control de backup y abre la base de datos con la opción reaslogs, lo cual no es el comportamiento deseado.
+
+Resolución: Migre los archivos de control y los archivos de datos a sistemas de archivos independientes que no compartan el mismo volumen subyacente. Esto no ayuda a la restauración en la cual la comprobación falló, pero sí a las operaciones de restauración de backup futuras.
+
+No se puede anular.
+
+
+
+ a| 
+Los registros de archivo y los archivos de datos no deben existir en el mismo volumen
+ a| 
+Sí
+ a| 
+Los registros de archivo de bases de datos y los archivos de datos residen en sistemas de archivos respaldados por el mismo volumen del sistema de almacenamiento. Si se ejecutó una restauración de volumen, SnapManager no puede abrir la base de datos después de la restauración de un backup en línea debido a que el archivo de registro archivado que se escribe una vez que la base de datos se desconecta del modo de backup dinámico no está disponible. Además, no podría avanzar por transacciones posteriores que podrían haber estado en los archivos de registro de archivos.
+
+Resolución: Migre los registros de archivos y los archivos de datos a sistemas de archivos independientes que no compartan el mismo volumen de sistema de almacenamiento subyacente. Esto no ayuda a la restauración en la cual la comprobación falló, pero sí a las operaciones de restauración de backup futuras.
+
+No se puede anular.
+
+
+
+ a| 
+Los registros en línea y los archivos de datos no deben existir en el mismo volumen
+ a| 
+Sí
+ a| 
+Los registros de recuperación y los archivos de datos en línea de la base de datos residen en sistemas de archivos respaldados por el mismo volumen del sistema de almacenamiento. Si se realizó una restauración de volumen, la recuperación no puede utilizar los registros de recuperación en línea porque se habrían revertido.
+
+Solución: Migre los redo logs y los archivos de datos en línea a sistemas de archivos independientes que no compartan el mismo volumen de sistema de almacenamiento subyacente. Esto no ayuda a la restauración en la cual la comprobación falló, pero sí a las operaciones de restauración de backup futuras.
+
+No se puede anular.
+
+
+
+ a| 
+Se revierten los archivos del sistema de archivos que no formen parte del ámbito de restauración
+ a| 
+Sí
+ a| 
+Los archivos visibles en el host, excepto los archivos que se van a restaurar, existen en un sistema de archivos del volumen. Si se realizó una restauración rápida o una restauración de sistema de archivos en el lado del almacenamiento, los archivos visibles en el host se revertirían a su contenido original al crear la copia Snapshot. Si SnapManager descubre 20 o menos archivos, se enumeran en la comprobación de elegibilidad. De lo contrario, SnapManager muestra un mensaje que debería investigar el sistema de archivos.
+
+Resolución: Migre los archivos no utilizados por la base de datos a un sistema de archivos diferente que utilice un volumen diferente. También puede eliminar los archivos.
+
+Si SnapManager no puede determinar el propósito del archivo, puede anular el fallo de comprobación. Si se anula la comprobación, se revierten los archivos que no estén en el ámbito de restauración. Anule esta comprobación sólo si está seguro de que al revertir los archivos no se afectará negativamente a nada.
+
+
+
+ a| 
+Se revierten los sistemas de archivos del grupo de volúmenes especificado que no formen parte del alcance de restauración
+ a| 
+No
+ a| 
+Hay varios sistemas de archivos en el mismo grupo de volúmenes, pero no se solicitan que se restauren todos los sistemas de archivos. La restauración del sistema de archivos del almacenamiento y la restauración rápida no se pueden usar para restaurar sistemas de archivos individuales dentro de un grupo de volúmenes, ya que las LUN que utiliza el grupo de volúmenes contienen datos de todos los sistemas de archivos. Todos los sistemas de archivos de un grupo de volúmenes deben restaurarse a la vez para utilizar una restauración rápida o una restauración del sistema de archivos del lado del almacenamiento. Si SnapManager descubre 20 archivos o menos, SnapManager los enumera en la comprobación de elegibilidad. De lo contrario, SnapManager proporciona un mensaje que debería investigar el sistema de archivos.
+
+Resolución: Migre los archivos que no utiliza la base de datos a un grupo de volúmenes diferente. Otra opción es eliminar los sistemas de archivos del grupo de volúmenes.
+
+Puede anular.
+
+
+
+ a| 
+Se revierten los volúmenes de host de un grupo de volúmenes especificado que no forman parte del alcance de restauración
+ a| 
+No
+ a| 
+Varios volúmenes de host (volúmenes lógicos) están en el mismo grupo de volúmenes, pero no todos los volúmenes de host se solicitan que se restauren. Esta comprobación es similar a los sistemas de archivos del grupo de volúmenes que no forman parte del ámbito de restauración se revertirá excepto que los demás volúmenes de host del grupo de volúmenes no se montan como sistemas de archivos en el host. Resolución: Migre los volúmenes de hosts que utiliza la base de datos a otro grupo de volúmenes. O bien, elimine los otros volúmenes de host del grupo de volúmenes.
+
+Si anula la comprobación, se restauran todos los volúmenes de host del grupo de volúmenes. Anule esta comprobación solo si tiene la seguridad de que la reversión de los otros volúmenes de host no afecta negativamente en nada.
+
+
+
+ a| 
+Las extensiones de archivo han cambiado desde la última copia de seguridad
+ a| 
+Sí
+ a| 
+No se puede anular.
+
+
+
+ a| 
+Los LUN asignados en el volumen no forman parte del ámbito de restauración se revierten
+ a| 
+Sí
+ a| 
+Las LUN distintas de las solicitadas para restaurar en el volumen están actualmente asignadas a un host. No se puede realizar una restauración de volúmenes porque otros hosts o aplicaciones que utilizan estos LUN se volverán inestables. Si los nombres de las LUN terminan con un guión bajo y un índice entero (por ejemplo, _0 o _1), normalmente estas LUN son clones de otras LUN dentro del mismo volumen. Es posible que se monte otro backup de la base de datos o que exista un clon de otro backup.
+
+Resolución: Migre los LUN que la base de datos no usa en un volumen diferente. Si las LUN asignadas son clones, busque backups montados de la misma base de datos o clones de la base de datos, y desmonte el backup o quite el clon.
+
+No se puede anular.
+
+
+
+ a| 
+LAS LUN sin asignar en el volumen que no forman parte del ámbito de restauración se revierten
+ a| 
+No
+ a| 
+Existen otras LUN distintas de las solicitadas para restaurar en el volumen. Estas LUN no están actualmente asignadas a ningún host, por lo que al restaurarse no se interrumpen los procesos activos. Sin embargo, se puede quitar la asignación de las LUN temporalmente. Solución: Migre los LUN que la base de datos no usa en un volumen diferente o elimine los LUN.
+
+Si anula esta comprobación, la restauración de volumen revertirá estas LUN al estado en que se realizó la copia Snapshot. Si la LUN no existía cuando se hizo la copia Snapshot, la LUN no existirá después de la restauración de un volumen. Anule esta comprobación solo si tiene la seguridad de que al revertir las LUN no se afectará de forma negativa en nada.
+
+
+
+ a| 
+Las LUN presentes en la copia Snapshot de volumen pueden no ser coherentes al revertirse
+ a| 
+No
+ a| 
+Durante la creación de copias Snapshot, en el volumen existían LUN diferentes a las que se solicitó la copia Snapshot. Es posible que estas otras LUN no estén en un estado consistente. Solución: Migre los LUN que la base de datos no usa en un volumen diferente o elimine los LUN. Esto no facilita el proceso de restauración en el que falló la comprobación, pero ayudará a restaurar futuros backups creados después de mover o eliminar las LUN.
+
+Si anula esta comprobación, las LUN se revierten al estado incoherente en el que se ha hecho la copia Snapshot. Anule esta comprobación solo si tiene la seguridad de que al revertir las LUN no se afectará de forma negativa en nada.
+
+
+
+ a| 
+Las nuevas copias Snapshot tienen un clon de volúmenes
+ a| 
+Sí
+ a| 
+Se han creado clones de las copias Snapshot que se crearon después de solicitar la restauración de la copia Snapshot. Dado que una restauración de volumen eliminará las copias Snapshot más adelante y no se puede eliminar una copia Snapshot si tiene un clon, no se puede realizar una restauración de volumen. Resolución: Elimine clones de copias snapshot más adelante.
+
+No se puede anular.
+
+
+
+ a| 
+Se montan backups más recientes
+ a| 
+Sí
+ a| 
+Se montan los backups realizados después de restaurar el backup. Dado que una restauración de volúmenes elimina copias de Snapshot posteriores, no es posible eliminar una copia de Snapshot si tiene un clon, una operación de montaje de backup crea un almacenamiento clonado y no se puede ejecutar una restauración de volumen. Resolución: Desmonte la copia de seguridad posterior o restaure a partir de una copia de seguridad realizada después de la copia de seguridad montada.
+
+No se puede anular.
+
+
+
+ a| 
+Existen clones de backups más recientes
+ a| 
+Sí
+ a| 
+Se clonan los backups realizados después de la restauración del backup. Dado que una restauración de volumen elimina copias Snapshot más adelante y no se puede eliminar una copia Snapshot si tiene un clon, no se puede realizar una restauración de volumen. Resolución: Elimine el clon del backup más nuevo o restaure desde un backup realizado después de los backups que tienen clones.
+
+No se puede anular.
+
+
+
+ a| 
+Se pierden nuevas copias Snapshot de volumen
+ a| 
+No
+ a| 
+Al realizar una restauración de volumen, se eliminan todas las copias Snapshot creadas después de la copia Snapshot en la que se restaura el volumen. Si SnapManager puede asignar una copia Snapshot más adelante a un backup de SnapManager con el mismo perfil, aparecerá el mensaje "se liberarán o se eliminarán los backups más recientes". Si SnapManager no puede asignar una copia Snapshot más tarde a un backup de SnapManager en el mismo perfil, este mensaje no aparece. Solución: Restaure a partir de un backup posterior o elimine las copias snapshot más adelante.
+
+Puede anular.
+
+
+
+ a| 
+Los backups más recientes se liberarán o se eliminarán
+ a| 
+No
+ a| 
+Al realizar una restauración de volúmenes, se eliminan todas las copias Snapshot creadas después de la copia Snapshot en la que se restaura el volumen. Por consiguiente, los backups creados después del backup que se va a restaurar se eliminan o se liberan. Los backups posteriores se eliminan en las siguientes situaciones:
+
+* El estado del backup no está PROTEGIDO
+* `retain.alwaysFreeExpiredBackups` es `*false*` pulg `smsap.config`
+
+
+Los backups posteriores se liberan en las siguientes situaciones:
+
+* El estado del backup está PROTEGIDO
+* `retain.alwaysFreeExpiredBackups` es cierto `*false*` pulg `smsap.config`
+
+
+Resolución: Restaure a partir de una copia de seguridad posterior o libere o elimine copias de seguridad posteriores.
+
+Si anula esta comprobación, los backups creados después del backup que se está restaurando se eliminan o se liberan.
+
+
+
+ a| 
+Se pierde la relación de SnapMirror para los volúmenes
+ a| 
+Sí (si está deshabilitado el control de acceso basado en roles o no tiene permiso de control de acceso basado en roles)
+ a| 
+Al restaurar un volumen en una copia Snapshot con anterioridad a la copia Snapshot de referencia en una relación de SnapMirror, se destruye la relación. Resolución: Restauración a partir de un backup creado después de la copia Snapshot básica de la relación. Como alternativa, divida la relación de almacenamiento manualmente (y luego vuelva a crear y vuelva a establecer la base de la relación una vez finalizada la restauración).
+
+Es posible anular la sustitución si el control de acceso basado en roles está habilitado y existe permiso de control de acceso basado en roles.
+
+
+
+ a| 
+La relación de SnapVault para el volumen se pierde si se ha producido el proceso de restauración rápida
+ a| 
+Sí (si está deshabilitado el control de acceso basado en roles o no tiene permiso de control de acceso basado en roles)
+ a| 
+Al restaurar un volumen en una copia Snapshot con anterioridad a la copia Snapshot de referencia en una relación de SnapVault, se destruye la relación. Resolución: Restauración a partir de un backup creado después de la copia Snapshot básica de la relación. Como alternativa, divida la relación de almacenamiento manualmente (y luego vuelva a crear y vuelva a establecer la base de la relación una vez finalizada la restauración).
+
+No se puede reemplazar, si el control de acceso basado en roles está habilitado y tiene permiso de control de acceso basado en roles.
+
+
+
+ a| 
+Se revierten los archivos NFS del volumen que no formen parte del ámbito de restauración
+ a| 
+No
+ a| 
+Los archivos presentes en el volumen del sistema de almacenamiento, que no son visibles en el host, se revierten si se realiza una restauración de volumen. Resolución: Migre los archivos no utilizados por la base de datos a un volumen diferente o elimine los archivos.
+
+Puede anular. Si anula este fallo de comprobación, se eliminan las LUN.
+
+
+
+ a| 
+Los recursos compartidos de CIFS existen para el volumen
+ a| 
+No
+ a| 
+El volumen que se restaura tiene recursos compartidos CIFS. Es posible que otros hosts estén accediendo a los archivos del volumen durante la restauración del volumen. Resolución: Elimine los recursos compartidos CIFS innecesarios.
+
+Puede anular.
+
+
+
+ a| 
+Restauración desde una ubicación alternativa
+ a| 
+Sí
+ a| 
+Se proporcionó una especificación de restauración para la operación de restauración que especifica que los archivos se restauren desde una ubicación alternativa. Solo se pueden utilizar las utilidades de copia del lado del host para restaurar desde una ubicación alternativa.
+
+Resolución: Ninguna.
+
+No se puede anular.
+
+
+
+ a| 
+No se admite la restauración del sistema de archivos en el lado del almacenamiento en una base de datos de RAC
+ a| 
+Sí
+ a| 
+No se puede anular.
+
+|===

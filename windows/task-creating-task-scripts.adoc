@@ -1,0 +1,57 @@
+---
+permalink: windows/task-creating-task-scripts.html 
+sidebar: sidebar 
+keywords: pretask, post-task, policy, task, script, backup, restore, clone, operation, environment, variable, parameter, snapmanager, sample, creating, create 
+summary: Es posible crear los scripts de tareas previas, posteriores a tareas y de políticas para operaciones de backup, restauración y clonado, escribir el script e incluir las variables de entorno predefinidas en los parámetros. Es posible crear un nuevo script o modificar uno de los scripts de ejemplo de SnapManager. 
+---
+= Creación de scripts de tareas
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Es posible crear los scripts de tareas previas, posteriores a tareas y de políticas para operaciones de backup, restauración y clonado, escribir el script e incluir las variables de entorno predefinidas en los parámetros. Es posible crear un nuevo script o modificar uno de los scripts de ejemplo de SnapManager.
+
+Antes de comenzar a crear el script, asegúrese de lo siguiente:
+
+* Es necesario estructurar el script de un modo determinado para que se ejecute en el contexto de una operación SnapManager.
+* Debe crear el script en función de las operaciones esperadas, los parámetros de entrada disponibles y las convenciones de código de devolución.
+* Debe incluir mensajes de registro y redirigir los mensajes a archivos de registro definidos por el usuario.
++
+.. Cree la secuencia de comandos de la tarea personalizando la secuencia de comandos de ejemplo.
++
+Realice lo siguiente:
+
++
+... Busque un script de ejemplo en el siguiente directorio de instalación:
++
+<default_install_directory>\plugins\examples\backup\create
+
++
+<default_install_directory>\plugins\examples\clone\create
+
+... Abra el script en el editor de secuencia de comandos.
+... Guarde el script con un nombre diferente.
+
+
+.. Modifique las funciones, variables y parámetros según sea necesario.
+.. Guarde el script en uno de los siguientes directorios:
++
+*Secuencias de comandos de operaciones de copia de seguridad*
+
++
+*** <default_install_directory>\plugins\backup\create\pre: Ejecuta el script antes de que se ejecute la operación de backup. Utilícelo de manera opcional al especificar la creación de backups.
+*** <default_install_directory>\plugins\backup\create\post: Ejecuta el script después de que se realice la operación de backup. Utilícelo de manera opcional al especificar la creación de backups.
+*** <default_install_directory>\plugins\backup\create\policy: Siempre ejecuta el script antes de que se ejecute la operación de backup. SnapManager utiliza siempre este script para todos los backups del repositorio. *Restaurar secuencias de comandos de operación*
+*** <default_install_directory>\plugins\restore\create\pre: Ejecuta el script antes de que se ejecute la operación de backup. Utilícelo de manera opcional al especificar la creación de backups.
+*** <default_install_directory>\plugins\restore\create\post: Ejecuta el script después de que se realice la operación de backup. Utilícelo de manera opcional al especificar la creación de backups.
+*** <default_install_directory>\plugins\restore\create\policy: Siempre ejecuta el script antes de que se ejecute la operación de backup. SnapManager utiliza siempre este script para todos los backups del repositorio. *Clonar secuencias de comandos*
+*** <default_install_directory>\plugins\clone\create\pre: Ejecuta el script antes de que se ejecute la operación de backup. Utilícelo de manera opcional al especificar la creación de backups.
+*** <default_install_directory>\plugins\clone\create\post: Ejecuta el script después de que se ejecute la operación de backup. Utilícelo de manera opcional al especificar la creación de backups.
+*** <default_install_directory>\plugins\clone\create\policy: Siempre ejecuta el script antes de que se ejecute la operación de backup. SnapManager utiliza siempre este script para todos los backups del repositorio.
+
+
+
+
+

@@ -1,0 +1,82 @@
+---
+permalink: windows/reference-the-smosmsapbackup-free-command.html 
+sidebar: sidebar 
+keywords: run, backup, free, command, snapshot, copies, copy, remove, metadata, repository, smsap 
+summary: Puede ejecutar el comando backup free para liberar las copias Snapshot de los backups sin eliminar los metadatos de backup del repositorio. 
+---
+= El comando smsap backup free
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede ejecutar el `backup free` Comando para liberar las copias Snapshot de los backups sin eliminar los metadatos de backup del repositorio.
+
+
+
+== Sintaxis
+
+[listing]
+----
+
+smsap backup free
+-profile profile_name
+[-label label [-data | -archivelogs] | [-id guid | -all]
+-force
+[-dump]
+[-quiet | -verbose]
+----
+
+
+== Parámetros
+
+* *`-profile _profile_name_`*
++
+Especifica el perfil asociado al backup que desea liberar. El perfil contiene el identificador de la base de datos y otra información de la base de datos.
+
+* *`-id _guid_`*
++
+Especifica los recursos del backup con el GUID especificado. SnapManager genera el GUID cuando se crea un backup. Puede utilizar el `smsap backup list` Comando para mostrar el GUID de cada backup. Incluya el `-verbose` Opción para mostrar los ID de backup.
+
+* *`-label _label_`*
++
+Especifica el backup con la etiqueta especificada.
+
+* *`-data`*
++
+Especifica los archivos de datos.
+
+* *`-archivelogs`*
++
+Especifica los archivos de registro de archivos.
+
+* *`-all`*
++
+Especifica todos los backups. Para eliminar las copias de seguridad especificadas, utilice `-id` o. `-label` opción.
+
+* *`-force`*
++
+Fuerza la eliminación de las copias snapshot.
+
+* *`-quiet`*
++
+Muestra sólo mensajes de error en la consola. El valor predeterminado es mostrar mensajes de error y advertencia.
+
+* *`-verbose`*
++
+Muestra mensajes de error, advertencia e informativos en la consola.
+
+
+
+
+
+== Ejemplo
+
+En el siguiente ejemplo se libera el backup:
+
+[listing]
+----
+smsap backup free -profile SALES1 -label full_backup_sales_May
+Operation Id [8abc01ec0e79004b010e79006da60001] succeeded.
+----

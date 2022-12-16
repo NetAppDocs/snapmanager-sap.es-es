@@ -1,0 +1,25 @@
+---
+permalink: unix-administration/concept-using-br-tools-with-snapmanager-for-sap.html 
+sidebar: sidebar 
+keywords: sap, br, tools, command, snapmanager, oracle, database, administration, brarchive, brbackup, brconnect, brrecover, brrestore, brspace, brtools 
+summary: Puede utilizar los comandos BR*Tools de SAP con SnapManager para SAP. BR*Tools es un paquete de programas SAP que contiene herramientas SAP para la administración de bases de datos Oracle, por ejemplo, BRARCHIVE, BRBACKUP, BRCONNECT, BRRECOVER, BRRESTORE, BRSPACE Y BRTOOLS. 
+---
+= Uso de BR*Tools con SnapManager para SAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede utilizar los comandos BR*Tools de SAP con SnapManager para SAP. BR*Tools es un paquete de programas SAP que contiene herramientas SAP para la administración de bases de datos Oracle, por ejemplo, BRARCHIVE, BRBACKUP, BRCONNECT, BRRECOVER, BRRESTORE, BRSPACE Y BRTOOLS.
+
+Puede completar las siguientes tareas relacionadas con el uso de BR*Tools y SnapManager para SAP:
+
+* Deshabilitar el acceso del cliente a las copias Snapshot
+* Especifique el perfil para las copias de seguridad BR*Tools
+* Crear copias de seguridad de la base de datos mediante BRBACKUP y BRARCHIVE
+* Programar backups con transacciones SAP DB13
+* Restaure una base de datos mediante BRRESTORE y BRRECOVER
+* Realice copias de seguridad y restaure archivos con BR*Tools
+* Restaurar un backup en otro host
+

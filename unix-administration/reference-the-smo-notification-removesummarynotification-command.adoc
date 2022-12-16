@@ -1,0 +1,71 @@
+---
+permalink: unix-administration/reference-the-smo-notification-removesummarynotification-command.html 
+sidebar: sidebar 
+keywords: command, disable, summary, notification, profile, repository, database, smsap, remove-summary-notification 
+summary: Este comando deshabilita la notificación de resumen de varios perfiles en una base de datos de repositorio. 
+---
+= El comando remove-summary-notification de smsap
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este comando deshabilita la notificación de resumen de varios perfiles en una base de datos de repositorio.
+
+
+
+== Sintaxis
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap notification remove-summary-notification
+-repository
+-dbname _repo_service_name_
+-port _repo_port_
+-host _repo_host_
+-login -username _repo_username_
+[-quiet | -verbose]]
+----
+
+
+== Parámetros
+
+* `*-repository*`
++
+Las opciones siguientes `-repository` especifique los detalles de la base de datos para el repositorio.
+
+* `*-port _repo_port_*`
++
+Especifica el número de puerto TCP utilizado para acceder a la base de datos que almacena el repositorio.
+
+* `*-dbname _repo_service_name_*`
++
+Especifica el nombre de la base de datos que almacena el repositorio. Utilice el nombre global o el SID.
+
+* `*-host _repo_host_*`
++
+Especifica el nombre o la dirección IP del equipo host en el que se ejecuta la base de datos del repositorio.
+
+* `*-login _repo_username_*`
++
+Especifica el nombre de inicio de sesión necesario para acceder a la base de datos que almacena el repositorio.
+
+* `*-quiet*`
++
+Muestra sólo mensajes de error en la consola. El valor predeterminado es mostrar mensajes de error y advertencia.
+
+* `*-verbose*`
++
+Muestra mensajes de error, advertencia e informativos en la consola.
+
+
+
+'''
+En el siguiente ejemplo se deshabilita la notificación de resumen de varios perfiles en una base de datos de repositorio.
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap notification remove-summary-notification –repository –port 1521 –dbname repo2 –host 10.72.197.133 –login -username oba5]
+----
+'''

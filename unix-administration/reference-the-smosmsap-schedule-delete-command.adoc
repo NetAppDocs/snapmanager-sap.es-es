@@ -1,0 +1,37 @@
+---
+permalink: unix-administration/reference-the-smosmsap-schedule-delete-command.html 
+sidebar: sidebar 
+keywords: command, delete, backup, schedule, smsap 
+summary: Este comando elimina una programación de backup cuando ya no es necesaria. 
+---
+= El comando smsap schedule delete
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este comando elimina una programación de backup cuando ya no es necesaria.
+
+
+
+== Sintaxis
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap schedule delete -profile _profile_name_
+-schedule-name _schedule_name_[-quiet | -verbose]]
+----
+
+
+== Parámetros
+
+* `*-profile _profile_name_*`
++
+Especifica el nombre del perfil relacionado con la base de datos que desea eliminar una programación de backup. El perfil contiene el identificador de la base de datos y otra información de la base de datos.
+
+* `*-schedule-name _schedule_name_*`
++
+Especifica el nombre de programación que se proporcionó al crear una programación de backups.
+
+

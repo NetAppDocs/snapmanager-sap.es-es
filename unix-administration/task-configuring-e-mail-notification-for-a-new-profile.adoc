@@ -1,0 +1,70 @@
+---
+permalink: unix-administration/task-configure-e-mail-notification-for-a-new-profile.html 
+sidebar: sidebar 
+keywords: creating, create, configure, configuring, email, notification, profile, database, operation 
+summary: Cuando se crea un perfil nuevo, se puede configurar para recibir una notificación por correo electrónico al finalizar la operación de la base de datos. 
+---
+= Configurar la notificación por correo electrónico para un nuevo perfil
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cuando se crea un perfil nuevo, se puede configurar para recibir una notificación por correo electrónico al finalizar la operación de la base de datos.
+
+*Lo que necesitará*
+
+* Debe configurar la dirección de correo electrónico desde la cual se envían las alertas.
+* Debe usar una lista separada por comas para varias direcciones de correo electrónico.
++
+Debe asegurarse de que no hay espacio entre la coma y la siguiente dirección de correo electrónico.
+
+
+
+.Paso
+. Introduzca el siguiente comando:
++
+`*smsap profile create -profile _profile_ [-profile-password _profile_password_] -repository-dbname _repo_service_name_ -host _repo_host_ -port _repo_port_ -login-username _repo_username_ -database -dbname _db_dbname_ -host _db_host_ [-sid _db_sid_] [-login-username _db_username_ -password _db_password_ -port _db_port_] [-rman {-controlfile | {-login-username _rman_username_ -password _rman_password_ -tnsname _rman_tnsname_} } ] -osaccount _osaccount_ -osgroup _osgroup_ [-retain [-hourly [-count _n_] [-duration _m_]] [-daily [-count _n_] [-duration _m_]] [-weekly [-count _n_] [-duration _m_]] [-monthly [-count _n_] [-duration _m_]]] [-comment _comment_][-snapname-pattern _pattern_][-protect [-protection-policy _policy_name_ ]][-notification [-success-email _email_address1,email_address2_ -subject _subject_pattern_] [-failure-email _email_address1,email_address2_ -subject _subject_pattern_]]*`
+
++
+Las demás opciones para este comando son las siguientes:
+
++
+``[-force]``
+
++
+``[-quiet | -verbose]``
+
++
+
+NOTE: SnapManager admite hasta 1000 caracteres para las direcciones de correo electrónico.
+
++
+Cuando se crea un backup de archivos de datos y archivos de registro de archivos junto con el perfil (para crear backups de registros de archivos independientes) y se produce un error en la creación del backup de archivos de datos, la notificación por correo electrónico se envía con el backup de datos como nombre de la operación en lugar de un backup de datos y un backup de registros de archivos. Cuando la operación de backup de archivo de datos y archivo de registro de archivo se realiza correctamente, se muestra el resultado de la siguiente manera:
+
++
+[listing]
+----
+
+Profile Name    : PROF_31
+Operation Name 	: Data Backup and Archive Logs Backup
+Database SID   	: TENDB1
+Database Host 	 : repo1.rtp.org.com
+Start Date 	    : Fri Sep 23 13:37:21 EDT 2011
+End Date 	      : Fri Sep 23 13:45:24 EDT 2011
+Status 	        : SUCCESS
+Error messages 	:
+----
+
+
+'''
+En el siguiente ejemplo se muestra la notificación de correo electrónico configurada al crear un nuevo perfil:
+
+[listing]
+----
+
+smsap profile create -profile sales1 -profile-password sales1 -repository -dbname repo2 -host 10.72.197.133 -port 1521 -login -username oba5 -database -dbname DB1 -host 10.72.197.142 -sid DB1 -osaccount oracle
+-osgroup dba -notification -success -email admin1@org.com -subject {profile}_{operation-name}_{db-sid}_{db-host}_{start-date}_{end-date}_{status}
+----
+'''

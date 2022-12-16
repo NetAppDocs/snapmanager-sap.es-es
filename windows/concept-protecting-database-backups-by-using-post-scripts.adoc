@@ -1,0 +1,29 @@
+---
+permalink: windows/concept-protecting-database-backups-by-using-post-scripts.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, protect, database, backup, postscript, snapmirror, snapvault, establish, primary, secondary, storage, system, default, post-process, activity, cli, gui 
+summary: SnapManager permite proteger backups de bases de datos mediante scripts posteriores cuando se establece la relación de SnapMirror o SnapVault entre los sistemas de almacenamiento primario y secundario. Se pueden usar los scripts posteriores predeterminados para la actividad de procesamiento posterior de la operación de backup desde la interfaz de línea de comandos de SnapManager y la interfaz gráfica de usuario. 
+---
+= Protección de backups de bases de datos mediante scripts posteriores
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager permite proteger backups de bases de datos mediante scripts posteriores cuando se establece la relación de SnapMirror o SnapVault entre los sistemas de almacenamiento primario y secundario. Se pueden usar los scripts posteriores predeterminados para la actividad de procesamiento posterior de la operación de backup desde la interfaz de línea de comandos de SnapManager y la interfaz gráfica de usuario.
+
+Es posible usar los siguientes scripts posteriores predeterminados disponibles `default_install_directory\plugins\backup\create\post`:
+
+* el script posterior de SnapMirror, `Mirror_the_backup.cmd` Si utiliza Data ONTAP en 7-Mode
+* postscript de SnapVault, `Vault_the_backup.cmd` Si utiliza Data ONTAP en 7-Mode
+* el script posterior de SnapMirror, `Mirror_the_backup_cDOT.cmd` Si utiliza Clustered Data ONTAP
+* postscript de SnapVault, `Vault_the_backup_cDOT.cmd` Si utiliza Clustered Data ONTAP
+
+
+Para obtener más información, consulte `readme.txt` disponible en `default_install_directory\plugins`.
+
+SnapManager 3.1 o versiones anteriores proporciona scripts de procesamiento previo o de posprocesamiento solo para operaciones de clonado. A partir de la versión 3.2 de SnapManager se proporcionan scripts de procesamiento previo y de posprocesamiento para operaciones de backup y restauración. Es posible usar estos scripts para ejecutarse antes o después de las operaciones de backup o restauración.
+
+
+NOTE: Los scripts se proporcionan sólo como referencia. Se han probado con SnapDrive 7.0 para Windows o posterior, pero es posible que no funcionen en todos los entornos. Debe personalizar los scripts según sus requisitos de protección secundarios. Los scripts no funcionan con las versiones de SnapDrive anteriores a la 6.2.

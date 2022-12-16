@@ -1,0 +1,151 @@
+---
+permalink: unix-installation-cmode/concept-smsap-isg-defining-a-backup-strategy.html 
+sidebar: sidebar 
+keywords: define, backup, strategy, create, successful, restore, database, snapmanager, service, level, agreement, sla 
+summary: Definir una estrategia de backup antes de crear backups garantiza que se cuente con todos los backups para restaurar correctamente las bases de datos. SnapManager ofrece un programa de backup granular y flexible para cumplir con el acuerdo de nivel de servicio. 
+---
+= Definición de una estrategia de backup
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Definir una estrategia de backup antes de crear backups garantiza que se cuente con todos los backups para restaurar correctamente las bases de datos. SnapManager ofrece un programa de backup granular y flexible para cumplir con el acuerdo de nivel de servicio.
+
+
+NOTE: Para obtener información sobre las prácticas recomendadas de SnapManager, consulte _TR 3761_.
+
+
+
+== ¿Qué modo de backup de SnapManager necesita?
+
+SnapManager admite dos modos de backup:
+
+|===
+| Modo de backup | Descripción 
+
+
+ a| 
+Backup en línea
+ a| 
+Crea un backup de la base de datos cuando la base de datos está en estado en línea. Este modo de backup también se denomina backup dinámico.
+
+
+
+ a| 
+Backup sin conexión
+ a| 
+Crea un backup de la base de datos cuando la base de datos está en estado montado o apagado. Este modo de backup también se denomina backup en frío.
+
+|===
+
+
+== ¿Qué tipo de backup de SnapManager necesita?
+
+SnapManager admite tres tipos de backups:
+
+|===
+| Tipo de backup | Descripción 
+
+
+ a| 
+Backup completo
+ a| 
+Crea un backup de la base de datos completa, que incluye todos los archivos de datos, los archivos de control y los archivos de registro de archivos.
+
+
+
+ a| 
+Copia de seguridad parcial
+ a| 
+Crea un backup de archivos de datos, archivos de control, espacios de tabla y archivos de registro de archivos seleccionados
+
+
+
+ a| 
+Backup de solo registro de archivo
+ a| 
+Crea una copia de seguridad sólo de los archivos de registro de archivo.debe seleccionar *copia de seguridad de archivos por separado* mientras crea el perfil.
+
+|===
+
+
+== ¿Qué tipo de perfil de base de datos necesita?
+
+SnapManager crea backups según si el perfil de la base de datos separa los backups de los registros de archivo de los backups del archivo de datos.
+
+|===
+| Tipo de perfil | Descripción 
+
+
+ a| 
+Un único perfil de base de datos para el backup combinado de archivos de datos y registros de archivos
+ a| 
+Permite crear:
+
+* Backup completo que contiene todos los archivos de datos, los archivos de registro del archivo y los archivos de control
+* Backup parcial con los archivos de datos, espacios de tabla, archivos de registro de archivo y archivos de control seleccionados
+
+
+
+
+ a| 
+Perfiles de base de datos separados para backups de registros de archivo y backups de archivos de datos
+ a| 
+Permite crear:
+
+* Backup combinado con distintas etiquetas para backup de archivos de datos y backup de registros de archivo
+* Backup de solo archivos de datos de todos los archivos de datos junto con los archivos de control
+* Backup parcial de solo archivos de datos de los archivos de datos o espacios de tablas seleccionados junto con los archivos de control
+* Backup de solo registros de archivo
+
+
+|===
+
+
+== ¿Qué convenciones de nomenclatura se deben utilizar para las copias Snapshot?
+
+Las copias Snapshot creadas por los backups pueden seguir una convención de nomenclatura personalizada. El texto personalizado o las variables integradas, como el nombre del perfil, el nombre de la base de datos y el SID de la base de datos proporcionado por SnapManager, se pueden utilizar para crear la convención de nomenclatura. Puede crear la convención de nomenclatura mientras crea la política.
+
+
+NOTE: Debe incluir la variable smid en el formato de nomenclatura. La variable smid crea un identificador de instantánea único.
+
+La convención de nomenclatura de las copias Snapshot se puede cambiar durante o después de la creación de un perfil. El patrón actualizado se aplica solo a las copias Snapshot que todavía no se han creado; las copias Snapshot existentes conservan el patrón anterior.
+
+
+
+== ¿Cuánto tiempo desea retener las copias de backup en el sistema de almacenamiento primario y en el sistema de almacenamiento secundario?
+
+Una política de retención de backup especifica la cantidad de backups correctos que se retendrán. Puede especificar la política de retención mientras crea la política.
+
+Puede seleccionar cada hora, día, semana, mensual o ilimitado como clase de retención. Para cada clase de retención, puede especificar el recuento de retención y la duración de la retención, ya sea de forma conjunta o individual.
+
+* El recuento de retenciones determina la cantidad mínima de backups de una clase de retención determinada que se deben retener.
++
+Por ejemplo, si la programación de backup es _Daily_ y el recuento de retenciones es _10_, se conservan 10 backups diarios.
+
++
+
+NOTE: El número máximo de copias de Snapshot que Data ONTAP permite retener es de 255. Cuando alcance el límite máximo, se producirá un error al crear nuevas copias Snapshot de forma predeterminada. Sin embargo, puede configurar la política de rotación en Data ONTAP para eliminar copias Snapshot más antiguas.
+
+* La duración de la retención determina la cantidad mínima de días durante los cuales se debe conservar el backup.
++
+Por ejemplo, si la programación de la copia de seguridad es _Daily_ y la duración de la retención es _10_, se retienen 10 días de los backups diarios.
+
+
+
+Si se configura la replicación de SnapMirror, la política de retención se refleja en el volumen de destino.
+
+
+NOTE: Para la retención a largo plazo de copias de backup, es conveniente usar SnapVault.
+
+
+
+== ¿Desea verificar las copias de backup con el volumen de origen o un volumen de destino?
+
+Si usa SnapMirror o SnapVault, puede verificar las copias de backups con la copia de Snapshot en el volumen de destino de SnapMirror o SnapVault, en lugar de la copia de Snapshot en el sistema de almacenamiento principal. Al utilizar un volumen de destino para verificar, se reduce la carga para el sistema de almacenamiento principal.
+
+*Información relacionada*
+
+http://www.netapp.com/us/media/tr-3761.pdf["Informe técnico de NetApp 3761: SnapManager para Oracle: Prácticas recomendadas"^]

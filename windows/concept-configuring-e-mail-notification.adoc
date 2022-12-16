@@ -1,0 +1,68 @@
+---
+permalink: windows/concept-configuring-e-mail-notification.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, email, notification, completion, status, profile-executed, database, operation, profile, execute, generate, status, configure 
+summary: SnapManager permite recibir una notificación por correo electrónico acerca del estado de finalización de las operaciones de base de datos ejecutadas por perfil. SnapManager genera el correo electrónico y ayuda a realizar la acción adecuada en función del estado de finalización de la operación de la base de datos. La configuración de las notificaciones por correo electrónico es un parámetro opcional. 
+---
+= Configuración de una notificación por correo electrónico
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager permite recibir una notificación por correo electrónico acerca del estado de finalización de las operaciones de base de datos ejecutadas por perfil. SnapManager genera el correo electrónico y ayuda a realizar la acción adecuada en función del estado de finalización de la operación de la base de datos. La configuración de las notificaciones por correo electrónico es un parámetro opcional.
+
+Puede configurar una notificación por correo electrónico para un perfil individual como notificación de perfil y para varios perfiles en una base de datos de repositorio como notificación de resumen.
+
+*Notificación de perfiles*
+
+Para un perfil individual, es posible recibir un correo electrónico para las operaciones de base de datos correctas o fallidas.
+
+
+NOTE: De forma predeterminada, la notificación por correo electrónico está habilitada para las operaciones con bases de datos fallidas.
+
+*Notificación de resumen*
+
+La notificación de resumen permite recibir un mensaje de correo electrónico resumido sobre las operaciones de la base de datos realizadas mediante varios perfiles. Se pueden habilitar notificaciones por hora, por día, por semana o por mes.
+
+
+NOTE: En SnapManager 3.3, las notificaciones de resumen se envían solo si se especifica el servidor host que tiene que enviar la notificación. Si se actualiza SnapManager desde una versión anterior a 3.3, es posible que las notificaciones de resumen no se envíen si no se especificó el servidor host en la configuración de notificaciones de resumen.
+
+
+NOTE: Si crea un repositorio en un nodo de una base de datos que se encuentra en un entorno RAC y habilita la notificación de resumen, posteriormente cuando agrega el mismo repositorio a otro nodo de la base de datos, el correo electrónico de notificación de resumen se envía dos veces.
+
+Puede usar notificación a nivel de perfil o notificación de resumen al mismo tiempo.
+
+SnapManager habilita la notificación por correo electrónico para las siguientes operaciones de bases de datos ejecutadas por perfiles:
+
+* Crear backup en el almacenamiento principal
+* Restaurar backups
+* Crear clones
+* Verificar backups
+
+
+Después de crear o actualizar perfiles con la notificación de correo electrónico activada, puede desactivarla. Si deshabilita la notificación por correo electrónico, ya no recibirá alertas por correo electrónico para esas operaciones de base de datos ejecutadas por perfil.
+
+El correo electrónico que recibe contiene los siguientes detalles:
+
+* Nombre de la operación de base de datos, por ejemplo, backup, restauración o clonado
+* Nombre de perfil utilizado para la operación de base de datos
+* Nombre del servidor host
+* Identificador del sistema de la base de datos
+* Hora de inicio y finalización de la operación de base de datos
+* Estado de la operación de base de datos
+* Mensaje de error, si lo hay
+* Mensajes de advertencia, si los hay
+
+
+Puede configurar lo siguiente:
+
+* Servidor de correo para un repositorio
+* Notificación por correo electrónico de un nuevo perfil
+* Notificación por correo electrónico de un perfil existente
+* Notificación por correo electrónico de resumen para varios perfiles en un repositorio
+
+
+
+NOTE: Es posible configurar las notificaciones por correo electrónico desde la interfaz de línea de comandos (CLI) y la interfaz gráfica de usuario (GUI).

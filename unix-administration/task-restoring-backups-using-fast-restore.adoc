@@ -1,0 +1,61 @@
+---
+permalink: unix-administration/task-restore-backups-using-fast-restore.html 
+sidebar: sidebar 
+keywords: force, snapmanager, sap, volume-based, snaprestore, condition, restore, eligibility, restoring 
+summary: Si se cumplen todas las condiciones obligatorias de restauración rápida, puede forzar a SnapManager para SAP que utilice el proceso de SnapRestore basado en volúmenes en lugar de otros procesos de restauración. 
+---
+= Restaure backups mediante la restauración rápida
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si se cumplen todas las condiciones obligatorias de restauración rápida, puede forzar a SnapManager para SAP que utilice el proceso de SnapRestore basado en volúmenes en lugar de otros procesos de restauración.
+
+*Acerca de esta tarea*
+
+Es posible usar el comando backup restore con `-fast`:
+
+`*backup restore -fast [require | override | fallback | off]*`
+
+Puede utilizar el `-fast` opción solo si desea realizar una restauración completa de un backup completo. La `-fast` la opción incluye los siguientes parámetros:
+
+* `require`: Permite realizar una restauración de volumen si se cumplen todas las condiciones de elegibilidad de restauración obligatorias y no se encuentran comprobaciones que puedan realizarse.
++
+Si especifica el `-fast` opción, pero no se debe especificar ningún parámetro para `-fast`, SnapManager utiliza la `-require` parámetro como valor predeterminado.
+
+* `override`: Permite anular las comprobaciones de elegibilidad no obligatorias y realizar la restauración rápida basada en volumen.
+* `fallback`: Permite restaurar la base de datos utilizando cualquier método que SnapManager determine.
++
+Si no especifica `-fast`, SnapManager utiliza la `-fallback` parámetro como el predeterminado.
+
+* `off`: Le permite evitar el tiempo necesario para realizar todas las comprobaciones de elegibilidad, para realizar un proceso de restauración basado en archivos en lugar del proceso de restauración rápida.
+
+
+Si la copia de seguridad no supera las comprobaciones de elegibilidad obligatorias, la restauración rápida no se puede completar correctamente.
+
+SnapManager realiza restauraciones rápidas basadas en volúmenes únicamente en entornos basados en UNIX; SnapManager no realiza restauraciones rápidas en el entorno Windows.
+
+Al realizar VBSR en la copia de seguridad del archivo de datos, si los archivos de datos y los archivos de registro de archivos están presentes en el mismo volumen y si los archivos de registro de archivos no están presentes en el sistema de archivos activo, la restauración y recuperación de la base de datos se realiza correctamente. Sin embargo, las futuras snapshots de registros de archivos se eliminan como parte de VBSR. Esto provoca una entrada obsoleta del backup de registros de archivos en el repositorio.
+
+.Pasos
+. Introduzca el siguiente comando:
++
+`*smsap backup restore -profile _profile_name_ -label _label_ -complete-fast require-verbose*`
+
++
+*ejemplo*
+
++
+[listing]
+----
+smsap backup restore -profile targetdb1_prof1
+      -label full_bkup_sales_nov_08  -complete -fast require -verbose
+----
+. Revisar las comprobaciones de cumplimiento de la restauración rápida.
+. Si la comprobación de elegibilidad determina que no se han producido errores en las comprobaciones obligatorias, si se pueden anular ciertas condiciones y si desea continuar con el proceso de restauración, escriba el siguiente comando:
++
+`*backup restore -fast override*`
+
+

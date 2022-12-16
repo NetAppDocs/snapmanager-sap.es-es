@@ -1,0 +1,30 @@
+---
+permalink: unix-administration/reference-running-multiple-parallel-operations-fail-in-snapmanager.html 
+sidebar: sidebar 
+keywords: parallel, operation, seperate, database, storage, system, igroup, lun, delete, igroup, snapmanager, error, message, run, multiple, fail 
+summary: Cuando se ejecutan varias operaciones en paralelo en bases de datos independientes que residen en el mismo sistema de almacenamiento, el igroup para LUN asociadas con ambas bases de datos puede eliminarse debido a una de las operaciones. Más adelante, si la otra operación intenta utilizar el igroup eliminado, SnapManager muestra un mensaje de error. 
+---
+= Se produce un error en la ejecución de varias operaciones paralelas en SnapManager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cuando se ejecutan varias operaciones en paralelo en bases de datos independientes que residen en el mismo sistema de almacenamiento, el igroup para LUN asociadas con ambas bases de datos puede eliminarse debido a una de las operaciones. Más adelante, si la otra operación intenta utilizar el igroup eliminado, SnapManager muestra un mensaje de error.
+
+Por ejemplo, si ejecuta las operaciones de eliminación de backup y creación de backup en bases de datos diferentes casi al mismo tiempo, la operación de creación de backup generará errores. Los siguientes pasos secuenciales muestran lo que ocurre cuando se ejecutan operaciones de eliminación de backup y creación de backup en distintas bases de datos casi al mismo tiempo.
+
+. Ejecute el `backup delete` comando.
+. Ejecute el `backup create` comando.
+. La `backup create` El comando identifica el igroup ya existente y utiliza el mismo igroup para asignar la LUN.
+. La `backup delete` El comando elimina la LUN de backup, que se ha asignado al mismo igroup.
+. La `backup delete` A continuación, el comando elimina el igroup porque no hay ninguna LUN asociada con el igroup.
+. La `backup create` el comando crea el backup e intenta asignar al igroup que no existe y, por lo tanto, la operación genera un error.
+
+
+*Qué hacer*
+
+Debe crear un igroup para cada sistema de almacenamiento utilizado por la base de datos y utilizar el siguiente comando para actualizar SDU con la información del igroup:
+
+`*snapdrive igroup add*`

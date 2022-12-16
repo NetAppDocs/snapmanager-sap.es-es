@@ -1,0 +1,78 @@
+---
+permalink: unix-administration/task-restore-backups-from-secondary-storage.html 
+sidebar: sidebar 
+keywords: restore, protect, backup, secondary, storage, copy, data, back, primary, storage, restoring 
+summary: Es posible restaurar backups protegidos desde el almacenamiento secundario y elegir cómo desea volver a copiar los datos en el almacenamiento primario. 
+---
+= Restaurar backups desde el almacenamiento secundario
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Es posible restaurar backups protegidos desde el almacenamiento secundario y elegir cómo desea volver a copiar los datos en el almacenamiento primario.
+
+*Acerca de esta tarea*
+
+Puede utilizar el `backup restore` con el `-from-secondary` opción de restaurar los datos desde el almacenamiento secundario. Si no especifica el `-from-secondary` Opción, SnapManager restaura los datos desde las copias Snapshot en el almacenamiento primario.
+
+No puede utilizar el `-from-secondary` opción si el backup existe en el almacenamiento primario, es necesario liberar el backup primario antes de que pueda restaurarse desde el almacenamiento secundario. Si se utiliza un volumen temporal, se debe especificar el volumen con el `-temp-volume` opción.
+
+Debe especificar el `-copy-id` siempre que especifique la `-from-secondary` opción. Si existe más de un backup en el sistema de almacenamiento secundario, el `-copy-id` la opción se utiliza para especificar qué copia de backup del almacenamiento secundario debe usarse en la operación de restauración.
+
+
+NOTE: Si utiliza Data ONTAP operando en 7-Mode, debe especificar un valor válido para `-copy-id` opción. Sin embargo, si utiliza Clustered Data ONTAP, el `-copy-id` la opción no es necesaria.
+
+Cuando se restauran datos desde un almacenamiento secundario, SnapManager intenta primero restaurar los datos directamente desde el sistema de almacenamiento secundario al sistema de almacenamiento primario (sin involucrar al host). Si SnapManager no puede realizar este tipo de restauración (por ejemplo, si los archivos no forman parte del sistema de archivos), SnapManager recuperará una restauración de copia de archivos del lado del host. SnapManager tiene dos métodos para realizar una restauración de copia de archivos en el lado del host desde el almacenamiento secundario. El método que selecciona SnapManager se configura en la `smsap.config` archivo.
+
+* Si `_restore.secondaryAccessPolicy_ = *direct*`, SnapManager clona los datos en el almacenamiento secundario, monta los datos clonados del sistema de almacenamiento secundario en el host y, a continuación, copia los datos del clon en el entorno activo.
++
+Esta es la directiva de acceso secundaria predeterminada.
+
+* Si `_restore.secondaryAccessPolicy_ = *indirect*`, SnapManager copia primero los datos a un volumen temporal en el almacenamiento primario, monta los datos del volumen temporal en el host y, a continuación, copia los datos del volumen temporal en el entorno activo.
++
+Esta política se debe utilizar solo si el host no tiene acceso directo al sistema de almacenamiento secundario. Las restauraciones mediante el método indirecto demorarán el doble de tiempo que el método directo porque se crean dos copias de los datos.
+
+
+
+.Paso
+. Ejecute una de las siguientes acciones:
++
+[cols="1a,3a"]
+|===
+| Si desea... | Realice lo siguiente... 
+
+
+ a| 
+Restaure una base de datos completa si el backup seleccionado existe en el almacenamiento principal
+ a| 
+Introduzca el siguiente comando:
+
+`*smsap backup restore -profile _profile_name_ -label _label_ -complete -recover -alllogs[-copy-id _id_]*`
+
+
+
+ a| 
+Restaure una base de datos completa si el backup seleccionado no existe en el almacenamiento primario
+ a| 
+Introduzca el siguiente comando:
+`*smsap backup restore -profile _profile_name_ -label _label_ -complete-recover -alllogs-from-secondary [-temp-volume _<temp_volume>_] [-copy-id _id_]*`
+
+|===
+
+
+'''
+
+
+== Ejemplo
+
+El siguiente comando restaura un backup protegido desde el sistema de almacenamiento secundario:
+
+[listing]
+----
+smsap backup restore -profile PAYDB -label daily_monday -complete
+-recover alllogs -from-secondary -copy-id 3042 -temp-volume smsap_scratch_restore_volume
+Operation Id [8abc011215d385920115d38599470001] succeeded.
+----
+'''

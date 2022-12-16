@@ -1,0 +1,67 @@
+---
+permalink: unix-installation-7mode/task-smsap-isg-back-up-your-database.html 
+sidebar: sidebar 
+keywords: create, creating, profile, back, up, database, schedule, recur, backup, initial, verification 
+summary: Después de crear un perfil, debe realizar un backup de la base de datos. Se pueden programar backups recurrentes después del backup y la verificación iniciales. 
+---
+= Realice una copia de seguridad de la base de datos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Después de crear un perfil, debe realizar un backup de la base de datos. Se pueden programar backups recurrentes después del backup y la verificación iniciales.
+
+*Acerca de esta tarea*
+
+Estos pasos muestran cómo crear un backup de la base de datos con la interfaz de usuario de SnapManager. También puede usar la interfaz de línea de comandos (CLI) si lo prefiere.
+
+Para obtener información acerca de cómo crear copias de seguridad mediante la CLI o SAP BR* Tools, consulte la guía de administración de _SnapManager para SAP para UNIX_.
+
+.Pasos
+. En el árbol repositorios, haga clic con el botón derecho del ratón en el perfil que contiene la base de datos de la que desea realizar la copia de seguridad y seleccione *copia de seguridad*.
+. En *Label*, introduzca un nombre personalizado para la copia de seguridad.
++
+No debe incluir espacios ni caracteres especiales en el nombre. Si no se especifica un nombre, SnapManager crea automáticamente una etiqueta de backup.
+
++
+En SnapManager 3.4, es posible modificar la etiqueta de backup creada automáticamente por SnapManager. Puede editar el `override.default.backup.pattern` y.. `new.default.backup.pattern` variables de configuración para crear su propio patrón de etiqueta de backup predeterminado.
+
+. Seleccione *permitir inicio o cierre de la base de datos, si es necesario* para modificar el estado de la base de datos, si es necesario.
++
+Esta opción garantiza que si la base de datos no está en el estado requerido para crear un backup, SnapManager automáticamente llevará la base de datos al estado deseado a fin de completar la operación.
+
+. En la página *base de datos, Tablespaces o Datafiles to Backup*, realice lo siguiente:
++
+.. Seleccione *copia de seguridad de archivos de datos* para realizar una copia de seguridad de la base de datos completa, los archivos de datos seleccionados o los tablespaces seleccionados.
+.. Seleccione *copia de seguridad Archivelogs* para realizar una copia de seguridad de los archivos de registro de archivos por separado.
+.. Seleccione *Prune Archivelogs* si desea eliminar los archivos de registro de archivos del sistema de archivos activo del que ya se ha realizado una copia de seguridad.
++
+
+NOTE: Si está habilitado el área de recuperación de flash (FRA) para los archivos de registro de archivos, SnapManager no puede depurar los archivos de registro de archivos.
+
+.. Seleccione *proteger la copia de seguridad* si desea activar la protección de copia de seguridad.
++
+Esta opción sólo está activada si se ha seleccionado la directiva de protección al crear el perfil.
+
+.. Seleccione *proteger ahora* si desea proteger la copia de seguridad inmediatamente en el almacenamiento secundario reemplazando el programa de protección de Protection Manager.
+.. En la lista desplegable *Tipo*, seleccione el tipo de copia de seguridad (sin conexión o en línea) que desea crear.
++
+Si selecciona _Auto_, SnapManager crea una copia de seguridad basada en el estado actual de la base de datos.
+
+.. En la lista desplegable *clase de retención*, seleccione la clase de retención.
+.. Active la casilla de verificación *verificar copia de seguridad con la utilidad Oracle DBVERIFY* si desea asegurarse de que los archivos de copia de seguridad no están dañados.
+
+
+. En la página *activación de tareas*, especifique si desea realizar tareas antes y después de finalizar las operaciones de copia de seguridad.
+. En la página *realizar la operación de copia de seguridad*, compruebe la información y haga clic en *copia de seguridad*.
+. Haga clic en *Finalizar* para cerrar el asistente.
++
+Si la operación falla, haga clic en *Detalles de operación* para ver qué causó el fallo de la operación.
+
+
+
+*Información relacionada*
+
+https://library.netapp.com/ecm/ecm_download_file/ECMP12481453["Guía de administración para UNIX de SnapManager 3.4.1 para SAP"^]

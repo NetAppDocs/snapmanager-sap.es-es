@@ -1,0 +1,65 @@
+---
+permalink: unix-administration/concept-about-role-based-access-control.html 
+sidebar: sidebar 
+keywords: role-based, access, control, rbac, control, access, snapmanager, operation, administrator, environment, role 
+summary: El control de acceso basado en roles permite controlar quién tiene acceso a las operaciones de SnapManager. Con RBAC, los administradores pueden gestionar grupos de usuarios al definir roles y asignar usuarios a esos roles. Puede ser conveniente utilizar el control de acceso basado en roles de SnapManager en entornos donde ya se encuentra el control de acceso basado en roles. 
+---
+= Acerca del control de acceso basado en roles
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El control de acceso basado en roles permite controlar quién tiene acceso a las operaciones de SnapManager. Con RBAC, los administradores pueden gestionar grupos de usuarios al definir roles y asignar usuarios a esos roles. Puede ser conveniente utilizar el control de acceso basado en roles de SnapManager en entornos donde ya se encuentra el control de acceso basado en roles.
+
+El control de acceso basado en roles incluye los siguientes componentes:
+
+* Recursos: Volúmenes y LUN que contienen los archivos de datos que componen la base de datos.
+* Capabilities: Tipos de operaciones que se pueden realizar en un recurso.
+* Usuarios: Personas a las que usted concede capacidades.
+* Funciones: Un conjunto de recursos y capacidades que se permiten en los recursos. Asigne un rol específico a un usuario que deba realizar esas capacidades.
+
+
+Es posible habilitar el control de acceso basado en roles en SnapDrive. A continuación, puede configurar capacidades específicas por función en la interfaz gráfica de usuario web o en la interfaz de línea de comandos de Operations Manager. Las comprobaciones de RBAC se realizan en DataFabric Manager Server.
+
+En la tabla siguiente se enumeran algunas funciones y sus tareas típicas, tal como se establece en el Administrador de operaciones.
+
+[cols="1a,3a"]
+|===
+| Función | Tareas típicas 
+
+
+ a| 
+Administrador de base SAP
+ a| 
+* Crear, mantener y supervisar una base de datos de Oracle que reside en un host
+* Programar y crear backups de bases de datos
+* Garantizar que los backups sean válidos y se puedan restaurar
+* Clonar bases de datos
+
+
+
+
+ a| 
+Administrador de servidores
+ a| 
+* Configuración de sistemas de almacenamiento y agregados
+* Supervisar los volúmenes para obtener espacio libre
+* Aprovisionamiento de almacenamiento para solicitudes de usuarios
+* Configuración y supervisión de mirroring de recuperación de desastres
+
+
+
+
+ a| 
+Arquitecto de almacenamiento
+ a| 
+* Tomar decisiones sobre la arquitectura en el almacenamiento
+* Planificación del crecimiento de la capacidad de almacenamiento
+* Planificación de las estrategias de recuperación ante desastres
+* Delegación de capacidades a los miembros del equipo
+
+
+|===
+Si está en uso RBAC (es decir, que Operations Manager está instalado y que el RBAC está habilitado en SnapDrive), el administrador de almacenamiento debe asignar permisos de RBAC en todos los volúmenes y sistemas de almacenamiento para los archivos de base de datos.

@@ -1,0 +1,18 @@
+---
+permalink: unix-administration/concept-what-resource-pools-are.html 
+sidebar: sidebar 
+keywords: resource, pool, collection, physical, storage, system, volume, lun, provision, assign, aggregate 
+summary: 'Un pool de recursos es una colección de almacenamiento físico sin usar (como sistemas de almacenamiento o agregados) del cual se pueden aprovisionar volúmenes o LUN nuevos para contener datos. Si asigna un sistema de almacenamiento a un pool de recursos, todos los agregados de ese sistema de almacenamiento se mostrarán disponibles para el aprovisionamiento.' 
+---
+= Qué pools de recursos son
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Un pool de recursos es una colección de almacenamiento físico sin usar (como sistemas de almacenamiento o agregados) del cual se pueden aprovisionar volúmenes o LUN nuevos para contener datos. Si asigna un sistema de almacenamiento a un pool de recursos, todos los agregados de ese sistema de almacenamiento se mostrarán disponibles para el aprovisionamiento.
+
+Los administradores de almacenamiento usan la consola de Protection Manager para asignar un conjunto de recursos a las copias de respaldo y de duplicación. La aplicación de aprovisionamiento puede entonces aprovisionar automáticamente volúmenes fuera de los recursos físicos del conjunto de recursos para contener backups y copias de mirroring.
+
+Para perfiles protegidos, SnapManager muestra información sobre un perfil e indica si se ha asignado un conjunto de recursos de almacenamiento a ese perfil. Si no es así, el perfil se considera "no conforme". Tras asignar un pool de recursos de almacenamiento al conjunto de datos del perfil correspondiente, el perfil se considera "conforme".

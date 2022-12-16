@@ -1,0 +1,42 @@
+---
+permalink: unix-installation-cmode/task-smsap-isg-verify-database-backups.html 
+sidebar: sidebar 
+keywords: verify, backup, database, ensure, backed-up, file, corrupt 
+summary: Puede verificar la copia de seguridad de la base de datos para asegurarse de que los archivos de los que se ha realizado una copia de seguridad no estén dañados. 
+---
+= Verificar los backups de la base de datos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede verificar la copia de seguridad de la base de datos para asegurarse de que los archivos de los que se ha realizado una copia de seguridad no estén dañados.
+
+
+
+== Acerca de esta tarea
+
+Si no ha seleccionado la casilla de verificación *verificar copia de seguridad con la utilidad Oracle DBVERIFY* al crear una copia de seguridad, debe realizar estos pasos manualmente para verificar la copia de seguridad. Sin embargo, si seleccionó esta casilla de comprobación, SnapManager verifica automáticamente el backup.
+
+.Pasos
+. En el árbol *repositorios*, seleccione el perfil.
+. Haga clic con el botón derecho del ratón en la copia de seguridad que desee verificar y seleccione *verificar*.
+. Haga clic en *Finalizar*.
++
+Si la operación falla, haga clic en *Detalles de operación* para ver qué causó el fallo de la operación.
+
++
+En el árbol *repositorio*, haga clic con el botón secundario del ratón en la copia de seguridad y, a continuación, haga clic en *Propiedades* para ver los resultados de la operación de verificación.
+
+
+
+
+
+== Después de terminar
+
+Es posible usar archivos de backup para realizar operaciones de restauración. Para obtener información acerca de cómo realizar operaciones de restauración con la interfaz de usuario de SnapManager, consulte _Ayuda en línea_. Si desea utilizar la interfaz de línea de comandos (CLI) para realizar operaciones de restauración, consulte la guía de administración de _SnapManager for SAP para UNIX_.
+
+*Información relacionada*
+
+https://library.netapp.com/ecm/ecm_download_file/ECMP12481453["Guía de administración para UNIX de SnapManager 3.4.1 para SAP"^]

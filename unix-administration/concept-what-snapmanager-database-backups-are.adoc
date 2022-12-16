@@ -1,0 +1,38 @@
+---
+permalink: unix-administration/concept-what-snapmanager-database-backups-are.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, perform, backup, task, assign, retention, class, retain, reach, database 
+summary: SnapManager permite realizar distintas tareas de backup. Puede asignar clases de retención para especificar cuánto tiempo se puede retener la copia de seguridad; una vez alcanzado ese límite de tiempo, se elimina la copia de seguridad. 
+---
+= Qué son los backups de la base de datos SnapManager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager permite realizar distintas tareas de backup. Puede asignar clases de retención para especificar cuánto tiempo se puede retener la copia de seguridad; una vez alcanzado ese límite de tiempo, se elimina la copia de seguridad.
+
+* Crear backups en el almacenamiento principal
+* Cree backups protegidos en los recursos de almacenamiento secundario
+* Compruebe que los backups se han realizado correctamente
+* Ver una lista de backups
+* Programar las copias de seguridad utilizando la interfaz gráfica de usuario
+* Gestión de la cantidad de backups incorporados
+* Libere recursos de backup
+* Montar y desmontar backups
+* Eliminar backups
+
+
+SnapManager crea backups mediante una de las siguientes clases de retención:
+
+* Cada hora
+* Todos los días
+* Semanal
+* Mensual
+* Ilimitada
+
+
+Protection Manager debe instalarse para utilizar políticas de protección a fin de proteger los backups. Un backup puede tener uno de los siguientes estados de protección: No solicitado, no protegido o protegido.
+
+Si se agregan nuevos archivos de datos a la base de datos, debe crear una copia de seguridad inmediatamente. Además, si restaura una copia de seguridad realizada antes de agregar los nuevos archivos de datos e intenta recuperarse a un punto después de agregar los nuevos archivos de datos, el proceso de recuperación automática podría fallar. Consulte la documentación de Oracle para obtener más información sobre el proceso de recuperación de los archivos de datos agregados después de una copia de seguridad.

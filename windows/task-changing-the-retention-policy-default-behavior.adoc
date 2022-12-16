@@ -1,0 +1,31 @@
+---
+permalink: windows/task-changing-the-retention-policy-default-behavior.html 
+sidebar: sidebar 
+keywords: backup, expire, retention, policy, snapmanager, delete, setting 
+summary: Cuando caduca un backup según la política de retención, SnapManager determina si se elimina el backup según la configuración de retención. La eliminación de copias de seguridad es el comportamiento predeterminado. Puede cambiar este comportamiento predeterminado y liberar en su lugar las copias de seguridad no protegidas. 
+---
+= Cambiar el comportamiento predeterminado de la política de retención
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cuando caduca un backup según la política de retención, SnapManager determina si se elimina el backup según la configuración de retención. La eliminación de copias de seguridad es el comportamiento predeterminado. Puede cambiar este comportamiento predeterminado y liberar en su lugar las copias de seguridad no protegidas.
+
+De forma predeterminada, Snap Manager elimina la copia de seguridad cuando caducan.
+
+. Acceda a la siguiente ubicación predeterminada:
++
+ubicación de instalación predeterminada de smsap\properties\smsap.config
+
+. Edite el archivo smsap.config.
+. Establezca la propiedad retain.always FreeExpiredbackups en el archivo smSAP.config en true.
++
+Por ejemplo: `retain.alwaysFreeExpiredBackups = true`
+
+
+
+*Información relacionada*
+
+xref:reference-the-smosmsapbackup-update-command.adoc[El comando smsap backup update]

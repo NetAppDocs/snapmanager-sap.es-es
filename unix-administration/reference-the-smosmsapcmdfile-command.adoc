@@ -1,0 +1,71 @@
+---
+permalink: unix-administration/reference-the-smosmsapcmdfile-command.html 
+sidebar: sidebar 
+keywords: cmdfile, command, shell, host, limit, number, character, smsap, line 
+summary: Puede utilizar el comando cmdfile para ejecutar cualquier comando si el shell del host limita el número de caracteres que pueden aparecer en una línea de comandos. 
+---
+= El comando scmcmdfile
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede utilizar el `cmdfile` comando para ejecutar cualquier comando si el shell del host limita el número de caracteres que pueden aparecer en una línea de comandos.
+
+
+
+== Sintaxis
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap cmdfile
+-file _file_name_
+[-quiet | -verbose\]]
+----
+Puede incluir el comando en un archivo de texto y utilizar `smsap cmdfile` comando para ejecutar el comando. Sólo puede agregar un comando en un archivo de texto. No debe incluir smsap en la sintaxis del comando.
+
+
+NOTE: La `smsap cmdfile` el comando sustituye al `smsap pfile` comando. La `smsap cmdfile` no es compatible con `smsap pfile` comando.
+
+
+
+== Parámetros
+
+* ``*-file _file_name_*``
++
+Especifica la ruta de acceso al archivo de texto que contiene el comando que desea ejecutar.
+
+* ``*-quiet*``
++
+Especifica que sólo se muestran mensajes de error en la consola. El valor predeterminado es mostrar mensajes de error y advertencia.
+
+* ``*-verbose*``
++
+Especifica que los mensajes de error, advertencia e informativos se muestran en la consola.
+
+
+
+'''
+
+
+== Ejemplo
+
+En este ejemplo se crea un perfil incluyendo `profile create` comando en `command.txt` situado en `/tmp`. A continuación, puede ejecutar el `smsap cmdfile` comando.
+
+El archivo de texto contiene la siguiente información:
+
+[listing]
+----
+profile create -profile SALES1 -repository -dbname SNAPMGRR
+-login -username server1_user -password ontap -port 1521 -host server1
+-database -dbname SMSMSAP -sid SMSMSAP -login -username sys -password oracle -port 1521
+-host Host2 -osaccount oracle -osgroup db2
+----
+Ahora puede crear el perfil ejecutando `smsap cmdfile` con el `command.txt` archivo:
+
+[listing]
+----
+smsap cmdfile -file /tmp/command.txt
+----
+'''

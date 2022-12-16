@@ -1,0 +1,172 @@
+---
+permalink: windows/task-restore-backups-on-primary-storage.html 
+sidebar: sidebar 
+keywords: backup, restore, command, database, primary, storage 
+summary: Es posible utilizar el comando backup restore para restaurar un backup de base de datos en el almacenamiento primario. 
+---
+= Restaure backups en el almacenamiento principal
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede utilizar el `backup restore` comando para restaurar un backup de base de datos en el almacenamiento primario.
+
+
+
+== Acerca de esta tarea
+
+Puede utilizar el `backup restore` Opciones del comando para especificar si SnapManager debe restaurar todo el backup o parte de él. SnapManager también permite restaurar archivos de control junto con los archivos de datos o los espacios de tablas desde los backups en una sola operación de usuario. Puede incluir `-controlfiles` con `-complete` para restaurar los ficheros de control, así como los espacios de tablas y los ficheros de datos.
+
+Se pueden seleccionar una de las siguientes opciones para restaurar el backup:
+
+[cols="1a,1a"]
+|===
+| Si desea restaurar... | Usar... 
+
+
+ a| 
+Todo el backup con todos los espacios de tablas y ficheros de datos
+ a| 
+`-complete`
+
+
+
+ a| 
+Lista de tablespaces específicos
+ a| 
+`-tablespaces`
+
+
+
+ a| 
+Archivos de datos específicos
+ a| 
+`-files`
+
+
+
+ a| 
+Solo los archivos de control
+ a| 
+`-controlfiles`
+
+
+
+ a| 
+Espacios de tabla, archivos de datos y archivos de control
+ a| 
+`-complete` `-controlfiles`
+
+|===
+También puede restaurar el backup desde una ubicación alternativa si especifica `-restorespec`.
+
+Si incluye `-recover`, puede recuperar la base de datos en:
+
+* La última transacción que se produjo en la base de datos (todos los registros)
+* Una fecha y hora específicas
+* Un número de cambio de sistema (SCN) específico
+* La hora del backup (sin registros)
+* Solo restauración
+
+
+
+NOTE: Tanto la recuperación de fecha y hora como la recuperación de SCN son recuperaciones puntuales.
+
+SnapManager (3.2 o posterior) permite recuperar los backups de la base de datos restaurada automáticamente mediante los archivos de registro de archivos. Incluso si los archivos de registro de archivos están disponibles en la ubicación externa, si se especifica el `-recover-from-location` Opción, SnapManager utiliza los archivos de registro de archivos desde la ubicación externa para recuperar los backups de la base de datos restaurada.
+
+Cuando se especifican las ubicaciones de los registros de archivo externos para la recuperación de los backups restaurados, debe asegurarse de incluir los nombres de la ubicación externa en mayúsculas. En el sistema de archivos, todos los nombres de carpetas y subcarpetas deben estar en mayúsculas, ya que Oracle convierte la ruta de destino en mayúscula y espera que las rutas de destino externas, los nombres de carpetas y los nombres de subcarpetas estén en mayúsculas. Si se especifican las rutas de destino de registros de archivo externos en minúscula, es posible que Oracle no pueda identificar la ruta especificada y no pueda restaurar la base de datos.
+
+SnapManager proporciona la ubicación externa a Oracle. Sin embargo, Oracle no identifica los archivos desde el destino externo. Este comportamiento se aprecia en el destino de área de recuperación de flash. Se trata de problemas con Oracle y la solución alternativa es tener siempre una copia de seguridad de los archivos de registro de archivos en dichos diseños de bases de datos.
+
+Si se proporciona un SCN o fecha incoherentes, la recuperación se detendrá en el último punto consistente recuperado con el mensaje de error `Recovery succeeded, but insufficient`. Es necesario realizar manualmente la recuperación a un estado consistente.
+
+Para la recuperación cuando no se aplican registros, SnapManager se recupera hasta el último SCN del último archivo de registro de archivos creado durante el backup. Si la base de datos es coherente hasta este SCN, la base de datos se abrirá correctamente. Si la base de datos no es coherente en este momento, SnapManager sigue intentando abrir la base de datos, que se abrirá correctamente si la base de datos ya es coherente.
+
+
+NOTE: SnapManager no admite la recuperación de los backups de solo registro de archivos.
+
+Si el destino de los registros de archivos no es un almacenamiento compatible con Snapshot, SnapManager permite recuperar los backups de la base de datos restaurada mediante el perfil. Antes de ejecutar operaciones de SnapManager en un almacenamiento no compatible con Snapshot, debe añadir los destinos de `archivedLogs.exclude` pulg `smsap.config`.
+
+Debe asegurarse de establecer el parámetro Exclude antes de crear un perfil. Sólo después de establecer el parámetro exclude en el archivo de configuración de SnapManager, la creación de perfiles se realiza correctamente.
+
+Si el backup ya está montado, SnapManager no monta el backup de nuevo y utiliza el backup ya montado. Si la copia de seguridad está montada por un usuario diferente y si el usuario actual no tiene acceso a la copia de seguridad previamente montada, otros usuarios tienen que proporcionar los permisos. Todos los archivos de registro de archivos tienen permisos de lectura para los propietarios de los grupos; es posible que el usuario actual no obtenga los permisos, si el backup está montado por otro grupo de usuarios. Los usuarios pueden proporcionar permisos a los archivos de registro de archivos montados manualmente y, a continuación, volver a intentar la restauración o recuperación.
+
+Puede especificar el `-dump` opción como parámetro opcional para recoger los archivos de volcado después de la operación de restauración correcta o con errores.
+
+.Pasos
+. Introduzca el siguiente comando:
++
+`*smsap backup restore -profile _profile_name_ -label _label_ -complete -recover -alllogs [-recover-from-location _path_ [,_path2_]]-dump-verbose*`
+
++
+*ejemplo*
+
++
+`*smsap backup restore -profile targetdb1_prof1 -label full_bkup_sales_nov_08 - complete -recover -alllogs -verbose*`
+
+. Para restaurar datos en diferentes situaciones, complete una de las siguientes acciones:
++
+[cols="1a,1a"]
+|===
+| Si desea restaurar... | Ejemplo de comando 
+
+
+ a| 
+Complete la base de datos sin archivos de control y recupere a un número SCN particular (3794392). En este caso, existen los archivos de control actuales, pero todos los archivos de datos están dañados o perdidos. Restaure y recupere la base de datos de un backup completo en línea existente a un punto inmediatamente antes de ese SCN.
+ a| 
+`*smsap backup restore -profile targetdb1_prof1 -label full_bkup_sales_nov_08 -complete -recover -until 3794392 -verbose*`
+
+
+
+ a| 
+Complete la base de datos sin archivos de control y recupérese a una fecha y hora.
+ a| 
+`*smsap backup restore -profile targetdb1_prof1 -label full_bkup_sales_nov_08 -complete -recover -until 2008-09-15:15:29:23 -verbose*`
+
+
+
+ a| 
+Completar base de datos sin archivos de control y recuperar hasta datos y un tiempo. En este caso, existen los archivos de control actuales, pero todos los archivos de datos están dañados o se pierden o se produjo un error lógico después de un momento específico. Restaure y recupere la base de datos de un backup completo en línea existente a una fecha y hora inmediatamente antes del punto de error.
+ a| 
+`*smsap backup restore -profile targetdb1_prof1 -label full_bkup_sales_nov_08 -complete -recover -until "2008-09-15:15:29:23" -verbose*`
+
+
+
+ a| 
+Base de datos parcial (uno o más archivos de datos) sin archivos de control y recuperación mediante todos los registros disponibles. En este caso, existen los archivos de control actuales, pero uno o más archivos de datos están dañados o perdidos. Restaure esos archivos de datos y recupere la base de datos de un backup completo en línea existente con todos los registros disponibles.
+ a| 
+`*smsap backup restore -profile targetdb1_prof1 -label full_bkup_sales_nov_08 -files E:\disks\s02.dbf E:\disks\sales03.dbf E:\disks\sales04.dbf -recover -alllogs -verbose*`
+
+
+
+ a| 
+Base de datos parcial (uno o más espacios de tablas) sin archivos de control y recuperación mediante todos los registros disponibles. En este caso, existen los archivos de control actuales, pero se pierden uno o más tablespaces o se pierde uno de los más archivos de datos pertenecientes al tablespace. Restaure estos espacios de tablas y recupere la base de datos de un backup completo en línea existente con todos los registros disponibles.
+ a| 
+`*smsap backup restore -profile targetdb1_prof1 -label full_bkup_sales_nov_08 -tablespaces users -recover -alllogs -verbose*`
+
+
+
+ a| 
+Controle y recupere únicamente los archivos con todos los registros disponibles. En este caso, los archivos de datos existen, pero todos los archivos de control están dañados o perdidos. Restaure únicamente los archivos de control y recupere la base de datos de un backup completo en línea existente con todos los registros disponibles.
+ a| 
+`*smsap backup restore -profile targetdb1_prof1 -label full_bkup_sales_nov_08 -controlfiles -recover -alllogs -verbose*`
+
+
+
+ a| 
+Complete la base de datos sin archivos de control y recupérese con los archivos de control de backup y todos los registros disponibles. En este caso, todos los archivos de datos están dañados o perdidos. Restaure únicamente los archivos de control y recupere la base de datos de un backup completo en línea existente con todos los registros disponibles.
+ a| 
+`*smsap backup restore -profile targetdb1_prof1 -label full_bkup_sales_nov_08 -complete -using-backup-controlfile -recover -alllogs -verbose*`
+
+
+
+ a| 
+Recupere la base de datos restaurada con los archivos de registro de archivos de la ubicación del registro de archivos externo.
+ a| 
+`*smsap backup restore -profile targetdb1_prof1 -label full_bkup_sales_nov_08 -complete -using-backup-controlfile -recover -alllogs -recover-from-location E:\\archive -verbose*`
+
+|===
+. Especifique las ubicaciones de los registros de archivos externos mediante el `-recover-from-location` opción.
+

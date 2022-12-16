@@ -1,0 +1,35 @@
+---
+permalink: unix-administration/task-unmount-backups.html 
+sidebar: sidebar 
+keywords: snapmanager, automatic, unmount, backup, unavailable, host, server, unmount, external, tool, oracle, recovery, manager, rman, file, backup, state, remove, access 
+summary: 'SnapManager desmonta automáticamente el backup para que no esté disponible para el servidor host. SnapManager también permite desmontar si se utiliza una herramienta externa, como Oracle Recovery Manager (RMAN), para acceder a los archivos de la copia de seguridad y para cambiar el estado del backup para quitar el acceso.' 
+---
+= Desmontar backups
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager desmonta automáticamente el backup para que no esté disponible para el servidor host. SnapManager también permite desmontar si se utiliza una herramienta externa, como Oracle Recovery Manager (RMAN), para acceder a los archivos de la copia de seguridad y para cambiar el estado del backup para quitar el acceso.
+
+*Acerca de esta tarea*
+
+Si va a desmontar un backup de base de datos de un host remoto, debe asegurarse de que las credenciales de Automatic Storage Management (ASM) sean las mismas en ambos hosts.
+
+Otra opción es recoger los archivos de volcado después de una operación de backup realizó una operación de desmontaje correcta o con errores.
+
+Es posible que la operación de desmontaje falle en algún momento con un mensaje de error si el punto de montaje está ocupado, por ejemplo, `--[ERROR] FLOW-11019: Failure in Disconnect: SD-10046: You cannot unmount the backup as the mount point is busy with the following mount paths and PID's: /opt/NetApp/smsap/mnt/-mnt-neuse_nfsvrdb_arch-20120427052319903_0 with PID 6598.`
+
+Debe identificar el PID de la sesión que tiene como resultado un fallo en la operación de desmontaje. Detenga la sesión ejecutando el siguiente comando:
+
+`*kill _pid_*`
+
+Posteriormente, puede ejecutar la operación de desmontaje correctamente.
+
+.Paso
+. Introduzca el siguiente comando:
++
+`*smsap backup unmount -profile _profile_name_ {label _label_ [data | -archivelogs] | -id _id_} [-quiet | -verbose]*`
+
+

@@ -1,0 +1,26 @@
+---
+permalink: windows/concept-what-snapmanager-for-oraclefor-sap-is.html 
+sidebar: sidebar 
+keywords: snapmanager, tools, perform, policy-driven, data, management, schedule, create, database, backup, restore, primary, storage, post-process, sap 
+summary: SnapManager proporciona las herramientas necesarias para realizar la gestión de datos condicionada por políticas, programar y crear backups de bases de datos regulares, restaurar datos de estos backups en caso de pérdida de datos o desastre, y crear clones de bases de datos. Es posible crear backups en el almacenamiento primario y crear backups protegidos en el almacenamiento secundario mediante scripts de procesamiento posterior. 
+---
+= Qué es SAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager proporciona las herramientas necesarias para realizar la gestión de datos condicionada por políticas, programar y crear backups de bases de datos regulares, restaurar datos de estos backups en caso de pérdida de datos o desastre, y crear clones de bases de datos. Es posible crear backups en el almacenamiento primario y crear backups protegidos en el almacenamiento secundario mediante scripts de procesamiento posterior.
+
+SnapManager aprovecha las tecnologías de NetApp al integrarse con las versiones más recientes de las bases de datos. SnapManager se integra con las siguientes aplicaciones y tecnologías de NetApp:
+
+* SnapDrive automatiza las tareas de aprovisionamiento del almacenamiento y simplifica el proceso de creación de copias Snapshot del almacenamiento sin errores consistentes con el host.
+* Snapshot (una función de Data ONTAP) crea copias de un momento específico de la base de datos.
+* SnapVault (una función con licencia de Data ONTAP) aprovecha los backups basados en disco para realizar backups y recuperaciones de bases de datos fiables y con una sobrecarga mínima.
+* SnapMirror (una función con licencia de Data ONTAP) replica los datos de base de datos a través de una red global a alta velocidad de forma sencilla, fiable y rentable.
+* SnapRestore (una función con licencia de Data ONTAP) recupera una base de datos completa en segundos, independientemente de la capacidad o del número de archivos.
+* FlexClone (una función con licencia de Data ONTAP) ayuda a crear clones de bases de datos rápidos y con gestión eficiente del espacio a partir de los backups de Snapshot.
+
+
+SnapManager funciona con todos los protocolos SAN (FC e iSCSI).

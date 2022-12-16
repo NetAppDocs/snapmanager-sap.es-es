@@ -1,0 +1,313 @@
+---
+permalink: windows/task-create-database-backups.html 
+sidebar: sidebar 
+keywords: create, backup, database, portion, tablespace, data, file, control 
+summary: Puede crear backups de bases de datos completas o de partes de bases de datos, incluidos espacios de tabla, archivos de datos o archivos de control. 
+---
+= Crear backups de la base de datos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede crear backups de bases de datos completas o de partes de bases de datos, incluidos espacios de tabla, archivos de datos o archivos de control.
+
+
+
+== Acerca de esta tarea
+
+SnapManager proporciona funcionalidades de copia Snapshot para bases de datos en numerosas pilas de almacenamiento del lado del host, incluidas NFS, Veritas, etc.
+
+Los administradores pueden opcionalmente registrar backups con Oracle RMAN, lo que facilita el uso de RMAN para restaurar y recuperar la base de datos con granularidades más finas como bloques.
+
+Al definir el perfil, puede personalizar los nombres de las copias Snapshot creadas por backups de ese perfil. Por ejemplo, puede insertar una cadena de prefijo de `*HOPS*` Para indicar backups de operaciones altas.
+
+Además de definir nombres únicos para las copias de Snapshot creadas por backups, también puede crear etiquetas únicas para los propios backups. Cuando crea una copia de seguridad, es una buena práctica proporcionar un nombre para la copia de seguridad de forma que disponga de una forma sencilla de identificarla mediante la `-label` parámetro. Este nombre debe ser único para todos los backups creados dentro de un perfil determinado. El nombre puede contener letras, números, guiones bajos (_) y guiones (-). No puede comenzar con un guión. Las etiquetas distinguen mayúsculas de minúsculas. Puede incluir información como variables de entorno del sistema operativo, fecha del sistema y tipo de backup.
+
+Si no proporciona una etiqueta, SnapManager creará un nombre de etiqueta predeterminado en el formulario `scope_mode_datestring`, donde el ámbito está completo o parcial y el modo es sin conexión, en línea o automático (la letra `c` para frío, `h` para caliente, o. `a` para automático).
+
+Desde SnapManager 3.4, puede proporcionar su propia etiqueta de backup reemplazando la etiqueta de backup predeterminada que creó SnapManager. Debe configurar el valor de `override.default.backup.pattern` parámetro en *true* y especifique la nueva etiqueta de copia de seguridad en la `new.default.backup.pattern` parámetro. El patrón de etiqueta de backup puede contener palabras clave como el nombre de la base de datos, el nombre del perfil, el ámbito, el modo y el nombre de host, que deben separarse con el guión bajo. Por ejemplo: `new.default.backup.pattern=dbname_profile_hostname_scope_mode`.
+
+
+NOTE: La Marca de hora se incluirá automáticamente al final de la etiqueta generada.
+
+Al introducir un comentario, puede incluir espacios y caracteres especiales. Por el contrario, cuando introduzca una etiqueta, no incluya espacios ni caracteres especiales.
+
+Para cada backup, SnapManager genera automáticamente un GUID, que es una cadena HEXADECIMAL de 32 caracteres. Para determinar el GUID, debe ejecutar el `backup list` con el `-verbose` opción.
+
+Es posible crear un backup completo de una base de datos mientras está en línea o sin conexión. Para que SnapManager gestione el backup de una base de datos independientemente de si está en línea o sin conexión, debe usar la `-auto` opción.
+
+Al crear un backup, si se habilitó la eliminación y se habilitó la notificación de resumen en el perfil, se activan dos correos electrónicos independientes. Un correo electrónico es para la operación de backup y el otro para la eliminación. Es posible correlacionar estos correos electrónicos comparando el nombre de la copia de seguridad y el ID de copia de seguridad incluidos en estos correos electrónicos.
+
+Es posible crear un backup en frío cuando la base de datos está en estado de apagado. Si la base de datos está en estado montado, cambie a estado de apagado y realice el backup sin conexión (backup en frío).
+
+SnapManager (3.2 o posterior) permite realizar un backup de los archivos de registro de archivos independientemente de los archivos de datos, lo que permite gestionar los archivos de registro de archivos de forma eficiente.
+
+Para crear los backups de registros de archivos por separado, debe crear un nuevo perfil o actualizar el perfil existente para separar los backups de los registros de archivos mediante el `-separate-archivelog-backups` opción. Con el perfil, es posible realizar las siguientes operaciones de SnapManager:
+
+* Cree un backup de registro de archivos.
+* Eliminar un backup de registro de archivos.
+* Montar un backup de registro de archivos.
+* Liberar un backup de registro de archivo.
+
+
+Las opciones de copia de seguridad varían en función de la configuración del perfil:
+
+* Si se utiliza un perfil que no está separado para realizar backups de registros de archivos de forma independiente, se puede hacer lo siguiente:
++
+** Cree un backup completo.
+** Crear un backup parcial.
+** Especifique los destinos de registros de archivos que se incluirán en el backup para los archivos de registro de archivos.
+** Especifique los destinos de registro de archivos que se excluirán de la copia de seguridad.
+** Especifique las opciones de eliminación para eliminar los archivos de registro de archivos de los destinos de registro de archivos.
+
+
+* El uso de un perfil separado para tomar backups de registros de archivos permite hacer lo siguiente:
++
+** Cree una copia de seguridad sólo de archivos de datos.
+** Cree un backup solo de archivado.
+** Durante la creación de un backup solo de archivos de datos, incluya el backup de registro de archivos junto con el backup en línea de solo los archivos de datos para el clonado.
++
+Si ha incluido copias de seguridad de registros de archivos junto con archivos de datos en la página *Configuración de perfiles* del asistente *creación de perfiles* de la interfaz gráfica de usuario de SnapManager, Y si no ha seleccionado la opción *Archivelogs* en el asistente *creación de copia de seguridad*, SnapManager siempre crea la copia de seguridad del registro de archivos junto con los archivos de datos para todas las copias de seguridad en línea.
+
++
+En tal situación, en la CLI de SnapManager, puede tener en cuenta todos los destinos de los registros de archivos para el backup, excepto los destinos de exclusión especificados en el archivo de configuración SnapManager. Pero no puede eliminar estos archivos de registro de archivos. Sin embargo, todavía puede utilizar el `-archivelogs` Opción para especificar el destino del archivo de registro de archivos y pinar los archivos de registro de archivos desde la CLI de SnapManager.
+
++
+Si crea el backup con el `-auto` y especifique la `-archivelogs` SnapManager crea un backup en línea o sin conexión según el estado actual del backup.
+
++
+*** SnapManager crea un backup sin conexión cuando la base de datos está sin conexión y no incluye los archivos de registro de archivos en el backup.
+*** SnapManager crea un backup en línea incluidos los archivos de registro de archivos cuando la base de datos está en línea.
+
+
+** Mientras se crea el backup de solo archivado:
++
+*** Especifique el destino de registro de archivos que se realizará el backup junto con el backup solo de archivmogs
+*** Especifique los destinos de registro de archivos que se excluirán del backup solo de registros de archivo
+*** Especifique las opciones de eliminación para eliminar los archivos de registro de archivos de los destinos de registro de archivos
+
+
+
+
+* *Escenarios no admitidos*
++
+** No puede crear el backup solo de archivado junto con un backup de solo archivos de datos sin conexión.
+** No se pueden reducir los archivos de registro de archivos cuando no se realiza el backup de los archivos de registro de archivos.
+** No es posible reducir los archivos de registro de archivos cuando el área de recuperación flash (FRA) está habilitada para los archivos de registro de archivos.
++
+Si especifica la ubicación del registro de archivos en el área de recuperación de flash, asegúrese de especificar también la ubicación del registro de archivos en el `archive_log_dest` parámetro.
+
+
+
+
+
+
+NOTE: Al crear backups de los registros de archivos, debe introducir las rutas de destino completas de los registros de archivos dentro de comillas dobles y las rutas de destino separadas por comas. El separador de ruta debe ser dado como dos barras invertidas (\\) en lugar de una.
+
+Cuando especifique la etiqueta para la copia de seguridad de archivos de datos en línea con la copia de seguridad de archivos de archivo incluida, la etiqueta se aplicará para la copia de seguridad de archivos de datos y la copia de seguridad del registro de archivo será con sufijo (`_logs`). Este sufijo se puede configurar cambiando el parámetro `suffix.backup.label.with.logs` En el archivo de configuración SnapManager.
+
+Por ejemplo, puede especificar el valor como `suffix.backup.label.with.logs=arc` de modo que el valor predeterminado de _logs se cambia a. `_arc`.
+
+Si no se especificaron destinos de registro de archivos para su inclusión en el backup, SnapManager incluye todos los destinos de registro de archivos configurados en la base de datos.
+
+Si falta algún archivo de registro de archivo en alguno de los destinos, SnapManager omite todos estos archivos de registro de archivos creados antes de los archivos de registro de archivos que faltan aunque estos archivos estén disponibles en otro destino de registro de archivos.
+
+Al crear backups de registros de archivos, es necesario especificar los destinos de archivos de registro de archivos que se incluirán en el backup. Además, puede configurar el parámetro Configuration para incluir los archivos de registro de archivos siempre más allá de los archivos faltantes en el backup.
+
+
+NOTE: De forma predeterminada, este parámetro de configuración se establece en *TRUE* para incluir todos los archivos de registro de archivos, más allá de los archivos que faltan. Si utiliza sus propios scripts de eliminación de registros de archivos o eliminación manual de archivos de registro de archivos de los destinos de registro de archivos, puede deshabilitar este parámetro, para que SnapManager pueda omitir los archivos de registro de archivos y continuar con el backup.
+
+SnapManager no admite las siguientes operaciones SnapManager para backups de registros de archivos:
+
+* Clone el backup de registros de archivos
+* Restaurar el backup de registros de archivos
+* Verificar el backup de registros de archivos
+
+
+SnapManager también admite la copia de seguridad de los archivos de registro de archivos desde los destinos de área de recuperación flash.
+
+.Paso
+. Introduzca el siguiente comando:
++
+`*smsap backup create -profile _profile_name_ {[-full {-online | -offline | -auto} [-retain {-hourly | -daily | -weekly | -monthly | -unlimited}] [-verify] | [-data [[-files _files_ [_files_]] | [-tablespaces _-tablespaces_ [_-tablespaces_]] [-datalabel _label_] {-online | -offline | -auto} [-retain {-hourly | [-daily | -weekly | -monthly | -unlimited]} [-verify] | [-archivelogs [-label _label_] [-comment _comment_] [-backup-dest _path1_ [,[_path2_]]] [-exclude-dest _path1_ [,_path2_]]] [-prunelogs {-all | -untilSCN _untilSCN_ | -until-date _yyyy-MM-dd:HH:mm:ss_ | -before {-months | -days | -weeks | -hours}} -prune-dest _prune_dest1_,[_prune_dest2_]] [-taskspec _taskspec_]} [-dump] [-force] [-quiet | -verbose]*`
+
++
+|===
+| Si desea... | Realice lo siguiente... 
+
+
+ a| 
+*Especifique si desea realizar una copia de seguridad de una base de datos en línea o sin conexión, en lugar de permitir que SnapManager controle si está en línea o sin conexión*
+ a| 
+Especifique `-offline` para realizar una copia de seguridad de la base de datos sin conexión. Especifique `-online` para realizar una copia de seguridad de la base de datos en línea.
+
+Si utiliza estas opciones, no podrá utilizar la `-auto` opción.
+
+
+
+ a| 
+*Especifique si desea que SnapManager gestione la copia de seguridad de una base de datos independientemente de si está en línea o sin conexión*
+ a| 
+Especifique el `-auto` opción. Si usa esta opción, no puede usar la `--offline` o. `-online` opción.
+
+
+
+ a| 
+*Especifique si desea realizar una copia de seguridad parcial de archivos específicos*
+ a| 
+ Specify the -data-files option and then list the files, separated by commas. For example, list the file names f1, f2, and f3 after the option.
+Ejemplo para crear un backup parcial de archivo de datos en Windows
+
+[listing]
+----
+
+smsap backup create -profile nosep -data -files "J:\\mnt\\user\\user.dbf" -online
+-label partial_datafile_backup -verbose
+----
+
+
+ a| 
+*Especifique si desea realizar una copia de seguridad parcial de tablespaces específicos*
+ a| 
+Especifique el `-data -tablespaces` y, a continuación, enumere los tablespaces separados por comas. Por ejemplo, utilice ts1, ts2 y ts3 después de la opción.
+
+SnapManager admite el backup de espacios de tablas de solo lectura. Al crear el backup, SnapManager cambia los espacios de tabla de solo lectura a lectura y escritura. Después de crear el backup, los espacios de tabla se modifican a modo de solo lectura.
+
+Ejemplo de creación de una copia de seguridad de tablespace parcial
+
+[listing]
+----
+
+smsap backup create -profile nosep -data -tablespaces tb2 -online -label partial_tablespace_bkup -verbose
+----
+
+
+ a| 
+*Especifique si desea crear una etiqueta única para cada copia de seguridad en el siguiente formato: Full_hot_mybackup_label*
+ a| 
+Para Windows, puede introducir este ejemplo:
+
+[listing]
+----
+
+smsap backup create -online -full -profile targetdb1_prof1
+-label full_hot_my_backup_label   -verbose
+----
+
+
+ a| 
+*Especifique si desea crear una copia de seguridad de los archivos de registro de archivos por separado de los archivos de datos*
+ a| 
+Especifique las siguientes opciones y variables:
+
+** `-archivelogs` crea un backup de los archivos de registro de archivos.
+** `-backup-dest` especifica los destinos de archivos de registro de archivos que se incluirán en el backup.
+** `-exclude-dest` especifica los destinos de registro de archivos que se van a excluir.
+** `-label` especifica la etiqueta para el backup del archivo de registro de archivos.
+
+
+[NOTE]
+====
+Debe proporcionar cualquiera de los dos `-backup-dest` o la `-exclude-dest` opción.
+
+====
+Al ofrecer ambas opciones junto con la copia de seguridad se muestra un mensaje de error `You have specified an invalid backup option. Specify any one of the options: -backup-dest, or exclude-dest`.
+
+Ejemplo de creación de backups de archivos de registro de archivos por separado en Windows
+
+[listing]
+----
+
+smsap backup create -profile nosep -archivelogs -backup-dest "J:\\mnt\\archive_dest_2\\" -label archivelog_backup -verbose
+----
+
+
+ a| 
+*Especifique si desea crear una copia de seguridad de archivos de datos y archivos de registro de archivos juntos*
+ a| 
+Especifique las siguientes opciones y variables:
+
+** `-data` opción para especificar los archivos de datos.
+** `-archivelogs` opción para especificar los archivos de registro de archivos. Ejemplo para realizar copias de seguridad de archivos de datos y archivos de registro de archivo juntos en Windows
++
+[listing]
+----
+
+smsap backup create -profile nosep -data -online -archivelogs -backup-dest "J:\\mnt\\archive_dest_2\\" -label data_arch_backup
+-verbose
+----
+
+
+
+
+ a| 
+*Especifique si desea eliminar los archivos de registro de archivos mientras crea una copia de seguridad*
+ a| 
+Especifique las siguientes opciones y variables:
+
+** `-prunelogs` especifica la eliminación de los archivos de registro de archivos de los destinos de registro de archivos.
++
+*** `-all` especifica que se eliminen todos los archivos de registro de archivos de los destinos de registro de archivos.
+*** `-until-scnuntil-scn` Especifica la eliminación de los archivos de registro de archivos hasta un SCN especificado.
+*** `-until-dateyyyy-MM-dd:HH:mm:ss` especifica la eliminación de los archivos de registro de archivos hasta el período de tiempo especificado.
+*** `-before` la opción especifica la eliminación de los archivos de registro de archivos antes del período de tiempo especificado (días, meses, semanas, horas).
+*** `-prune-destprune_dest1,[prune_dest2` especifica la eliminación de los archivos de registro de archivos de los destinos de registro de archivos mientras se crea el backup.
+
+
+
+
+[NOTE]
+====
+No es posible reducir los archivos de registro de archivos cuando el área de recuperación flash (FRA) está habilitada para los archivos de registro de archivos.
+
+====
+Ejemplo para eliminar todos los archivos de registro de archivos mientras se crea una copia de seguridad en Windows
+
+[listing]
+----
+
+smsap backup create -profile nosep
+ -archivelogs -label archive_prunebackup1 -backup-dest "E:\\oracle\\MDV\\oraarch\\MDVarch,J:\\
+" -prunelogs -all -prune-dest "E:\\oracle\\MDV\\oraarch\\MDVarch,J:\\" -verbose
+----
+
+
+ a| 
+*Especifique si desea añadir un comentario sobre la copia de seguridad*
+ a| 
+Especifique `-comment` seguido de la cadena de descripción.
+
+
+
+ a| 
+*Especifique si desea forzar la base de datos al estado que ha especificado para realizar la copia de seguridad, independientemente del estado en el que se encuentre*
+ a| 
+Especifique el `-force` opción.
+
+
+
+ a| 
+*Especifique si desea verificar la copia de seguridad al mismo tiempo que la crea*
+ a| 
+Especifique el `-verify` opción.
+
+
+
+ a| 
+*Especifique si desea recopilar los archivos de volcado después de la operación de copia de seguridad de la base de datos*
+ a| 
+Especifique `-dump` opción al final del comando backup create.
+
+|===
+
+
+
+
+== Ejemplo
+
+[listing]
+----
+smsap backup create -profile targetdb1_prof1 -full -online -force  -verify
+----

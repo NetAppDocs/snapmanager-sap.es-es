@@ -1,0 +1,47 @@
+---
+permalink: unix-administration/task-use-protection-manager-to-configure-a-secondary-resource-pool.html 
+sidebar: sidebar 
+keywords: support, backup, database, secondary, storage, administrator, protection, manager, organize, snapvault, license, resource, pool 
+summary: Para admitir el backup de la base de datos en el almacenamiento secundario, el administrador de almacenamiento usa Protection Manager para organizar los sistemas de almacenamiento secundario habilitados con la licencia secundaria de SnapVault en un conjunto de recursos para los backups. 
+---
+= Use Protection Manager para configurar un pool de recursos secundario
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Para admitir el backup de la base de datos en el almacenamiento secundario, el administrador de almacenamiento usa Protection Manager para organizar los sistemas de almacenamiento secundario habilitados con la licencia secundaria de SnapVault en un conjunto de recursos para los backups.
+
+*Lo que necesitará*
+
+Lo ideal es que los sistemas de almacenamiento de un conjunto de recursos sean intercambiables en cuanto a su aceptación como destinos para los backups. Por ejemplo, al desarrollar la estrategia de protección para la base de datos de nóminas, como administrador de almacenamiento, identificó los sistemas de almacenamiento secundarios con niveles de servicio y rendimiento similares que serían miembros adecuados del mismo conjunto de recursos.
+
+Ya creó agregados de espacio no utilizado en sistemas de almacenamiento que piensa asignar a pools de recursos. De este modo se garantiza que haya espacio adecuado para contener las copias de seguridad.
+
+.Pasos
+. Vaya a la Consola de gestión de NetApp de Protection Manager.
+. En la barra de menús, haga clic en *datos* > *grupos de recursos*.
++
+Aparecerá la ventana Pools de recursos.
+
+. Haga clic en *Agregar*.
++
+Se iniciará el asistente Add Resource Pool.
+
+. Complete los pasos del asistente para crear el pool de recursos *paydb_backup_resource*.
++
+Utilice los siguientes ajustes:
+
++
+** Nombre: Use *paydb-backup_resource*
+** Umbrales de espacio (utilice los valores predeterminados):
++
+*** Umbrales de utilización del espacio: Activado
+*** Umbral casi completo (para el conjunto de recursos): 80%
+*** Umbral completo (para el conjunto de recursos): 90%
+
+
+
+
+

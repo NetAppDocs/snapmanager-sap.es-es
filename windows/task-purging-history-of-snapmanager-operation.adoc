@@ -1,0 +1,21 @@
+---
+permalink: windows/task-purging-history-of-snapmanager-operation.html 
+sidebar: sidebar 
+keywords: delete, history, snapmanager, operation, detail, deleting 
+summary: Puede eliminar el historial de la operación SnapManager si ya no se necesitan los detalles del historial. 
+---
+= Eliminando historial de operación de SnapManager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede eliminar el historial de la operación SnapManager si ya no se necesitan los detalles del historial.
+
+.Paso
+. Para eliminar el historial de operación de SnapManager, introduzca el siguiente comando:
++
+`smsap history purge -profile {-name, profile_nameprofile_name1, profile_name2] | all-repository-login [-passwordrepo_password] -usernamerepo_username-dbnamerepo_dbname-hostrepo_host-portrepo_port} -operation {-operationsoperation_name [operation_name1, operation_name2] | -all} [-quiet | -verbose]`
+
+

@@ -1,0 +1,29 @@
+---
+permalink: unix-administration/task-create-system-level-dump-files.html 
+sidebar: sidebar 
+keywords: smsap, system, dump, command, log, information, snapmanager, environment, log, level, collect, operation, profile, creating, create, system-level, file 
+summary: Puede utilizar el comando smsap system dump para obtener información del registro acerca del host y el entorno de SnapManager. Es posible especificar niveles de registro diferentes para recoger información sobre una operación, un perfil o un host y un entorno específicos. 
+---
+= Crear archivos de volcado en el nivel del sistema
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede utilizar el `smsap system dump` Comando para obtener información sobre el host y el entorno de SnapManager. Es posible especificar niveles de registro diferentes para recoger información sobre una operación, un perfil o un host y un entorno específicos.
+
+.Paso
+. Introduzca el siguiente comando:
++
+`*smsap system dump*`
+
++
+Volcado resultante
+
++
+[listing]
+----
+Path:/<user-home>/.netapp/smsap/3.3.0/smsap_dump_server_host.jar
+----
+

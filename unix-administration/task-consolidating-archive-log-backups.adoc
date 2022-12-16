@@ -1,0 +1,43 @@
+---
+permalink: unix-administration/task-consolidate-archive-log-backups.html 
+sidebar: sidebar 
+keywords: snapmanager, consolidate, archivelog-only, backup, consolidation, consolidating, archive, log 
+summary: SnapManager consolida los backups de solo archivado cada vez que realiza un backup liberando únicamente los backups duplicados de archivvelog. La consolidación está habilitada de forma predeterminada. 
+---
+= Consolide los backups de registros de archivos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager consolida los backups de solo archivado cada vez que realiza un backup liberando únicamente los backups duplicados de archivvelog. La consolidación está habilitada de forma predeterminada.
+
+*Acerca de esta tarea*
+
+SnapManager identifica los backups solo de archivado que tienen archivos de registro de archivos en otros backups y los libera para mantener la cantidad mínima de backups de solo archivado con archivos de registro únicos.
+
+Si la consolidación libera los backups de solo archivado, estos backups se eliminan según la duración de la retención del registro de archivos.
+
+Cuando la base de datos se encuentra en el estado shutdown o nomount durante la consolidación del registro de archivo, SnapManager cambia la base de datos al estado Mount.
+
+Si se produce un error en la copia de seguridad o la eliminación de archivos de registro de archivos, no se realizará la consolidación. La consolidación de backups de solo archivovelog se sigue solo después de backups correctos y de operaciones de eliminación correctas.
+
+.Pasos
+. Para permitir la consolidación de los backups de solo archivvelog, modifique el parámetro Configuration `consolidation` y establezca el valor como `true` En el archivo de configuración de SnapManager (smsap.config).
++
+Una vez configurado el parámetro, se consolidan los backups de solo archivado.
+
++
+Si el backup de solo archivado creado recientemente contiene los mismos archivos de registro de archivos en cualquiera de los backups de solo archivado anteriores, se liberan los backups de solo registros de archivos anteriores.
+
++
+
+NOTE: SnapManager no consolida el backup de registros de archivos realizado junto con el backup de archivos de datos. SnapManager consolida el backup de solo archivado.
+
++
+
+NOTE: SnapManager consolida los backups de registros de archivos, incluso cuando el usuario elimina manualmente los archivos de registro de archivos de los destinos de registros de archivos o cuando los archivos de registro de archivos están dañados y pueden incluirse el backup.
+
+. Para deshabilitar la consolidación de los backups de registros de archivos, modifique el parámetro Configuration `consolidation` y establezca el valor como `false` En el archivo de configuración de SnapManager (smsap.config).
+

@@ -1,0 +1,37 @@
+---
+permalink: windows/task-viewing-a-list-of-operations.html 
+sidebar: sidebar 
+keywords: view, summary, listing, operation, perform, profile, list 
+summary: Es posible ver una lista con un resumen de todas las operaciones realizadas en un perfil. 
+---
+= Ver una lista de operaciones
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Es posible ver una lista con un resumen de todas las operaciones realizadas en un perfil.
+
+Puede ver la siguiente información cuando enumere operaciones asociadas a un perfil en particular:
+
+* Fecha de inicio y finalización cuando se ejecutó la operación
+* Estado de la operación
+* ID de la operación
+* Tipo de operación
+* Host en el que se ejecutó
+
+
+.Paso
+. Para enumerar la información resumida de todas las operaciones, utilice el siguiente comando:
++
+`smsap operation list profile -profile profile_name -delimitercharacter [-quiet | -verbose]`
+
++
+Cuando se especifica la opción -delimitador, el comando enumera cada fila en una línea separada y los atributos de esa fila están separados por el carácter especificado.
+
+
+
+*Información relacionada*
+
+xref:reference-the-smosmsapoperation-list-command.adoc[El comando smsap operation list]

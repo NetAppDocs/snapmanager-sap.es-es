@@ -1,0 +1,73 @@
+---
+permalink: windows/reference-how-to-locate-dump-files.html 
+sidebar: sidebar 
+keywords: dump, file, locate, client, system, access, troubleshoot, problem, profile, operation 
+summary: El archivo de volcado se encuentra en el sistema cliente para facilitar el acceso. Estos archivos son útiles si necesita solucionar un problema relacionado con el perfil, el sistema o cualquier operación. 
+---
+= Cómo localizar archivos de volcado
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El archivo de volcado se encuentra en el sistema cliente para facilitar el acceso. Estos archivos son útiles si necesita solucionar un problema relacionado con el perfil, el sistema o cualquier operación.
+
+El archivo de volcado se encuentra en el directorio principal del usuario en el sistema cliente.
+
+* Si utiliza la interfaz gráfica de usuario (GUI), el archivo de volcado se encuentra en:
++
+[listing]
+----
+user_home\Application Data\NetApp\smsap\3.3.0\smsap_dump dump_file_type_name
+server_host.jar
+----
+* Si utiliza la interfaz de línea de comandos (CLI), el archivo de volcado se encuentra en:
++
+[listing]
+----
+user_home\.netapp\smsap\3.3.0\smsap_dump_dump_file_type_name server_host.jar
+----
+
+
+El archivo dump contiene el resultado del comando dump. El nombre del archivo depende de la información proporcionada. En la siguiente tabla se muestran los tipos de operaciones de volcado y los nombres de archivo resultantes:
+
+|===
+| Tipo de operación de volcado | Nombre de archivo resultante 
+
+
+ a| 
+Comando de volcado de la operación con ID de operación
+ a| 
+`smsap_dump_operation-id.jar`
+
+
+
+ a| 
+Comando de volcado de la operación sin ID de operación
+ a| 
+`smsap operation dump -profile VH1 -verbose` Se muestra la siguiente salida:
+
+[listing]
+----
+smsap operation dump -profile VH1 -verbose
+[ INFO] SMSAP-13048: Dump Operation Status: SUCCESS
+[ INFO] SMSAP-13049: Elapsed Time: 0:00:01.404
+Dump file created.
+Path: user_home\Application Data\ontap\smsap\3.3.0\smsap_dump_VH1_kaw.rtp.foo.com.jar
+----
+
+
+ a| 
+Comando system dump
+ a| 
+`smsap_dump_host-name.jar`
+
+
+
+ a| 
+Comando de volcado de perfil
+ a| 
+`smsap_dump_profile-name_host-name.jar`
+
+|===

@@ -1,0 +1,34 @@
+---
+permalink: unix-administration/concept-partial-online-backups.html 
+sidebar: sidebar 
+keywords: full, backup, perform, partial, backup, tablespace, database, snapmanager, online 
+summary: En lugar de un backup completo, se puede optar por realizar un backup parcial de los espacios de tablas en una base de datos. Mientras SnapManager realiza una copia Snapshot de volúmenes para backups completos, SnapManager realiza una copia Snapshot de cada espacio de tabla especificado para backups parciales. 
+---
+= Backups parciales en línea
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+En lugar de un backup completo, se puede optar por realizar un backup parcial de los espacios de tablas en una base de datos. Mientras SnapManager realiza una copia Snapshot de volúmenes para realizar backups _Full_, SnapManager realiza una copia Snapshot de cada espacio de tabla especificado para _parciales_ backups.
+
+Debido a que el nivel de tablespace es el nivel más bajo que Oracle permite en el modo de copia de seguridad, SnapManager procesa las copias de seguridad a nivel de tablespace, incluso si se especifica un archivo de datos en un tablespace.
+
+Con un backup parcial, cada espacio de tabla existe en modo de backup durante un menor tiempo que en un backup completo. Durante un backup en línea, la base de datos siempre está disponible para los usuarios. No obstante, la base de datos debe realizar más trabajo y el host debe ejecutar más operaciones de I/o físicas Asimismo, debido a que se realizan copias Snapshot de cada espacio de tabla especificado o cada espacio de tabla que contiene un archivo de datos especificado en lugar de todo el volumen, SnapManager realiza más copias Snapshot.
+
+SnapManager realiza copias Snapshot de espacios de tablas o archivos de datos específicos. El algoritmo de copia de seguridad parcial es un bucle que SnapManager repite hasta que ha tomado una copia snapshot de cada tablespace o archivo de datos especificado.
+
+
+NOTE: Aunque se puede realizar un backup parcial, se recomienda realizar siempre un backup completo de toda la base de datos.
+
+Durante un backup parcial, SnapManager realiza las siguientes acciones:
+
+. Coloca el tablespace que contiene los archivos de datos en modo de copia de seguridad.
+. Toma una copia Snapshot de todos los volúmenes utilizados por el espacio de tablas.
+. Quita el tablespace del modo de copia de seguridad.
+. Continúa este proceso, hasta que ha tomado una copia snapshot de todos los espacios de tablas o archivos.
+. Fuerza un conmutador de registro y, a continuación, archiva los archivos de registro.
+. Genera archivos de control de copia de seguridad.
+. Toma una copia snapshot de los archivos de registro y los archivos de control de copia de seguridad.
+

@@ -1,0 +1,24 @@
+---
+permalink: unix-administration/task-resume-backup-schedules.html 
+sidebar: sidebar 
+keywords: administrator, option, suspend, backup, schedule, resuming, resume 
+summary: Los administradores tienen la opción de reanudar la programación de backup suspendida. 
+---
+= Reanudar programaciones de backup
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Los administradores tienen la opción de reanudar la programación de backup suspendida.
+
+*Acerca de esta tarea*
+
+Si intenta reanudar las programaciones activas, es posible que se muestre el mensaje de error: `"Cannot resume: schedule <schedulename> already in resume state"`.
+
+. Para reanudar la programación de backup suspendida, introduzca este comando:
++
+`*smsap schedule resume -profile _profile_name_ -schedule-name _schedulename_ [-quiet | -verbose]*`
+
+

@@ -1,0 +1,46 @@
+---
+permalink: unix-administration/task-view-a-list-of-storage-controllers-associated-with-a-profile.html 
+sidebar: sidebar 
+keywords: view, list, storage, system, associate, particular, profile 
+summary: Puede ver una lista de los sistemas de almacenamiento asociados con un perfil en particular. 
+---
+= Ver una lista de los sistemas de almacenamiento asociados a un perfil
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede ver una lista de los sistemas de almacenamiento asociados con un perfil en particular.
+
+*Acerca de esta tarea*
+
+La lista muestra los nombres de los sistemas de almacenamiento asociados con el perfil en particular.
+
+
+NOTE: Si no hay backups disponibles para el perfil, no puede ver el nombre del sistema de almacenamiento asociado con el perfil.
+
+.Paso
+. Para mostrar información sobre los sistemas de almacenamiento asociados con un perfil determinado, escriba este comando:
++
+`*smsap storage list -profile _profile_ [-quiet | -verbose]*`
+
+
+
+'''
+
+
+== Ejemplo
+
+[listing]
+----
+smsap storage list -profile mjubllian
+----
+[listing]
+----
+Sample Output:
+Storage Controllers
+--------------------
+STCO1110-RTP07OLD
+----
+'''

@@ -1,0 +1,38 @@
+---
+permalink: unix-installation-7mode/task-create-an-oracle-user-for-the-target-database.html 
+sidebar: sidebar 
+keywords: oracle, database, user, require, log, in, snapmanager, operation, create, user, sysdba, privilege, target, creating, target 
+summary: Se necesita un usuario de la base de datos de Oracle para iniciar sesión en la base de datos y ejecutar operaciones de SnapManager. Debe crear este usuario con el privilegio sysdba si no existe un usuario con el privilegio sysdba para la base de datos de destino. 
+---
+= Cree un usuario de base de datos Oracle para la base de datos de destino
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Se necesita un usuario de la base de datos de Oracle para iniciar sesión en la base de datos y ejecutar operaciones de SnapManager. Debe crear este usuario con el privilegio _sysdba_ si no existe un usuario con el privilegio _sysdba_ para la base de datos de destino.
+
+*Acerca de esta tarea*
+
+SnapManager puede utilizar cualquier usuario de Oracle con el privilegio _sysdba_ que existe para la base de datos de destino. Por ejemplo, SnapManager puede utilizar el usuario predeterminado _sys_. Sin embargo, incluso si el usuario existe, puede crear un nuevo usuario para la base de datos de destino y asignar el privilegio _sysdba_.
+
+También puede usar el método de autenticación del SO en donde el sistema operativo (SO) permite que la base de datos Oracle utilice las credenciales que mantiene el sistema operativo para autenticar a los usuarios para iniciar sesión en la base de datos y ejecutar operaciones de SnapManager. Si el sistema operativo autentica, puede conectarse a la base de datos de Oracle sin especificar un nombre de usuario o una contraseña.
+
+.Pasos
+. Iniciar sesión en SQL *Plus:
++
+`*sqlplus '/ as sysdba'*`
+
+. Cree un nuevo usuario con una contraseña de administrador:
++
+`*create user _user_name_ identified by _admin_password;_*`
+
++
+`_user_name_` es el nombre del usuario que va a crear y. `_admin_password_` es la contraseña que desea asignar al usuario.
+
+. Asigne el privilegio sysdba al nuevo usuario de Oracle:
++
+`*grant sysdba to _user_name;_*`
+
+

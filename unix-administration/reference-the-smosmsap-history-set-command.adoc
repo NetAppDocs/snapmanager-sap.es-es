@@ -1,0 +1,95 @@
+---
+permalink: unix-administration/reference-the-smosmsap-history-set-command.html 
+sidebar: sidebar 
+keywords: run, history, set, command, configure, operation, smsap 
+summary: Puede ejecutar el comando History Set para configurar las operaciones para las que desea ver el historial. 
+---
+= El comando smsap history set
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede ejecutar el `history set` comando para configurar las operaciones para las que desea ver el historial.
+
+
+
+== Sintaxis
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap history set
+-profile {-name _profile_name_ [_profile_name1, profile_name2_\] | -all
+-repository -login [password _repo_password_\] -username _repo_username_
+-host _repo_host_
+-dbname _repo_dbname_
+-port _repo_port_}
+-operation {-operations _operation_name_ [_operation_name1, operation_name2_\] | -all}
+-retain
+{-count _retain_count_ | -daily _daily_count_ | -monthly _monthly_count_ | -weekly _weekly_count_}
+[-quiet | -verbose]]
+----
+
+
+== Parámetros
+
+* `*-profile profile*`
++
+Especifica el nombre del perfil. El nombre puede tener hasta 30 caracteres y debe ser único dentro del host.
+
+* `*-repository*`
++
+Especifica los detalles de la base de datos que almacena el perfil.
+
+* `*-dbname _repo_dbname_*`
++
+Especifica el nombre de la base de datos que almacena el perfil. Es posible usar el nombre global o el identificador del sistema.
+
+* `*-host _repo_host_*`
++
+Especifica el nombre o la dirección IP del host donde reside la base de datos del repositorio.
+
+* `*-login*`
++
+Especifica los detalles de inicio de sesión del repositorio.
+
+* `*-username _repo_username_*`
++
+Especifica el nombre de usuario necesario para acceder a la base de datos del repositorio.
+
+* `*-port _repo_port_*`
++
+Especifica el número de puerto del Protocolo de control de transmisión (TCP) que se utiliza para acceder a la base de datos del repositorio.
+
+* `*-operation {-operations _operation_name_ [_operation_name1, operation_name2_] | -all*`
++
+Especifica las operaciones de SnapManager para las que se desea configurar el historial.
+
+* `*-retain {-count _retain_count_ | -daily _daily_count_ | -monthly _-monthly_count_ | -weekly _weekly_count_}*`
++
+Especifica la clase de retención de las operaciones de creación de backup, verificación de backup, restauración y recuperación, y creación y división de clones. La clase de retención se establece en función del número de recuento de operaciones, el número de días, semanas o meses.
+
+* `*-quiet*`
++
+Muestra sólo mensajes de error en la consola. El valor predeterminado es mostrar mensajes de error y advertencia.
+
+* `*-verbose*`
++
+Muestra mensajes de error, advertencia e informativos en la consola.
+
+
+
+'''
+
+
+== Comando de ejemplo
+
+El siguiente ejemplo muestra información sobre la operación de backup:
+
+[listing]
+----
+smsap history set -profile -name PROFILE1 -operation -operations backup -retain -daily 6
+ -verbose
+----
+'''

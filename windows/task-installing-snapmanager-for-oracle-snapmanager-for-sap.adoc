@@ -1,0 +1,96 @@
+---
+permalink: windows/task-installing-snapmanager-for-oracle-snapmanager-for-sap.html 
+sidebar: sidebar 
+keywords: install, snapmanager, host, database, manage, instance, host, sap 
+summary: Puede instalar SnapManager en el host que tenga una o más bases de datos que gestionar. Solo puede instalar una instancia de SnapManager por host. 
+---
+= Instalar SnapManager para SAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede instalar SnapManager en el host que tenga una o más bases de datos que gestionar. Solo puede instalar una instancia de SnapManager por host.
+
+* Debe haber completado las tareas previas a la instalación necesarias.
+* Se debe descargar el paquete de instalación de SnapManager más reciente.
+* La versión adecuada de SnapDrive para Windows debe estar instalada y configurada en todos los hosts de destino.
++
+Para obtener información acerca de la instalación y configuración de SnapDrive para Windows, consulte _SnapDrive for Windows Guía de instalación y administración_.
+
++
+.. Haga doble clic en el archivo de instalación de SnapManager:
++
+|===
+| Si el sistema operativo es... | Utilice... 
+
+
+ a| 
+Windows x86
+ a| 
+netapp.smsap.windows-x86-version.exe
+
+
+
+ a| 
+Windows x64
+ a| 
+netapp.smsap.windows-x64-version.exe
+
+|===
++
+Aparece el siguiente mensaje: No se pudo verificar el editor. ¿Está seguro de que desea ejecutar este software?
+
+.. Haga clic en *Aceptar*.
+.. En la ventana Introducción, haga clic en *Siguiente*.
+.. En la ventana elegir carpeta de instalación, haga clic en *Siguiente* para aceptar la ubicación de instalación predeterminada o seleccione una nueva ubicación.
++
+La ubicación predeterminada es: C:\Program Files\NetApp\SnapManager para SAP.
+
+.. En la ventana disponibilidad de menús, haga clic en *Siguiente*.
+.. En la ventana Specify Service Properties (especificar propiedades del servicio), introduzca la información de cuenta y contraseña para el servicio Windows.
++
+La cuenta especificada debe ser miembro de los siguientes grupos:
+
++
+*** El grupo de administración local del sistema de almacenamiento
+*** Grupo del administrador local
+*** El grupo ORA_DBA permite especificar si el servicio debe iniciarse automáticamente después del reinicio o si debe iniciarse manualmente.
+
+
+.. En la ventana Resumen de preinstalación, haga clic en *instalar*.
+.. En la ventana instalar completado, haga clic en *Siguiente*.
+.. En la ventana Información importante, haga clic en *hecho* para salir del instalador.
+
+
+
+
+Una vez finalizada la instalación, puede verificar que la instalación se ha realizado correctamente:
+
+. Inicie el servidor SnapManager:
++
+.. En la ventana Servicios de Windows, seleccione *NetApp SnapManager version for SAP*.
+.. En el panel izquierdo, haga clic en *Inicio*.
+
+
+. Compruebe que el sistema SnapManager funciona correctamente:
++
+.. Haga clic en *Inicio* > *programas* > *NetApp* > *SnapManager para SAP* > *Iniciar interfaz de línea de comandos SMSAP (CLI)*.
+.. En la interfaz de línea de comandos (CLI), introduzca el siguiente comando: `smsap system verify`Aparece el siguiente mensaje: Número de ID de operación correcto.
+
+
++
+Número es el número de identificación de la operación.
+
+
+
+*Información relacionada*
+
+xref:concept-preparing-to-install-snapmanager-for-oraclesnapmanager-for-sap.adoc[Preparar la instalación de SnapManager para SAP]
+
+xref:concept-preinstallation-tasks.adoc[Tareas de preinstalación]
+
+xref:task-downloading-snapmanager-for-oraclesnapmanager-for-sap-installation-package.adoc[Descarga del paquete de instalación de SnapManager para SAP]
+
+http://mysupport.netapp.com/["Documentación en el sitio de soporte de NetApp: mysupport.netapp.com"]

@@ -1,0 +1,116 @@
+---
+permalink: unix-administration/task-free-backups.html 
+sidebar: sidebar 
+keywords: free, backup, delete, snapshot, copies, copy, deleting, metadata, function, smsap, command 
+summary: Es posible liberar backups, lo que elimina las copias Snapshot sin eliminar los metadatos de los backups. Esta función libera el espacio ocupado por la copia de seguridad. Puede utilizar el comando smsap backup free para liberar las copias de seguridad. 
+---
+= Backups gratuitos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Es posible liberar backups, lo que elimina las copias Snapshot sin eliminar los metadatos de los backups. Esta función libera el espacio ocupado por la copia de seguridad. Puede utilizar el comando smsap backup free para liberar las copias de seguridad.
+
+*Lo que necesitará*
+
+Para que un backup pueda ser apto para liberar, debe asegurarse de lo siguiente:
+
+* La copia de seguridad se ha realizado correctamente
+* La copia de seguridad no se va a montar
+* El backup no tiene clones
+* El backup no se conservará mediante una política de retención ilimitada
+* El backup no se ha liberado todavía
+
+
+*Acerca de esta tarea*
+
+Si la protección está habilitada en el perfil y la política de protección contiene conexiones del nodo principal que usan una relación de mirroring, se eliminan copias Snapshot en el nodo principal cuando se libera un backup. Esas copias Snapshot también se eliminan de los nodos reflejados cuando se produce la próxima transferencia a almacenamiento secundario.
+
+Cuando libera un backup protegido, SnapManager solicita que Protection Manager elimine las copias Snapshot locales para el backup. Si la operación libre de backup se realiza correctamente para los backups protegidos, Protection Manager elimina las copias de Snapshot de forma asíncrona.
+
+[cols="2a,1a,3a,3a,4a"]
+|===
+| Estado de protección | Estado local | De datos en cuanto al almacenamiento primario | Acción en el almacenamiento secundario | Explicación 
+
+
+ a| 
+No solicitado (protegido)
+ a| 
+Existe
+ a| 
+Libera el backup
+ a| 
+No se requiere ninguna acción
+ a| 
+SnapManager libera el backup local.
+
+
+
+ a| 
+Liberado
+ a| 
+No se requiere ninguna acción
+ a| 
+No se requiere ninguna acción
+ a| 
+La copia de seguridad local ya está liberada.
+
+
+
+ a| 
+Sin proteger
+ a| 
+Existe
+ a| 
+Libera el backup
+ a| 
+No se requiere ninguna acción
+ a| 
+SnapManager libera el backup local aunque no haya copias en el almacenamiento secundario.
+
+
+
+ a| 
+Liberado
+ a| 
+No se requiere ninguna acción
+ a| 
+No se requiere ninguna acción
+ a| 
+La copia de seguridad local ya está liberada.
+
+
+
+ a| 
+Protegido
+ a| 
+Existe
+ a| 
+Libera el backup
+ a| 
+No se requiere ninguna acción; el backup en el secundario permanece
+ a| 
+SnapManager libera el backup local. Las copias se conservan en el almacenamiento secundario.
+
+
+
+ a| 
+Liberado
+ a| 
+No se requiere ninguna acción
+ a| 
+No se requiere ninguna acción
+ a| 
+La copia de seguridad local ya está liberada.
+
+|===
+Es posible especificar la opción -dump como un parámetro opcional para recoger los archivos de volcado después de la operación de backup libre exitosa o con errores.
+
+.Paso
+. Introduzca el siguiente comando:
++
+`*smsap backup free -profile _profile_name_ {-label _label_ [data | -archivelogs] | -id _id_ | -all} -force[-dump] [-quiet] [-force]*`
+
+

@@ -1,0 +1,27 @@
+---
+permalink: windows/concept-cloning-database-backup.html 
+sidebar: sidebar 
+keywords: clone, database, task, test, upgrade, affect, production, duplicate, master, installation, train, system, duplicate, master, base, server, requirement, clone 
+summary: Si clona una base de datos, puede realizar tareas como probar una actualización a una base de datos sin afectar a la base de datos en producción, duplicar una instalación maestra a varios sistemas de entrenamiento o duplicar una instalación maestra como instalación básica a otros servidores, que tienen requisitos similares. 
+---
+= Clonar el backup de bases de datos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si clona una base de datos, puede realizar tareas como probar una actualización a una base de datos sin afectar a la base de datos en producción, duplicar una instalación maestra a varios sistemas de entrenamiento o duplicar una instalación maestra como instalación básica a otros servidores, que tienen requisitos similares.
+
+Puede ejecutar las siguientes tareas relacionadas con la clonado:
+
+* Clonar una base de datos a partir de un backup existente.
+* Clonar una base de datos en su estado actual, lo que permite crear el backup y el clon en un procedimiento.
+* Clone una base de datos y utilice scripts de plugins personalizados, que se ejecutan antes o después de la operación de clonado.
+* Clone una base de datos en el mismo host en el que reside la base de datos.
+* Clone una base de datos con los archivos de registro de archivos desde la ubicación del registro de archivos externo.
+* Clonar una base de datos en un host alternativo.
+* Consulte una lista de clones.
+* Ver información detallada sobre clones.
+* Eliminar clones.
+

@@ -1,0 +1,135 @@
+---
+permalink: windows/concept-what-snapmanager-for-oraclesnapmanager-for-sap-does.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, simplify, simplifies, automate, database, backup, recovery, clone, leverage, snapshot, copies, copy, snaprestore, flexclone, technology, technologies 
+summary: SnapManager para SAP simplifica y automatiza los procesos de backup, recuperación y clonado de bases de datos aprovechando las tecnologías de copias Snapshot, SnapRestore y FlexClone. 
+---
+= A qué se dedica SnapManager para SAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager para SAP simplifica y automatiza los procesos de backup, recuperación y clonado de bases de datos aprovechando las tecnologías de copias Snapshot, SnapRestore y FlexClone.
+
+SnapManager ofrece las siguientes ventajas a los administradores de bases de datos:
+
+* Trabajar con perfiles de base de datos
++
+** Puede organizar y conservar la información del host y la base de datos en los perfiles.
++
+Al iniciar un backup basado en un perfil, puede reutilizar la información en lugar de volver a introducirla para cada backup. SnapManager también le permite supervisar las operaciones rápidamente mediante el uso de perfiles.
+
+** En el perfil, puede definir los patrones de nomenclatura de las copias Snapshot y escribir el texto personalizado (prefijo o sufijo), de modo que todas las copias Snapshot puedan usar la misma convención de nomenclatura que cumpla las políticas empresariales.
+** No necesita conocer el nombre del sistema de almacenamiento, ya que los archivos de la base de datos se asignan automáticamente al almacenamiento asociado.
+** Al crear un nuevo perfil, es posible especificar la opción de separar el backup del registro de archivos del backup del archivo de datos.
++
+También puede actualizar el perfil existente para separar la copia de seguridad del archivo de datos.
+
+
+
+* Se realiza la operación de backup de la base de datos
++
+** Backup de bases de datos completas y parciales
++
+*** Se puede crear rápidamente un backup completo o parcial de manera que ahorra espacio, lo que le permite realizar backups con mayor frecuencia.
++
+El backup completo de la base de datos contiene todos los archivos de datos, los archivos de control y los archivos de registro de archivos en un único backup.
+
++
+El backup parcial de las bases de datos contiene los archivos de datos o espacios de tablas especificados, todos los archivos de control y todos los archivos de registro de archivos.
+
+*** Puede proteger los backups en el almacenamiento secundario mediante secuencias de comandos de posprocesamiento.
+*** Se pueden programar backups por hora, semana, día, mes o ilimitado.
+
+
+** Separe las copias de seguridad de los archivos de datos y los archivos de registro de archivo
++
+*** SnapManager (3.2 o posterior) permite realizar un backup de los archivos de datos y los archivos de registro de archivos por separado. Para realizar esta operación, debe especificar la opción de separar los archivos de registro de archivos mientras crea o actualiza el perfil.
+*** Puede especificar el número y la duración para el cual se retendrán los backups de archivos de datos, en la política de retención.
+*** Es posible especificar la duración de los backups de archivos de registro de archivos que se retendrán en la retención de registros de archivo.
+*** SnapManager (3.2 o posterior) también consolida los backups de registros de archivos a un número mínimo de backups, ya que libera los backups de registros de archivos con archivos duplicados y conserva únicamente los backups de los registros de archivos con archivos únicos de registro de archivos. Sin embargo, esta consolidación se puede deshabilitar opcionalmente.
+
+
+
+
+* Gestión de los archivos archive log
++
+** SnapManager (3.2 o posterior) permite comprimir los archivos de registro de archivos desde los destinos de registro de archivos.
++
+El espacio ocupado por los archivos de registro de archivos prados se libera cuando se purgan los backups de registros de archivos que contienen estos archivos de registro de archivos.
+
+** SnapManager garantiza que se realice un backup de los archivos de registro de archivos antes de eliminarlos de los destinos de registros de archivos.
++
+No se reducen los archivos de registro de archivos, que no se incluyen en el backup.
+
+** SnapManager garantiza que los archivos de registro de archivos se envíen a la base de datos Data Guard en espera al mismo tiempo que elimina los archivos de registro de archivos de una base de datos Data Guard primaria.
+** SnapManager garantiza que el proceso de captura de secuencias de Oracle captura los archivos de registro de archivos, si los hubiera.
+** Recomendación
++
+*** Para gestionar el espacio de destino del registro de archivos de forma eficaz, debe crear los backups del registro de archivos y abrir los archivos de registro de archivos junto con él.
+
+
+** SnapManager consolida los backups de registros de archivos para contener un número mínimo de backups mediante la liberación de los backups de registros de archivos con archivos de registro de archivos duplicados y la retención únicamente de los backups de registros de archivos con archivos de registro únicos.
++
+Sin embargo, esta consolidación se puede deshabilitar opcionalmente. Se liberan los backups de registros de archivos, que contienen archivos de registro de archivos duplicados y se conserva un único backup con registros de archivos únicos.
+
+
+
+* Se ejecuta la operación de restauración de bases de datos
++
+** Es posible realizar operaciones de restauración basadas en archivos.
++
+También es posible ver una vista previa de las operaciones de restauración y obtener un análisis de archivo por archivo de las operaciones de restauración antes de ejecutar la operación.
+
+** Puede reducir el tiempo medio de restauración de una base de datos mediante SnapRestore.
+** SnapManager (3.2 o posterior) permite recuperar la base de datos automáticamente mediante los archivos de registro de archivos del backup, incluso si no hay archivos del registro de archivos disponibles en el destino del registro de archivos.
++
+SnapManager (3.2 o posterior) también proporciona un método para recuperar la base de datos utilizando los archivos de registro de archivos de la ubicación externa hasta cierto punto.
+
+
+
+* Clonar una base de datos para realizar pruebas y desarrollo
++
+** Puede crear un clon de una base de datos para que la base de datos pueda configurarse fuera del entorno de producción.
++
+Por ejemplo, puede clonar en los entornos de desarrollo y prueba para probar actualizaciones a sistemas vitales.
+
+** Es posible clonar una base de datos en un sistema de almacenamiento primario.
+** SnapManager (3.2 o posterior) permite clonar los backups de archivos de datos con los archivos de registro de archivos disponibles en el backup.
++
+*** Es posible clonar los backups de archivos de datos solo cuando se realiza el backup de registros de archivos junto con él.
+*** También es posible clonar los backups de archivos de datos si los archivos de registro de archivos están disponibles en los backups de registros de archivos que se realizan por separado en cierta medida.
+*** También es posible clonar los backups de archivos de datos de una base de datos independiente en cierta medida con los archivos de registro de archivos desde cualquier ubicación externa a la que pueda acceder Oracle.
+*** Si los backups están disponibles desde una ubicación externa, puede especificar la ubicación externa durante la clonado para recuperar la base de datos clonada en un estado coherente.
+
+
+** No se admite la clonado de backups de solo registro de archivos.
+
+
+* Generales
++
+** Integre con BR*Tools de SAP.
++
+El paquete BR*Tools proporciona herramientas SAP tales como BRARCHIVE, BRBACKUP, BRCONNECT, BRRECOVER, BRRESTORE, BRSPACE y BRTOOLS.
+
+
+
+
+
+SnapManager ofrece las siguientes ventajas a los administradores de almacenamiento:
+
+* Admite diferentes protocolos SAN.
+* Permite optimizar los backups según el tipo de backup (completo o parcial) que mejor se adapte a su entorno.
+* Creación de backups de bases de datos con mejor aprovechamiento del espacio.
+* Crea clones con gestión eficiente del espacio.
+
+
+SnapManager también funciona con las siguientes funciones de Oracle:
+
+* SnapManager puede catalogar sus backups con RMAN de Oracle.
++
+Si utiliza RMAN, un DBA puede utilizar las copias de seguridad de SnapManager y conservar el valor de todas las funciones de RMAN, como la restauración a nivel de bloque. SnapManager permite a RMAN utilizar las copias snapshot cuando realiza la recuperación o restauración. Por ejemplo, puede utilizar RMAN para restaurar una tabla dentro de un espacio de tablas y realizar restauraciones y recuperaciones completas de bases de datos y tablespaces a partir de copias Snapshot realizadas por SnapManager. El catálogo de recuperación de RMAN no debe estar en la base de datos de la que se está realizando la copia de seguridad.
+
+

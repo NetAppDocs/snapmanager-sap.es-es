@@ -1,0 +1,105 @@
+---
+permalink: windows/task-update-profiles.html 
+sidebar: sidebar 
+keywords: update, profile, modify, password, backup, database, operate, system, authentication, information, host, oracle 
+summary: 'Puede actualizar los perfiles para modificar la contraseña del perfil, la cantidad de backups que se deben retener, el acceso a la base de datos, la autenticación del sistema operativo (SO) con la autenticación de la base de datos y viceversa, e información sobre el host. Si cambia la información de contraseña de la base de datos Oracle, también debe cambiar esa información en el perfil.' 
+---
+= Actualizar perfiles
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede actualizar los perfiles para modificar la contraseña del perfil, la cantidad de backups que se deben retener, el acceso a la base de datos, la autenticación del sistema operativo (SO) con la autenticación de la base de datos y viceversa, e información sobre el host. Si cambia la información de contraseña de la base de datos Oracle, también debe cambiar esa información en el perfil.
+
+
+
+== Acerca de esta tarea
+
+SnapManager (3.2 o posterior) permite actualizar el perfil para separar los backups de registros de archivos de los backups de archivos de datos mediante el `-separate-archivelog-backups` opción. Es posible especificar una duración de retención separada para el backup del registro de archivo. SnapManager le permite incluir el backup de registros de archivos junto con el backup de base de datos en línea. También puede crear un backup de archivo de datos en línea y un backup de registro de archivo juntos para clonar. Cuando se crea un backup de archivos de datos en línea, los backups de registros de archivos se crean inmediatamente junto con los archivos de datos.
+
+.Paso
+. Introduzca el siguiente comando:
++
+`*smsap profile update -profile _profile_ [-new-profile _new_profile_name_] [-profile-password _profile_password_][-database _-dbnamedb_dbname_ -host _db_host_ [-sid _db_sid_] [-login -usernamedb_username-password _db_password-port_ _db_port_]] [{-rman{-controlfile | {-login  -username _rman_username_ -password  rman_password-tnsname  _rman_tnsname_}}} | -remove-rman] [-retain [-hourly [-countn] [-durationm]] [-daily [-countn] [-durationm]] [-weekly [-countn] [-durationm]] [-monthly [-countn] [-durationm]]] [-commentcomment][-snapname-patternpattern] [-summary-notification] [-notification [-success-email _email_address1_, _email_address2_ -subjects _ubject_pattern_] [-failure-email _email_address1_, _email_address2_ -subject _subject_pattern_]] [-separate-archivelog-backups-retain-archivelog-backups-hours _hours_ | -days _days_ | -weeks _weeks_| -months _months_ [-include-with-online-backups | -no-include-with-online-backups]] [-dump]*`
+
++
+Las demás opciones para este comando son las siguientes:
+
++
+[`-force`] [`-noprompt`]
+
++
+[`quiet` | `verbose`]
+
++
+|===
+| Si desea... | Realice lo siguiente... 
+
+
+ a| 
+*Cambiar la política de retención de copias de seguridad para copias de seguridad de la base de datos en el perfil*
+ a| 
+Especifique el recuento de retención o la duración de la retención para una clase de retención, o ambos, para cambiar la política de retención. La duración se encuentra en unidades de la clase (por ejemplo, horas por hora, días por día).
+
+** `-hourly` es la clase de retención por hora, para la cual [`-countn`] [`-durationm`]] son el recuento de retención y la duración de la retención, respectivamente.
+** `-daily` es la clase de retención diaria, para la cual [`-countn`] [`-durationm`]] son el recuento de retención y la duración de la retención, respectivamente.
+** `-weekly` es la clase de retención semanal, para la cual [`-countn`] [`-durationm`]] son el recuento de retención y la duración de la retención, respectivamente.
+** -mensual es la clase de retención mensual, para la cual [`-countn`] [`-durationm`]] son el recuento de retención y la duración de la retención, respectivamente.
+
+
+
+
+ a| 
+*Activar notificaciones por correo electrónico para el estado de finalización de las operaciones de la base de datos*
+ a| 
+Especifique las siguientes opciones y variables:
+
+** `-summary-notification` permite configurar una notificación por correo electrónico de resumen para varios perfiles en una base de datos de repositorio.
+** `-notification` permite recibir una notificación por correo electrónico sobre el estado de finalización de la operación de la base de datos de un perfil.
+** `-success-emailemail_address2` permite recibir una notificación por correo electrónico tras la finalización de una operación de base de datos correcta mediante un perfil nuevo o existente.
+** `-failure-emailemail_address2` permite recibir una notificación por correo electrónico en una operación de base de datos fallida realizada mediante un perfil nuevo o existente.
+** `-subjectsubject_text` especifica el texto del asunto para la notificación por correo electrónico al crear un perfil nuevo o un perfil existente. Si los ajustes de notificación no están configurados para el repositorio y intenta configurar las notificaciones de perfil o resumen mediante la interfaz de línea de comandos (CLI), se registra el siguiente mensaje en el registro de consola: `SMSAP-14577: Notification Settings not configured`.
++
+Si configuró los ajustes de notificación e intenta configurar las notificaciones de resumen mediante la CLI sin habilitar la notificación de resumen para el repositorio, se registra el siguiente mensaje en el registro de consola: `SMSAP-14575: Summary notification configuration not available for this repository`
+
+
+
+
+
+ a| 
+*Actualice el perfil para crear una copia de seguridad de los archivos de registro de archivos por separado*
+ a| 
+Especifique las siguientes opciones y variables:
+
+** `-separate-archivelog-backups` permite crear un backup de los archivos de registro de archivos independientemente de los archivos de la base de datos.
++
+Después de especificar esta opción, puede crear una copia de seguridad sólo de archivos de datos o una copia de seguridad sólo de archivvelogs. No es posible crear un backup completo. Además, no puede revertir la configuración del perfil separando la copia de seguridad. SnapManager conserva los backups según la política de retención de los backups que se crearon antes de usar un backup de solo archivado.
+
+** `-retain-archivelog-backups` establece la duración de la retención para los backups de registros de archivo.
++
+
+NOTE: Si actualiza el perfil por primera vez, es posible separar los backups del registro de archivos de los archivos de datos mediante el `-separate-archivelog-backups` opción; debe proporcionar la duración de la retención de los backups de registros de archivos mediante la `-retain-archivelog-backups` opción. La configuración de la duración de la retención es opcional cuando se actualiza el perfil más adelante.
+
+** `-include-with-online-backups` especifica que el backup de registros de archivo se incluya junto con el backup de la base de datos.
+** `-no-include-with-online-backups` especifica que el backup del archivo de registro de archivos no se incluye junto con el backup de base de datos.
+
+
+
+
+ a| 
+*Cambiar el nombre de host de la base de datos de destino*
+ a| 
+Especifique `-hostnew_db_host` para cambiar el nombre de host del perfil.
+
+
+
+ a| 
+*Recopilar los archivos de volcado después de la operación de actualización de perfil*
+ a| 
+Especifique el `-dump` opción.
+
+|===
+. Para ver el perfil actualizado, escriba el comando siguiente: `smsap profile show`
+

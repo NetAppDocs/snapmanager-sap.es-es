@@ -1,0 +1,33 @@
+---
+permalink: unix-administration/reference-mounting-a-flexclone-fails-in-nfs-environment.html 
+sidebar: sidebar 
+keywords: snapmanager, create, flexclone, volume, nfs, environment, export, file, clone, backup, fail, mount, error, message 
+summary: Cuando SnapManager crea un FlexClone de un volumen en un entorno NFS, se añade una entrada en el archivo /etc/exports. El clon o el backup no se pueden montar en un host de SnapManager con un mensaje de error. 
+---
+= Se produce un error en el montaje de un volumen FlexClone en un entorno NFS
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cuando SnapManager crea un FlexClone de un volumen en un entorno NFS, se añade una entrada en la `/etc/exports` archivo. El clon o el backup no se pueden montar en un host de SnapManager con un mensaje de error.
+
+El mensaje de error es: `0001-034 Command error: mount failed: mount: filer1:/vol/SnapManager_20090914112850837_vol14 on /opt/NTAPsmsap/mnt/-ora_data02-20090914112850735_1 - WARNING unknown option "zone=vol14" nfs mount: filer1:/vol/SnapManager_20090914112850837_vol14: Permission denied`.
+
+Al mismo tiempo, se genera el siguiente mensaje en la consola del sistema de almacenamiento: `Mon Sep 14 23:58:37 PDT [filer1: export.auto.update.disabled: warning]: /etc/exports was not updated for vol14 when the vol clone create command was run. Please either manually update /etc/exports or copy /etc/exports.new to it`.
+
+Es posible que este mensaje no se capture en los mensajes de AutoSupport.
+
+
+NOTE: Es posible que tenga problemas similares al clonar volúmenes de FlexVol en NFS. Puede seguir los mismos pasos para habilitar el `nfs.export.auto-update` opción.
+
+*Qué hacer*
+
+. Ajuste la `nfs.export.auto-update` opción `_on_` así que la `/etc/exports` el archivo se actualiza automáticamente.
+
+
+`*options nfs.export.auto-update _on_*`
+
+
+NOTE: En la configuración de par de alta disponibilidad, asegúrese de establecer la opción de exportaciones NFS en on para los dos sistemas de almacenamiento.

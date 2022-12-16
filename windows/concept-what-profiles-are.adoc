@@ -1,0 +1,48 @@
+---
+permalink: windows/concept-what-profiles-are.html 
+sidebar: sidebar 
+keywords: snapmanager, profile, store, information, perform, operation, database, credential, backup, clone 
+summary: SnapManager utiliza perfiles para almacenar la información necesaria para realizar operaciones en una base de datos determinada. Un perfil contiene información sobre la base de datos, incluidas sus credenciales, backups y clones. Al crear un perfil, no es necesario especificar los detalles de la base de datos cada vez que se realiza una operación en esa base de datos. 
+---
+= Qué perfiles son
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager utiliza perfiles para almacenar la información necesaria para realizar operaciones en una base de datos determinada. Un perfil contiene información sobre la base de datos, incluidas sus credenciales, backups y clones. Al crear un perfil, no es necesario especificar los detalles de la base de datos cada vez que se realiza una operación en esa base de datos.
+
+Un perfil sólo puede hacer referencia a una base de datos. Más de un perfil puede hacer referencia a la misma base de datos. No es posible acceder a los backups creados con un perfil desde otro perfil, aunque ambos perfiles hagan referencia a la misma base de datos.
+
+La información del perfil se almacena en un repositorio. El repositorio contiene información de perfil de la base de datos e información sobre las copias de Snapshot que sirven como backup de base de datos. Las copias Snapshot reales se almacenan en el sistema de almacenamiento. Los nombres de las copias Snapshot se almacenan en el repositorio que contiene el perfil de esa base de datos. Cuando se realiza una operación en una base de datos, debe seleccionar el perfil en el repositorio.
+
+La siguiente figura muestra cómo los repositorios pueden contener varios perfiles, pero también que cada perfil puede definir sólo una base de datos:
+
+image::../media/prnt_en_drw_smo_smsap_rep_prof.gif[prnt en windows nt smsap rep prof de smo]
+
+En el ejemplo anterior, deleteRepository2 se encuentra en la base de datos DB1 y deleteRepository1 en la base de datos DB4.
+
+Cada perfil contiene las credenciales de la base de datos asociada al perfil. Las credenciales permiten que SnapManager se conecte a la base de datos y trabaje con ella. Las credenciales almacenadas incluyen el nombre de usuario y las parejas de contraseñas para acceder al host, al repositorio, a la base de datos y a la información de conexión necesaria si utiliza Oracle Recovery Manager (RMAN).
+
+No se puede acceder a un backup que se creó con un perfil de otro perfil, incluso si los dos perfiles están asociados con la misma base de datos. SnapManager coloca un bloqueo en la base de datos para evitar que se realicen dos operaciones incompatibles a la vez.
+
+*Perfil para crear copias de seguridad completas y parciales*
+
+Puede crear perfiles para realizar copias de seguridad completas o parciales.
+
+Los perfiles que se especifican para crear las copias de seguridad completas y parciales contienen tanto los archivos de datos como los archivos de registro de archivos. SnapManager no permite que dichos perfiles separen los backups de registros de archivo de los backups del archivo de datos. Los backups completos y parciales se retienen en función de las políticas de retención de backup existentes. Puede programar copias de seguridad completas y parciales en función del tiempo y la frecuencia que mejor le convenga.
+
+*Perfiles para la creación de copias de seguridad sólo de archivos de datos y copias de seguridad de sólo registro de archivos*
+
+SnapManager (3.2 o posterior) permite crear perfiles para realizar backups de los archivos de registro de archivos independientemente de los archivos de datos. Después de usar el perfil para separar los tipos de backup, es posible crear backups de solo los archivos de datos o backups de solo registros de archivos de la base de datos. También es posible crear un backup que contenga los archivos de datos y los archivos de registro de archivos juntos.
+
+La política de retención se aplica a todos los backups de la base de datos cuando no están separados los backups de registros de archivos. Después de separar las copias de seguridad de los registros de archivos, SnapManager permite especificar diferentes duraciones de retención .
+
+*Política de retención*
+
+SnapManager determina si se debe retener un backup teniendo en cuenta el número de retención (por ejemplo, 15 backups) y la duración de la retención (por ejemplo, 10 días de backups diarios). Una copia de seguridad caduca cuando su antigüedad supera el período de retención establecido para su clase de retención y la cantidad de backups supera el número de retención. Por ejemplo, si el número de backup es 15 (lo que significa que SnapManager ha tomado 15 backups correctos) y se establece el requisito de duración para 10 días de backups diarios, los cinco backups más antiguos, correctos y elegibles caducan.
+
+*Duración de la retención del registro de archivo*
+
+Una vez separados los backups de los registros de archivos, se retienen en función de la duración de la retención de los registros de archivos. Los backups de registros de archivo que se realizan con los backups de archivos de datos siempre se conservan junto con estos backups de archivos de datos, independientemente de la duración de la retención de registros de archivo.

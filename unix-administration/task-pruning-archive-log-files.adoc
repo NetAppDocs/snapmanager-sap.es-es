@@ -1,0 +1,104 @@
+---
+permalink: unix-administration/task-prune-archive-log-files.html 
+sidebar: sidebar 
+keywords: prune, archive, log, file, backup, pruning 
+summary: Puede reducir los archivos de registro de archivos desde las ubicaciones del registro de archivos mientras crea una copia de seguridad. 
+---
+= Archivos de registro de archivo de Prune
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede reducir los archivos de registro de archivos desde las ubicaciones del registro de archivos mientras crea una copia de seguridad.
+
+*Lo que necesitará*
+
+* La operación de backup actual debe realizar un backup de los archivos de registro de archivos.
++
+Si se especifica la eliminación junto con otros backups que no contienen archivos de registro de archivos, no se reducen los archivos de registro de archivos.
+
+* La base de datos debe estar en el estado montado.
++
+Si la base de datos no está en estado montado, introduzca la opción -force junto con el comando de backup.
+
+
+
+*Acerca de esta tarea*
+
+Al realizar una operación de backup, se puede especificar lo siguiente:
+
+* Ámbito de la eliminación:
++
+** Elimine todos los archivos de registro de archivos.
+** Elimine los archivos de registro de archivos hasta que el SCN especificado.
+** Elimine los archivos de registro de archivos hasta la hora especificada.
+** Elimine los archivos de registro de archivos antes del período de tiempo especificado.
+
+
+* Destino desde el que se deben quitar los archivos de registro de archivos.
++
+
+NOTE: Aunque se produzca un error al eliminar el archivo de registro de archivos en un destino, SnapManager continúa depurando los archivos de registro de archivos de los otros destinos.
+
+
+
+Antes de eliminar los archivos de registro de archivos, SnapManager verifica lo siguiente:
+
+* Se realiza un backup de los archivos de registro de archivo al menos una vez.
+* Los archivos de registro de archivo se envían a la base de datos Oracle Dataguard Standby, si los hubiera.
+* El proceso de captura de Oracle Streams captura los archivos de registro de archivo, si los hay.
+
+
+Si se realiza un backup de los archivos de registro de archivos, se envían al estado de espera y se capturan mediante el proceso de captura, SnapManager elimina todos los archivos de registro de archivos en una sola ejecución. Sin embargo, si hay archivos de registro de archivos que no se incluyen en un backup, que no se envían a en espera o que no están capturados por el proceso de captura, SnapManager elimina los archivos de registro de archivos uno por uno. La eliminación de archivos de registros de archivos en una sola ejecución es más rápida que la eliminación de registros de archivos uno por uno.
+
+SnapManager también puede agrupar los archivos de registro de archivos y eliminarlos por lotes. Cada lote tendrá un máximo de 998 archivos. Este valor se puede configurar por debajo de 998 utilizando el parámetro Configuration `maximum.archivelog.files.toprune.atATime` en la `smsap.config` archivo.
+
+SnapManager utiliza los comandos de Oracle Recovery Manager (RMAN) para eliminar los archivos de registro de archivo. Sin embargo, SnapManager no se integra con las políticas de retención y de eliminación de RMAN.
+
+
+NOTE: Si elimina los archivos de registro de archivos de los destinos de registro de archivos, se produce un error en la eliminación de archivos de registro de archivos.
+
+SnapManager no admite la eliminación de archivos de registro de archivos en las siguientes situaciones:
+
+* Los archivos de registro de archivo se encuentran en el área de recuperación de flash.
+* Los archivos de registro de archivo se encuentran en la base de datos en espera.
+* SnapManager y RMAN gestionan los archivos de registro de archivo.
+
+
+.Paso
+. Introduzca el siguiente comando:
++
+`*smsap backup create -profile _profile_name_ {[-full {-online | -offline | -auto} [-retain {-hourly | [-daily | -weekly | -monthly | -unlimited}] [-verify] | [-data [[-files _files_ [_files_]] | [-tablespaces _-tablespaces_ [_-tablespaces_]] [-datalabel _label_] {-online | -offline | -auto} [-retain {-hourly | [-daily | -weekly | -monthly | -unlimited]} [-verify] | [-archivelogs [-label _label_] [-comment _comment_] [-protect | -noprotect | -protectnow] [-backup-dest _path1_ [,[_path2_]]] [-exclude-dest _path1_ [_,path2_]]] [-prunelogs {-all | -untilSCN _untilSCN_ | -until -date _yyyy-MM-dd:HH:mm:ss_ | -before {-months | -days | -weeks | -hours}} -prune-dest _prune_dest1_,[_prune_dest2_]] [-taskspec _taskspec_]} -dump [-force] [-quiet | -verbose]*`
+
++
+[cols="1a,3a"]
+|===
+| Si desea... | Realice lo siguiente... 
+
+
+ a| 
+*Prune archive log files*
+ a| 
+Especifique las siguientes opciones:
+
+** `-prunelogs` especifica la eliminación de los archivos de registro de archivos mientras se crea un backup.
++
+*** `-all` especifica la eliminación de todos los archivos de registro de archivos.
+*** `-untilSCN` Especifica la eliminación de los archivos de registro de archivos hasta el SCN especificado.
+*** `-until-date` especifica la eliminación de los registros de archivos, incluida la fecha y la hora especificadas.
+*** `-before` `{-months |-days | -weeks | -hours}` especifica la eliminación de los archivos de registro de archivos antes del período de tiempo especificado.
+
+
+
+
+
+
+ a| 
+* Incluir el destino desde donde se van a quitar los archivos de registro *
+ a| 
+Especifique el `-prune-dest` opción.
+
+|===
+

@@ -1,0 +1,164 @@
+---
+permalink: unix-administration/concept-snapshot-copy-naming.html 
+sidebar: sidebar 
+keywords: naming, name, snapshot, copy, convention, pattern, copies 
+summary: Puede especificar una convención o un patrón de nomenclatura para describir las copias de Snapshot relacionadas con el perfil que crea o actualiza. También puede incluir texto personalizado en todos los nombres de copias de Snapshot. 
+---
+= Nomenclatura de copias Snapshot
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede especificar una convención o un patrón de nomenclatura para describir las copias de Snapshot relacionadas con el perfil que crea o actualiza. También puede incluir texto personalizado en todos los nombres de copias de Snapshot.
+
+Puede cambiar el patrón de nomenclatura de las copias Snapshot al crear un perfil o después de crear el perfil. El patrón actualizado se aplica solo a las copias Snapshot que todavía no se han producido; las copias Snapshot que existen conservan el patrón de snapname anterior.
+
+Los siguientes ejemplos muestran los dos nombres de copias Snapshot tomados de un volumen. La segunda copia snapshot que se muestra tiene _F_H_1_ en la mitad de su nombre. El "1" indica que es la primera copia snapshot tomada en el conjunto de backup. La primera copia Snapshot enumerada es la más reciente y tiene una «2», lo que significa que se toma la segunda copia Snapshot. La copia Snapshot "1" incluye los archivos de datos; la copia Snapshot "2" incluye los archivos de control. Dado que las copias snapshot del archivo de control deben realizarse después de realizar la copia snapshot del archivo de datos, se necesitan dos copias snapshot.
+
+[listing]
+----
+smsap_profile_sid_f_h_2_8ae482831ad14311011ad14328b80001_0
+smsap_profile_sid_f_h_1_8ae482831ad14311011ad14328b80001_0
+----
+El patrón predeterminado incluye el smid requerido, como se muestra en la siguiente:
+
+* Patrón predeterminado: Smsap_{profile}_{dB-sid}_{scope}_{mode}_{smid}
+* Ejemplo: Smsap_my_profile_rac51_f_h_2_8abc01e915a55ac50115a55acc8d0001_0
+
+
+Es posible usar las siguientes variables en el nombre de la copia Snapshot:
+
+[cols="1a,3a,2a"]
+|===
+| Nombre de la variable | Descripción | Valor de ejemplo 
+
+
+ a| 
+smid (obligatorio)
+ a| 
+El ID único de SnapManager es el único elemento requerido cuando se crea un nombre para la copia Snapshot. Este ID garantiza la creación de un nombre de snapshot único.
+ a| 
+8abc01e915a55ac50115a55ac8d0001_0
+
+
+
+ a| 
+Clase (opcional)
+ a| 
+Clase de retención asociada al backup para el perfil e indicada por cada hora (h), día (d), semanal (w), mensual (m) o ilimitado (u).
+ a| 
+d
+
+
+
+ a| 
+Comentario (opcional)
+ a| 
+Comentario asociado al backup del perfil. Los espacios en este campo se convertirán en guiones bajos cuando se complete el nombre de la copia Snapshot.
+ a| 
+sample_comment_spaces_rereemplazado
+
+
+
+ a| 
+Fecha (opcional)
+ a| 
+Fecha en la que se realiza la copia de seguridad para el perfil. Los valores de fecha se rellenarán con ceros si es necesario. (aaaammdd)
+ a| 
+20070218
+
+
+
+ a| 
+db-host (opcional)
+ a| 
+Nombre de host de la base de datos asociado con el perfil que se va a crear o actualizar.
+ a| 
+mi_host
+
+
+
+ a| 
+db-name (opcional)
+ a| 
+Nombre de la base de datos asociada con la copia de Snapshot que crea.
+ a| 
+rac5
+
+
+
+ a| 
+db-sid (opcional)
+ a| 
+sid de base de datos asociado con la copia de Snapshot que crea.
+ a| 
+racer51
+
+
+
+ a| 
+Etiqueta (opcional)
+ a| 
+Etiqueta asociada al backup para el perfil.
+ a| 
+etiqueta_muestra
+
+
+
+ a| 
+Modo (opcional)
+ a| 
+Especifica si el backup se completa en línea (h) o sin conexión (c).
+ a| 
+h
+
+
+
+ a| 
+Perfil (opcional)
+ a| 
+El nombre del perfil asociado con el backup que cree.
+ a| 
+mi_perfil
+
+
+
+ a| 
+Alcance (opcional)
+ a| 
+Especifica si el backup está completo (f) o parcial (p).
+ a| 
+f
+
+
+
+ a| 
+Tiempo (opcional)
+ a| 
+Hora a la que se produce el backup para el perfil. Los valores de hora de esta variable utilizan el reloj de 24 horas y están acolchados con ceros si es necesario. Por ejemplo, 5:32 y 8 segundos se muestran como 053208 (hhmmss).
+ a| 
+170530
+
+
+
+ a| 
+Zona horaria (opcional)
+ a| 
+Zona horaria especificada para el host de la base de datos de destino.
+ a| 
+EST
+
+
+
+ a| 
+Usertext (opcional)
+ a| 
+Texto personalizado que puede introducir.
+ a| 
+prod
+
+|===
+
+NOTE: SnapManager para SAP no admite el símbolo de dos puntos (:) en formas largas de los nombres para las copias Snapshot.

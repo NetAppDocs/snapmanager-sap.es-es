@@ -1,0 +1,93 @@
+---
+permalink: unix-administration/concept-restore-preview-plans.html 
+sidebar: sidebar 
+keywords: snapmanager, restore, plan, before, after, operation, preview, review, analyze 
+summary: SnapManager ofrece planes de restauración antes y después de que se completa una operación de restauración. Los planes de restauración se utilizan para obtener una vista previa, revisar y analizar con respecto a los diferentes métodos de restauración. 
+---
+= Qué planes de vista previa de restauración son
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager ofrece planes de restauración antes y después de que se completa una operación de restauración. Los planes de restauración se utilizan para obtener una vista previa, revisar y analizar con respecto a los diferentes métodos de restauración.
+
+
+
+== Estructura del plan de restauración
+
+El plan de restauración consta de las dos secciones siguientes:
+
+* Vista previa/revisión: Esta sección describe cómo restaurará SnapManager cada archivo (o lo ha restaurado).
+* Análisis: En esta sección se describe por qué no se utilizaron algunos mecanismos de restauración durante la operación de restauración.
+
+
+
+
+== La sección Vista previa/revisión
+
+Esta sección muestra cómo se restaurará o se restaurará cada archivo. Al ver el plan de restauración antes de una operación de restauración, se denomina vista previa. Cuando se visualiza después de completar una operación de restauración, se denomina revisión.
+
+El siguiente ejemplo de vista previa muestra que los archivos se restauran utilizando métodos rápidos basados en volúmenes, restauración del sistema de archivos en el lado del almacenamiento y restauración del sistema en el lado del almacenamiento. Para determinar por qué no se restaurarían todos los archivos utilizando el mismo método de restauración, consulte la sección Análisis.
+
+[listing]
+----
+Preview:
+The following files will be restored completely via: fast restore
++DG1/rac6/users.dbf
+
+The following files will be restored completely via: storage side file system restore
++DG2/rac6/sysaux.dbf
++DG2/rac6/system.dbf
+The following files will be restored completely via: storage side system restore
++DG2/rac6/undotbs1.dbf
++DG2/rac6/undotbs2.dbf
+----
+Cada método de restauración tiene una subsección que contiene información sobre los archivos que se pueden restaurar mediante ese método de restauración. Las subsecciones se ordenan según niveles decrecientes de eficiencia de los métodos de almacenamiento. En el ejemplo anterior, el método de restauración rápida es más eficiente que el método de restauración del sistema de archivos de almacenamiento, y así se muestra primero.
+
+Es posible restaurar un archivo mediante varios métodos de restauración. Se utilizan varios métodos de restauración cuando los números de unidad lógica (LUN) subyacentes utilizados en un sistema de archivos se distribuyen entre los volúmenes del sistema de almacenamiento diferentes y algunos volúmenes son aptos para la restauración de volúmenes, mientras que otros no lo son. Si se utilizan varios métodos de restauración para restaurar el mismo archivo, la sección de vista previa será similar a la siguiente:
+
+[listing]
+----
+The following files will be restored via a combination of:
+[fast restore, storage side file system restore. storage side system restore]
+----
+
+
+== La sección Análisis
+
+La sección Análisis presenta las razones por las que algunos mecanismos de restauración no se utilizarán o no. Puede usar esta información para determinar qué es necesario para habilitar mecanismos de restauración más eficientes.
+
+En el siguiente ejemplo se muestra una sección de análisis:
+
+[listing]
+----
+Analysis:
+
+The following reasons prevent certain files from being
+restored completely via: fast restore
+   * LUNs present in snapshot of volume fas960:
+        /vol/rac_6_asm_disks may not be consistent when reverted:
+        [fas960:/vol/rac6_asm_disks/DG4D1.lun]
+     Mapped LUNs in volume fas960:/vol/rac_6_asm_disks
+        not part of the restore scope will be reverted: [DG4D1.lun]
+
+Files to restore:
+     +DG2/rac6/sysaux.dbf
+     +DG2/rac6/system.dbf
+     +DG2/rac6/undotbs1.dbf
+     +DG2/rac6/undotbs2.dbf
+
+* Reasons denoted with an asterisk (*) are overridable.
+----
+En el ejemplo, el primer fallo se puede anular mediante el uso `-fast -override` Desde la interfaz de línea de comandos (CLI) o seleccionando *Anular* en la interfaz gráfica de usuario (GUI). El segundo fallo en las LUN asignadas del volumen es obligatorio y no se puede superar.
+
+Puede resolver las comprobaciones haciendo lo siguiente:
+
+* Para resolver un fallo de comprobación obligatorio, cambie el entorno de modo que se apruebe la comprobación.
+* Para resolver un fallo de comprobación anulable, puede cambiar el entorno o anular la comprobación.
++
+Sin embargo, debe tener cuidado porque la anulación de la comprobación puede resultar en consecuencias no deseadas.
+
+

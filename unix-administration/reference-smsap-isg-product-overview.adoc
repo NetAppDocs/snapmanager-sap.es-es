@@ -1,0 +1,47 @@
+---
+permalink: unix-administration/reference-smsap-isg-product-overview.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, automate, simplify, simplifies, complex, manual, time-consuming, backup, recovery, cloning, clone, database, ontap, snapmirror, snapvault, ontap, disk 
+summary: SnapManager para SAP automatiza y simplifica los procesos manuales asociados a operaciones como el backup, la recuperación y el clonado de bases de datos, tareas de gran complejidad y que requieren mucho tiempo. Puede usar SnapManager con la tecnología SnapMirror de ONTAP para crear copias de backups en otro volumen, y también con la tecnología ONTAP SnapVault para archivar backups de forma eficiente a disco. 
+---
+= Información general del producto
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager para SAP automatiza y simplifica los procesos manuales asociados a operaciones como el backup, la recuperación y el clonado de bases de datos, tareas de gran complejidad y que requieren mucho tiempo. Puede usar SnapManager con la tecnología SnapMirror de ONTAP para crear copias de backups en otro volumen, y también con la tecnología ONTAP SnapVault para archivar backups de forma eficiente a disco.
+
+SnapManager proporciona las herramientas necesarias, como Unified Manager de OnCommand e integración con BR* Tools de SAP, para realizar la administración de datos basada en normativas, programar y crear backups regulares de bases de datos, así como restaurar datos de estos backups en caso de pérdida o desastre.
+
+SnapManager también se integra con tecnologías nativas de Oracle, como Real Application Clusters (Oracle RAC) y Oracle Recovery Manager (RMAN) para conservar la información de backup. Posteriormente, se pueden utilizar estos backups en operaciones de restauración a nivel de bloque o de recuperación de un momento específico en el espacio de tabla.
+
+
+
+== Aspectos destacados de SnapManager
+
+SnapManager integra perfectamente con bases de datos en el host UNIX y con las tecnologías de Snapshot, SnapRestore y FlexClone en back-end Ofrece una interfaz de usuario (UI) fácil de usar y una interfaz de línea de comandos (CLI) para funciones administrativas.
+
+SnapManager permite realizar las siguientes operaciones de base de datos y gestionar los datos de forma eficiente:
+
+* Creación de backups con gestión eficiente del espacio en almacenamiento primario o secundario
++
+SnapManager permite realizar backups de los archivos de datos y los archivos de registro de archivos por separado.
+
+* Programación de backups
+* Restauración de bases de datos completas o parciales mediante una operación de restauración basada en archivos o volúmenes
+* Recuperación de bases de datos mediante la detección, el montaje y la aplicación de archivos de registro de archivos a partir de backups
+* Eliminar archivos de registro de archivos de destinos de registro de archivos cuando se crean backups solo de los registros de archivos
+* Si se conserva un número mínimo de backups de registros de archivos automáticamente, solo se deben retener los backups que contienen archivos únicos de registro de archivos
+* Realizar un seguimiento de los detalles de las operaciones y generar informes
+* Verificación de copias de seguridad para garantizar que las copias de seguridad tienen un formato de bloque válido y que ninguno de los archivos de copia de seguridad está dañado
+* Mantener un historial de operaciones realizadas en el perfil de base de datos
++
+Un perfil contiene información acerca de la base de datos que va a gestionar SnapManager.
+
+* Crear clones de backups con gestión eficiente del espacio en el almacenamiento principal o secundario
++
+SnapManager permite dividir el clon de una base de datos.
+
+

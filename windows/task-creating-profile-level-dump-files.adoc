@@ -1,0 +1,29 @@
+---
+permalink: windows/task-creating-profile-level-dump-files.html 
+sidebar: sidebar 
+keywords: find, log, information, particular, profile, smsap, dump, command, name, profile-level, creating, create 
+summary: Puede encontrar información de registro sobre un perfil determinado mediante el comando smsap profile dump con el nombre del perfil. 
+---
+= Creación de archivos de volcado a nivel de perfil
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede encontrar información de registro sobre un perfil determinado mediante el comando smsap profile dump con el nombre del perfil.
+
+. Introduzca el siguiente comando: `smsap profile dump -profileprofile_name`
++
+Ubicación del archivo de volcado:
+
++
+[listing]
+----
+Path:\<user-home>\Application Data\NetApp\smsap\3.3.0\smsap_dump_8abc01c814649ebd0114649ec69d0001.jar
+----
++
+
+NOTE: Si se produce un error al crear un perfil, utilice el comando smsapsystem dump. Una vez creado correctamente un perfil, utilice los comandos dump sssssapoperation y dump ssssapprofile.
+
+

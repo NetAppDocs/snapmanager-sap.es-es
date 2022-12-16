@@ -1,0 +1,116 @@
+---
+permalink: unix-administration/task-protect-database-backups-on-secondary-storage.html 
+sidebar: sidebar 
+keywords: snapmanager, protect, backup, copies, copy, secondary, tertiary, storage, system 
+summary: Puede usar SnapManager para proteger las copias de backup en sistemas de almacenamiento secundarios o terciarios. 
+---
+= Proteja los backups de bases de datos en almacenamiento secundario o terciario
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede usar SnapManager para proteger las copias de backup en sistemas de almacenamiento secundarios o terciarios.
+
+*Acerca de esta tarea*
+
+No es posible proteger de inmediato el backup creado mediante el comando BRBACKUP al almacenamiento secundario después de realizar un backup exitoso en el almacenamiento primario.
+
+.Paso
+. Introduzca el siguiente comando:
++
+`*smsap backup create -profile _profile_name_ {[-full {-online | -offline | -auto} [-retain {-hourly | -daily | -weekly | -monthly | -unlimited}] [-verify] | [-data [[-files _files_ [_files_]] | [-tablespaces _-tablespaces_ [_-tablespaces_]] [-datalabel _label_] {-online | -offline | -auto} [-retain {-hourly | [-daily | -weekly | -monthly | -unlimited]} [-verify] | [-archivelogs [-label _label_] [-comment _comment_] [-snapvaultlabel _SnapVault_label_][-protect | -noprotect | -protectnow] [-backup-dest _path1_ [,[_path2_]]] [-exclude-dest _path1_ [_,path2_]]] [-prunelogs {-all | -untilSCN _untilSCN_ | -until-date _yyyy-MM-dd:HH:mm:ss_ | -before {-months | -days | -weeks | -hours}} -prune-dest _prune_dest1_,[_prune_dest2_]] [-taskspec _taskspec_]} [-dump] [-force] [-quiet | -verbose]*`
+
++
+[cols="1a,3a"]
+|===
+| Si desea... | Realice lo siguiente... 
+
+
+ a| 
+*Cree una copia de seguridad de una base de datos en línea o sin conexión, en lugar de permitir que SnapManager administre si está en línea o sin conexión*
+ a| 
+Especifique el `-offline` o. `-online` opción para crear un backup de la base de datos sin conexión o la base de datos en línea. Si utiliza la `-offline` o. `-online` no puede usar la opción -auto.
+
+
+
+ a| 
+*Deje que SnapManager gestione la copia de seguridad de una base de datos, independientemente de si está en línea o sin conexión*
+ a| 
+Especifique el `-auto` opción. Si utiliza la opción -auto, no puede utilizar la `-offline` o. `-online` opción.
+
+
+
+ a| 
+*Agregar un comentario sobre la copia de seguridad*
+ a| 
+Especifique el `-comment` opción, seguida de la cadena de descripción.
+
+
+
+ a| 
+* Forzar la base de datos al estado en el que usted ha especificado para realizar una copia de seguridad, independientemente del estado en el que esté actualmente*
+ a| 
+Especifique el `-force` opción.
+
+
+
+ a| 
+*Verificar la copia de seguridad en el momento de la creación*
+ a| 
+Especifique el `-verify` opción.
+
+
+
+ a| 
+*Crear una copia de seguridad en almacenamiento secundario*
+ a| 
+Especifique el `-protect` opción.
+
+** Si utiliza ONTAP y desea proteger el backup inmediatamente en el almacenamiento secundario, especifique el `-protect` opción.
++
+
+NOTE: La `-protectnow` La opción no es aplicable en Clustered Data ONTAP.
+
+** Si utiliza Data ONTAP operando en 7-Mode y desea proteger el backup inmediatamente al almacenamiento secundario, anule la programación de protección de Protection Manager, especifique el `-protectnow` opción.
+** Para impedir el backup en el almacenamiento secundario, especifique la `-noprotect` opción. Si utiliza ONTAP y ha seleccionado la política de protección _SnapManager_CDOT_Vault_ durante la creación del perfil, debe especificar el `-snapvaultlabel` opción. Debe proporcionar la etiqueta de SnapMirror que haya especificado en las reglas de la política de SnapMirror al configurar la relación de SnapVault como valor.
+
+
+
+
+ a| 
+*Especifique los valores de la clase de retención*
+ a| 
+Especifique el `-retain` e indique si el backup debe conservarse en función de una de las siguientes clases de retención:
+
+** `-hourly`
+** `-daily`
+** `-weekly`
+** `-monthly`
+** `-unlimited`
+
+
+Si no se especifica la clase de retención, SnapManager utiliza -Hourly de forma predeterminada.
+
+|===
+
+
+'''
+
+
+== Ejemplos
+
+El siguiente comando protege una copia de seguridad de la base de datos:
+
+[listing]
+----
+smsap backup create -profile PAYDB -protect -retain -daily -full auto -label full_bkup_sales
+----
+El siguiente comando protege inmediatamente un backup de la base de datos:
+
+[listing]
+----
+smsap backup create -profile PAYDB -protectnow -retain -daily -full auto -label full_bkup_sales
+----
+'''

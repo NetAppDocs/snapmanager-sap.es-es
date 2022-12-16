@@ -1,0 +1,66 @@
+---
+permalink: windows/task-performing-a-rollback-on-a-single-host-or-multiple-hosts.html 
+sidebar: sidebar 
+keywords: perform, rollback, single, multiple, snapmanager, server, host, command-line, interface, cli, multiple 
+summary: 'Puede realizar una reversión en uno o varios hosts de servidor SnapManager utilizando la interfaz de línea de comandos \(CLI\).' 
+---
+= Ejecución de una reversión en un solo host o varios hosts
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede realizar una reversión en una sola o varios hosts de servidor SnapManager con la interfaz de línea de comandos (CLI).
+
+Se debe asegurarse de que se hayan completado todos los requisitos previos para realizar una reversión.
+
+. Para realizar una reversión en un solo host, introduzca el siguiente comando:
++
+`smsaprepository rollback-repository-dbnamerepo_service_name-hostrepo_host-login-usernamerepo_username-portrepo_port-rollbackhosthost_with_target_database`
+
++
+En el ejemplo siguiente se muestra el comando para revertir todas las bases de datos de destino montadas en Hosta y una base de datos de repositorio denominada REPOA ubicada en el host de repositorio, repo_host:
+
++
+[listing]
+----
+
+smsap repository rollback
+    -repository
+      -dbname repoA
+      -host repo_host
+      -login
+       -username repouser
+       -port 1521
+     -rollbackhost hostA
+----
+. Para realizar una reversión en varios hosts, introduzca el siguiente comando: `smsaprepository rollback-repository-dbnamerepo_service_name-hostrepo_host-login-usernamerepo_username-portrepo_port-rollbackhosthost_with_target_database1,host_with_target_database2`
++
+
+NOTE: Para varios hosts, introduzca los nombres de host separados por una coma y asegúrese de que no haya espacio entre la coma y el siguiente nombre de host.Además, asegúrese de introducir todo el conjunto de varios nombres de host entre comillas dobles.
+
++
+En el ejemplo siguiente se muestra el comando para revertir todas las bases de datos de destino montadas en los hosts, Hosta, HostB y una base de datos de repositorio denominada REPOA ubicada en el host de repositorios, repo_host:
+
++
+[listing]
+----
+
+smsap repository rollback
+    -repository
+      -dbname repoA
+      -host repo_host
+      -login
+       -username repouser
+       -port 1521
+     -rollbackhost hostA,hostB
+----
++
+Los hosts, los perfiles, las programaciones, los backups y los clones que están asociados con los perfiles de las bases de datos de destino para el host se revierten al repositorio anterior.
+
+
+
+*Información relacionada*
+
+xref:concept-prerequisites-for-performing-a-rollback.adoc[Requisitos previos para ejecutar una reversión]

@@ -1,0 +1,48 @@
+---
+permalink: unix-administration/task-clone-databases-from-backups.html 
+sidebar: sidebar 
+keywords: clone, database, backup, create, command, cloning 
+summary: Es posible clonar una base de datos a partir de un backup con el comando clone create. 
+---
+= Clonar bases de datos a partir de backups
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Es posible clonar una base de datos a partir de un backup con la `clone create` comando.
+
+*Acerca de esta tarea*
+
+Primero debe crear un archivo de especificación del clon para la base de datos. SnapManager crea el clon según la información de este archivo de especificación.
+
+Después de clonar una base de datos, es posible que desee actualizar el `tnsnames.ora` archivos en los equipos cliente con la nueva información de conexión de base de datos clonada. La `tnsnames.ora` Los archivos se utilizan para conectarse a una instancia de Oracle sin tener que especificar la información completa de la base de datos. SnapManager no actualiza el `tnsnames.ora` archivos.
+
+SnapManager siempre crea un backup, incluidos los archivos de registro de archivos, si se utiliza el perfil creado con `-include-with-online-backups`. SnapManager permite clonar únicamente los backups completos de la base de datos.
+
+SnapManager (3.2 o posterior) permite clonar los backups que contienen los archivos de datos y los archivos de registro de archivos.
+
+Si el registro de archivos está disponible desde una ubicación externa, puede especificar la ubicación externa durante la clonado para recuperar la base de datos clonada en un estado coherente. Debe asegurarse de que Oracle pueda acceder a la ubicación externa. No se admite la clonado de backups de solo registro de archivos.
+
+Aunque se crea el backup de registros de archivos junto con el backup parcial en línea, no se puede crear un clon de la base de datos con este backup.
+
+Es posible clonar el backup de base de datos desde la ubicación de archivo de registro de archivos externo solo para una base de datos independiente.
+
+Se produce un error en la clonado del backup de la base de datos en línea de la base de datos de Real Application Clusters (RAC) mediante la ubicación del archivo de registro de archivos externo debido a un fallo en la recuperación. Esto se debe a que la base de datos de Oracle no puede encontrar y aplicar los archivos de registro de archivos para la recuperación desde la ubicación del registro de archivos externo al clonar el backup de la base de datos.
+
+Puede especificar el `-dump` opción como parámetro opcional para recoger los archivos de volcado después de la operación de creación de clones con errores o realizados correctamente.
+
+*Clonación de copia de seguridad de archivo de datos sin copia de seguridad de archivo de registro*
+
+Cuando el backup de archivos de datos no incluye el backup de registro de archivos, SnapManager para SAP clona la base de datos según el número de cambio del sistema (SCN) registrado durante el backup. Si no es posible recuperar la base de datos clonada, el `Archived log file for thread <number> and change <SCN> required to complete recovery` Se muestra un mensaje de error, aunque SnapManager para SAP sigue clonando la base de datos y, por último, se produce correctamente la creación del clon.
+
+Al clonar con el backup de archivos de datos sin incluir el backup de registros de archivos, SnapManager recupera la base de datos clonada hasta el último SCN de registro de archivos, que se registra durante el backup.
+
+.Pasos
+. Cree un archivo de especificación del clon.
+. Para crear un clon, introduzca el siguiente comando:
++
+`*smsap clone create-backup-label _backup_name_ -newsid _new_sid_ -label _clone_label_ -profile _profile_name_ -clonespec _full_path_to_clonespecfile_ [-taskspec _taskspec_] [-recover-from-location] _path1 [,<path2>...]_] [-dump]*`
+
+

@@ -1,0 +1,17 @@
+---
+permalink: windows/task-deleting-backup-schedules.html 
+sidebar: sidebar 
+keywords: delete, backup, schedule, deleting 
+summary: Es posible eliminar programaciones de backup cuando ya no sean necesarias. 
+---
+= Eliminación de programaciones de backup
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Es posible eliminar programaciones de backup cuando ya no sean necesarias.
+
+. Para eliminar la programación de backup, introduzca este comando: `smsap schedule delete -profile profile_name-schedule-nameschedulename [-quiet | -verbose]`
+

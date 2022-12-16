@@ -1,0 +1,45 @@
+---
+permalink: windows/concept-about-control-file-and-archive-log-file-handling.html 
+sidebar: sidebar 
+keywords: snapmanager, control, file, archive, log, backup, recovery, handle 
+summary: SnapManager incluye los archivos de control y, opcionalmente, incluye los archivos de registro de archivo en cada backup. Los archivos de registro de archivo se usan para operaciones de recuperación. 
+---
+= Acerca del manejo de archivos de registro de archivo y archivos de control
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager incluye los archivos de control y, opcionalmente, incluye los archivos de registro de archivo en cada backup. Los archivos de registro de archivo se usan para operaciones de recuperación.
+
+La base de datos utiliza archivos de control para identificar nombres, ubicaciones y tamaños de los archivos de base de datos. SnapManager incluye los archivos de control en cada backup porque los archivos de control se utilizan en el proceso de restauración.
+
+Se hace un seguimiento de los cambios en una base de datos mediante los redo logs en línea, que finalmente se archivan y se conocen como redo logs archivados (o archive logs). SnapManager (3.2 o posterior) permite realizar backups de los archivos de datos y los archivos de registro de archivos de forma independiente con diferentes retentions y frecuencias. SnapManager puede realizar backups únicamente de los registros de archivo o los backups combinados de archivos de datos y registros de archivos. SnapManager ofrece una gestión automatizada completa de los registros de archivos, y no requiere intervención manual para la recuperación de bases de datos. Además, permite la eliminación de registros de archivos de uno o más destinos de registros de archivos después de realizar el backup.
+
+
+NOTE: Para ver qué espacios de tablas y archivos de datos se incluyen en una copia de seguridad, utilice la `backup show command` O la ventana Propiedades de copia de seguridad.
+
+La siguiente tabla muestra cómo SnapManager gestiona los archivos de control y de registro de archivo durante cada operación:
+
+|===
+| Tipo de operación | Archivos de control | Archivos de registro de archivo 
+
+
+ a| 
+Backup
+ a| 
+Incluidas con cada backup
+ a| 
+Se puede incluir con cada backup
+
+
+
+ a| 
+Restaurar
+ a| 
+Se pueden restaurar por separado o junto con los espacios de tablas o los ficheros de datos
+ a| 
+Se puede usar para el proceso de recuperación
+
+|===

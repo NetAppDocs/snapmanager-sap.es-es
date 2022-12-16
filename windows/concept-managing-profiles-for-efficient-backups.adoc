@@ -1,0 +1,64 @@
+---
+permalink: windows/concept-managing-profiles-for-efficient-backups.html 
+sidebar: sidebar 
+keywords: create, profile, snapmanager, database, perform, operation, manage, efficient, backup 
+summary: Debe crear un perfil en SnapManager para la base de datos donde desea realizar una operación. Debe seleccionar el perfil y, a continuación, seleccionar la operación que desea realizar. 
+---
+= Gestionar perfiles para backups eficientes
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe crear un perfil en SnapManager para la base de datos donde desea realizar una operación. Debe seleccionar el perfil y, a continuación, seleccionar la operación que desea realizar.
+
+
+
+== Tareas relacionadas con perfiles
+
+Es posible realizar las siguientes tareas:
+
+* Cree perfiles para habilitar backups y backups completos o parciales en almacenamiento primario o secundario.
++
+También es posible crear perfiles para separar los backups de registros de archivo de los backups de archivos de datos.
+
+* Verificar perfiles.
+* Actualizar perfiles.
+* Eliminar perfiles.
+
+
+
+
+== Acerca de los perfiles y la autenticación
+
+Al crear un perfil, puede especificar una base de datos y elegir uno de los siguientes métodos para conectarse a la base de datos:
+
+* Autenticación de Oracle con un nombre de usuario, contraseña y puerto
+* Autenticación del sistema operativo (SO) sin nombre de usuario, contraseña ni puerto.
++
+Para la autenticación del sistema operativo, debe introducir la información de usuario y del grupo de cuenta del sistema operativo.
+
+* Autenticación de base de datos cuando `sqlnet.authentication_services` Está establecido en *NINGUNO*. A continuación, SnapManager utiliza el nombre de usuario y la contraseña de la base de datos para todas las conexiones con la base de datos de destino. SnapManager también puede utilizar la autenticación nativa de Windows cuando `sqlnet.authentication_services` Está configurado en *NTS*.
+
+
+Puede ajustar `sqlnet.authentication_services` A *NINGUNO* sólo en los siguientes entornos:
+
+|===
+| Distribución de la base de datos | Versión de Oracle | Es compatible con la autenticación de la base de datos de destino 
+
+
+ a| 
+Cualquier base de datos que no sea ASM y que no sea RAC
+ a| 
+Oracle 10g y Oracle 11g (inferior a 11.2.0.3)
+ a| 
+Sí
+
+|===
+[NOTE]
+====
+Después de deshabilitar `sqlnet.authentication_services` y cambie el método de autenticación a autenticación de base de datos, debe configurar `sqlnet.authentication_services` A *NINGUNO*.
+
+====
+Si accede a un perfil por primera vez, debe introducir la contraseña de su perfil. Después de introducir sus credenciales, es posible ver los backups de la base de datos dentro del perfil.

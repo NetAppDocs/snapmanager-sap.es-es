@@ -1,0 +1,154 @@
+---
+permalink: windows/reference-the-smosmsapbackup-restore-command.html 
+sidebar: sidebar 
+keywords: run, backup, restore, command, database, portion, information, smsap 
+summary: Se puede ejecutar el comando backup restore para restaurar backups de una base de datos o una parte de una base de datos y, opcionalmente, recuperar la información de la base de datos. 
+---
+= El comando smsap backup restore
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede ejecutar el `backup restore` comando para restaurar backups de una base de datos o parte de una base de datos y, opcionalmente, recuperar la información de la base de datos.
+
+
+
+== Sintaxis
+
+[listing]
+----
+
+smsap backup restore
+-profile profile_name
+[-label label | -id id]
+[-files files [files...] |
+-tablespaces tablespaces [tablespaces...]] |
+-complete | -controlfiles]
+[-recover {-alllogs | -nologs | -until until} [-using-backup-controlfile]]
+[-restorespec restorespec | ]]
+[-preview]
+
+[-recover-from-location path1 [, path2]]
+[-taskspec taskspec]
+[-dump]
+[-force]
+[-quiet | -verbose]
+----
+
+
+== Parámetros
+
+* *`-profile _profile_name_`*
++
+Especifica la base de datos que desea restaurar. El perfil contiene el identificador de la base de datos y otra información de la base de datos.
+
+* *`-label _name_`*
++
+Restaura el backup con la etiqueta especificada.
+
+* *`-id _guid_`*
++
+Restaura el backup con el GUID especificado. SnapManager genera el GUID cuando se crea un backup. Puede utilizar el `smsap backup list` Comando para mostrar el GUID de cada backup.
+
+* *`Choose all or specified files`*
++
+De manera opcional, puede utilizar una de las siguientes opciones:
+
++
+** `-complete`: Restaura todos los archivos de datos de la copia de seguridad.
+** `-tablespaceslist`: Restaura sólo los tablespaces especificados a partir de la copia de seguridad.
++
+Debe utilizar espacios para separar los nombres en la lista.
+
+** `-fileslist`: Restaura sólo los archivos de datos especificados desde la copia de seguridad.
++
+Debe utilizar espacios para separar los nombres en la lista. Si la base de datos se está ejecutando, SnapManager garantiza que el tablespace que contiene los archivos esté sin conexión.
+
+
+
+* *`-controlfiles`*
++
+Restaura los archivos de control. SnapManager permite restaurar archivos de control junto con los archivos de datos de los backups en una única operación. La `-controlfiles` esta opción es independiente de otros parámetros del ámbito de restauración como `-complete`, `-tablespaces`, y. `-files`.
+
+* *`-recover`*
++
+Recupera la base de datos después de restaurarla. También debe especificar el punto en el que desea que SnapManager recupere la base de datos mediante una de las siguientes opciones:
+
++
+** `-nologs`: Recupera la base de datos al momento de la copia de seguridad y no aplica ningún registro.
++
+Este parámetro se puede usar para backups en línea o sin conexión.
+
+** `-alllogs`: Recupera la base de datos a la última transacción o confirmación, y aplica todos los registros requeridos.
+** `-until date`: Recupera la base de datos hasta la fecha y hora especificadas.
++
+Debe utilizar el formato year-month-date: Hour: Minute: Second (_yyyy-mm-dd:hh:mm:ss_). Para horas, utilice el formato de 12 o 24 horas, según la configuración de la base de datos.
+
+** `-until scn`: Rolls reenvíe los archivos de datos hasta que alcance el número de cambio de sistema (SCN) especificado.
+** `-using-backup-controlfile`: Recupera la base de datos utilizando el archivo de control de copia de seguridad.
+
+
+* *`-restorespec`*
++
+Permite restaurar los datos en un sistema de archivos activo y restaurar desde los datos especificados mediante la asignación de cada copia Snapshot original a su sistema de archivos activo. Si no especifica una opción, SnapManager restaura los datos desde las copias Snapshot en el almacenamiento principal. Es posible especificar una de las siguientes opciones:
+
++
+** `-restorespec`: Especifica los datos que se van a restaurar y el formato de restauración.
+
+
+* *`-preview`*
++
+Muestra la siguiente información:
+
++
+** Qué mecanismo de restauración (restauración de sistema de archivos en el lado del almacenamiento, restauración de archivos en el lado del almacenamiento o restauración de copia de archivos del lado del host) se utilizará para restaurar cada archivo
+** Por qué no se utilizaron mecanismos más eficientes para restaurar cada archivo, al especificar el `-verbose` Opción Si está utilizando `-preview` debe conocer lo siguiente:
+** La `-force` la opción no afecta al comando.
+** La `-recover` la opción no afecta al comando. Para obtener una vista previa de la operación de restauración, se debe montar la base de datos. Si desea obtener la vista previa de un plan de restauración y la base de datos no está montada actualmente, SnapManager monta la base de datos. Si no se puede montar la base de datos, el comando fallará y SnapManager devolverá la base de datos a su estado original.
+
+
++
+La `-preview` la opción muestra hasta 20 archivos. Puede configurar el número máximo de archivos que se mostrarán en la `smsap.config file`.
+
+* *`-recover-from-location`*
++
+Especifica la ubicación del registro de archivos externo de los archivos de registro de archivos. SnapManager toma los archivos de registro de archivos de la ubicación externa y los utiliza para el proceso de recuperación.
+
+* *`-taskspec`*
++
+Especifica el archivo XML de especificación de la tarea para la actividad de preprocesamiento o la actividad de posprocesamiento de la operación de restauración. Debe proporcionar la ruta de acceso completa del archivo XML de especificación de la tarea.
+
+* *`-dump`*
++
+Especifica recoger los archivos de volcado después de la operación de restauración.
+
+* *`-force`*
++
+Si es necesario, cambia el estado de la base de datos a uno más bajo que el estado actual.
+
++
+De forma predeterminada, SnapManager puede cambiar el estado de la base de datos a más alto durante una operación. Esta opción no es necesaria para que SnapManager cambie el estado de la base de datos a uno más alto.
+
+* *`-quiet`*
++
+Muestra sólo mensajes de error en la consola. La configuración predeterminada es mostrar mensajes de error y advertencia.
+
+* *`-verbose`*
++
+Muestra mensajes de error, advertencia e informativos en la consola. Puede usar esta opción para ver por qué no se pueden usar procesos de restauración más eficientes para restaurar el archivo.
+
+
+
+
+
+== Ejemplo
+
+En el siguiente ejemplo se restaura una base de datos junto con los archivos de control:
+
+[listing]
+----
+smsap backup restore -profile SALES1 -label full_backup_sales_May
+-complete -controlfiles -force
+----

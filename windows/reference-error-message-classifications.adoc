@@ -1,0 +1,200 @@
+---
+permalink: windows/reference-error-message-classifications.html 
+sidebar: sidebar 
+keywords: determine, cause, error, message, clarification 
+summary: Puede determinar la causa de un error si conoce las clasificaciones de mensajes. 
+---
+= Clasificación de mensajes de error
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede determinar la causa de un error si conoce las clasificaciones de mensajes.
+
+En la siguiente tabla, se proporciona información acerca de los rangos numéricos de los diferentes tipos de mensajes que puede ver con SnapManager:
+
+|===
+| Grupo | Rango | Uso 
+
+
+ a| 
+ENTORNO ORACLE
+ a| 
+1000-1999
+ a| 
+Se utiliza para registrar el estado o los problemas con el entorno operativo de SnapManager. Este grupo incluye mensajes sobre los sistemas con los que SnapManager interactúa, por ejemplo, con el host, el sistema de almacenamiento, la base de datos, etc.
+
+
+
+ a| 
+BACKUP
+ a| 
+2000-2999
+ a| 
+Asociados con el proceso de backup de la base de datos.
+
+
+
+ a| 
+RESTAURAR
+ a| 
+3000-3999
+ a| 
+Asociados con el proceso de restauración de bases de datos.
+
+
+
+ a| 
+CLONAR
+ a| 
+4000-4999
+ a| 
+Asociados con el proceso de clonado de base de datos.
+
+
+
+ a| 
+PERFIL
+ a| 
+5000-5999
+ a| 
+Se utiliza para administrar perfiles.
+
+
+
+ a| 
+GESTIONE
+ a| 
+6000-6999
+ a| 
+Se utiliza para gestionar backups.
+
+
+
+ a| 
+INTERFAZ DE BASES DE DATOS VIRTUALES
+ a| 
+7000-7999
+ a| 
+Asociado con la interfaz de base de datos virtual.
+
+
+
+ a| 
+INTERFAZ DE ALMACENAMIENTO VIRTUAL
+ a| 
+8000-8999
+ a| 
+Asociado con la interfaz de almacenamiento virtual.
+
+
+
+ a| 
+REPOSITORIO
+ a| 
+9000-9999
+ a| 
+Asociado con la interfaz del repositorio.
+
+
+
+ a| 
+MÉTRICAS
+ a| 
+10000-10999
+ a| 
+Asociados con el tamaño del backup de base de datos, tiempo transcurrido para realizar el backup, tiempo para restaurar la base de datos, número de veces que se clona una base de datos, etc.
+
+
+
+ a| 
+INTERFAZ DE HOST VIRTUAL
+ a| 
+11000-11999
+ a| 
+Asociado con la interfaz del host virtual. Esta es la interfaz para el sistema operativo del host.
+
+
+
+ a| 
+EJECUCIÓN
+ a| 
+12000-12999
+ a| 
+Asociado al paquete de ejecución, incluidas las llamadas al sistema operativo de desove y procesamiento.
+
+
+
+ a| 
+PROCESO
+ a| 
+13000-13999
+ a| 
+Asociado con el componente de proceso de SnapManager.
+
+
+
+ a| 
+SERVICIOS PÚBLICOS
+ a| 
+14000-14999
+ a| 
+Asociados con las utilidades de SnapManager, el contexto global, etc.
+
+
+
+ a| 
+VOLCADO/DIAGNÓSTICO
+ a| 
+15000-15999
+ a| 
+Asociados con operaciones de volcado o diagnóstico.
+
+
+
+ a| 
+AYUDA
+ a| 
+16000-16999
+ a| 
+Asociado con ayuda.
+
+
+
+ a| 
+SERVIDOR
+ a| 
+17000-17999
+ a| 
+Se utiliza en la administración del servidor SnapManager.
+
+
+
+ a| 
+API
+ a| 
+18000-18999
+ a| 
+Asociado con la API.
+
+
+
+ a| 
+RETROCESO
+ a| 
+19000-19999
+ a| 
+Asociado con BACKINT.
+
+
+
+ a| 
+AUTOR
+ a| 
+20000-20999
+ a| 
+Asociado con la autorización de credenciales.
+
+|===

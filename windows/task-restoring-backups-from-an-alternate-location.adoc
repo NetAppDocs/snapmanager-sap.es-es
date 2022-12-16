@@ -1,0 +1,29 @@
+---
+permalink: windows/task-restoring-backups-from-an-alternate-location.html 
+sidebar: sidebar 
+keywords: restore, alternate, location, data, file, intermediate, system, active, restoring, backup 
+summary: Es posible restaurar desde una ubicación alternativa para restaurar los archivos de datos desde un sistema de archivos intermedio a un sistema de archivos activo. 
+---
+= Restaurar backups desde una ubicación alternativa
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Es posible restaurar desde una ubicación alternativa para restaurar los archivos de datos desde un sistema de archivos intermedio a un sistema de archivos activo.
+
+* Cree un archivo XML de especificación de restauración y especifique el tipo de método de restauración que desea utilizar.
+
+
+Puede usar el comando smsap backup restore y especificar el archivo XML de especificación de restauración que creó para restaurar el backup desde una ubicación alternativa.
+
+. Introduzca el siguiente comando:
++
+`smsap backup restore -profileprofile-labellabel-complete-alllogs-restorespecrestorespec`
+
+
+
+*Información relacionada*
+
+xref:reference-the-smosmsapbackup-restore-command.adoc[El comando smsap backup restore]
