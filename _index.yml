@@ -1,0 +1,41 @@
+---
+indexpage:
+  title: Documentación de SnapManager para SAP
+  summary: SnapManager para SAP automatiza y simplifica los procesos manuales asociados
+    a operaciones como el backup, la recuperación y el clonado de bases de datos,
+    tareas de gran complejidad y que requieren mucho tiempo. Puede usar SnapManager
+    con la tecnología SnapMirror de ONTAP para crear copias de backups en otro volumen,
+    y también con la tecnología ONTAP SnapVault para archivar backups de forma eficiente
+    a disco.
+  keywords: snapmanager, sap, installation, setup, deployment, workflow, configuration,product.
+  lead: SnapManager para SAP automatiza y simplifica los procesos manuales asociados
+    a operaciones como el backup, la recuperación y el clonado de bases de datos,
+    tareas de gran complejidad y que requieren mucho tiempo. Puede usar SnapManager
+    con la tecnología SnapMirror de ONTAP para crear copias de backups en otro volumen,
+    y también con la tecnología ONTAP SnapVault para archivar backups de forma eficiente
+    a disco.
+  tiles:
+  - title: Manos a la obra
+    links:
+    - title: Información general del producto
+      url: "/unix-installation-cmode/reference-smsap-isg-product-overview.html"
+    - title: Notas de la versión
+      url: reference-releasenotes.html
+  - title: Administración
+    links:
+    - title: Configuración de SnapManager para UNIX
+      url: "/unix-administration/concept-configuring-snapmanager-for-oraclesap.html"
+    - title: Configuración de SnapManager para Windows
+      url: "/windows/concept-configuring-snapmanager-for-oraclesap.html"
+  - title: Instalación y configuración
+    links:
+    - title: Flujo de trabajo de puesta en marcha (7-Mode)
+      url: "/unix-installation-7mode/reference-smsap-isg-deployment-workflow.html"
+    - title: Flujo de trabajo de implementación (Cluster Mode)
+      url: "/unix-installation-cmode/reference-smsap-isg-deployment-workflow.html"
+  - title: Más recursos
+    links:
+    - title: Soporte de NetApp
+      url: https://mysupport.netapp.com/site/global/dashboard
+    - title: Comunidades de NetApp
+      url: https://community.netapp.com/
