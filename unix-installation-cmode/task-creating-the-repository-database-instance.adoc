@@ -30,7 +30,3 @@ Debe tener una base de datos de Oracle y una cuenta de usuario para acceder a la
 SnapManager requiere un tamaño de bloque mínimo de 4 K para el espacio de tabla.
 
 
-
-*Información relacionada*
-
-http://www.netapp.com/us/media/tr-3761.pdf["Informe técnico de NetApp 3761: SnapManager para Oracle: Prácticas recomendadas"^]

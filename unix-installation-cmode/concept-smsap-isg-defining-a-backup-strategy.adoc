@@ -145,7 +145,3 @@ NOTE: Para la retención a largo plazo de copias de backup, es conveniente usar 
 == ¿Desea verificar las copias de backup con el volumen de origen o un volumen de destino?
 
 Si usa SnapMirror o SnapVault, puede verificar las copias de backups con la copia de Snapshot en el volumen de destino de SnapMirror o SnapVault, en lugar de la copia de Snapshot en el sistema de almacenamiento principal. Al utilizar un volumen de destino para verificar, se reduce la carga para el sistema de almacenamiento principal.
-
-*Información relacionada*
-
-http://www.netapp.com/us/media/tr-3761.pdf["Informe técnico de NetApp 3761: SnapManager para Oracle: Prácticas recomendadas"^]
